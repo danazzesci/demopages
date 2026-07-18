@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wed Not Wet — Agentic AI Storyboard</title>
+<style>
+  :root{
+    --bg:#fff8f3;
+    --panel:#ffffff;
+    --ink:#2b2430;
+    --muted:#6e6471;
+    --rose:#d85d7a;
+    --rose-soft:#f7dce4;
+    --gold:#d6a84b;
+    --blue:#5b7cfa;
+    --green:#4fa37a;
+    --line:#dacfd4;
+    --shadow:0 20px 50px rgba(77,43,60,.14);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(216,93,122,.12), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(91,124,250,.10), transparent 34%),
+      var(--bg);
+    overflow:hidden;
+  }
+
+  .app{
+    height:100%;
+    display:grid;
+    grid-template-rows:72px 1fr 72px;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-bottom:1px solid rgba(0,0,0,.06);
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(12px);
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  .logo{
+    width:42px;height:42px;
+    border-radius:14px;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--rose),#ef9a67);
+    color:white;
+    font-size:22px;
+    box-shadow:0 10px 24px rgba(216,93,122,.25);
+  }
+
+  .brand h1{
+    margin:0;
+    font-size:20px;
+    letter-spacing:-.02em;
+  }
+
+  .brand p{
+    margin:2px 0 0;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .stage-counter{
+    font-size:13px;
+    color:var(--muted);
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  main{
+    position:relative;
+    min-height:0;
+  }
+
+  .stage{
+    position:absolute;
+    inset:0;
+    padding:32px 54px;
+    opacity:0;
+    transform:translateX(60px) scale(.985);
+    pointer-events:none;
+    transition:opacity .55s ease, transform .55s ease;
+    display:grid;
+    align-items:center;
+  }
+
+  .stage.active{
+    opacity:1;
+    transform:translateX(0) scale(1);
+    pointer-events:auto;
+  }
+
+  .stage.exit-left{
+    opacity:0;
+    transform:translateX(-60px) scale(.985);
+  }
+
+  .card{
+    width:min(1180px,100%);
+    max-height:100%;
+    margin:auto;
+    background:rgba(255,255,255,.92);
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:34px 38px;
+    overflow:auto;
+  }
+
+  .eyebrow{
+    color:var(--rose);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:12px;
+  }
+
+  h2{
+    margin:8px 0 12px;
+    font-size:clamp(34px,5vw,66px);
+    line-height:1.02;
+    letter-spacing:-.045em;
+  }
+
+  h3{
+    font-size:24px;
+    margin:0 0 12px;
+  }
+
+  .lead{
+    color:var(--muted);
+    font-size:clamp(17px,2vw,23px);
+    line-height:1.55;
+    max-width:920px;
+  }
+
+  .hero{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:34px;
+    align-items:center;
+  }
+
+  .hero-art{
+    min-height:340px;
+    border-radius:26px;
+    background:
+      linear-gradient(160deg,rgba(216,93,122,.14),rgba(214,168,75,.12)),
+      white;
+    display:grid;
+    place-items:center;
+    padding:24px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .umbrella{
+    font-size:112px;
+    animation:float 3.5s ease-in-out infinite;
+  }
+
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(-2deg)}
+    50%{transform:translateY(-10px) rotate(2deg)}
+  }
+
+  .rain{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.35;
+    background-image:linear-gradient(120deg,transparent 48%,rgba(91,124,250,.5) 49%,rgba(91,124,250,.5) 51%,transparent 52%);
+    background-size:34px 34px;
+    animation:rain 3s linear infinite;
+  }
+
+  @keyframes rain{to{background-position:-68px 68px}}
+
+  .pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:22px;
+  }
+
+  .pill{
+    padding:10px 14px;
+    border-radius:999px;
+    background:var(--rose-soft);
+    color:#8a3450;
+    font-weight:700;
+    font-size:14px;
+  }
+
+  .diagram{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+
+  .node{
+    background:var(--panel);
+    border:2px solid var(--line);
+    border-radius:18px;
+    padding:16px 20px;
+    text-align:center;
+    min-width:190px;
+    box-shadow:0 10px 26px rgba(62,42,52,.08);
+    position:relative;
+  }
+
+  .node.primary{
+    border-color:var(--rose);
+    background:linear-gradient(180deg,#fff, #fff6f8);
+  }
+
+  .node.goal{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,#fffdf5,#fff8df);
+  }
+
+  .node.llm{
+    border-color:var(--blue);
+    background:linear-gradient(180deg,#f7f9ff,#eef2ff);
+  }
+
+  .node.tool{
+    border-color:var(--green);
+    background:linear-gradient(180deg,#f6fffa,#ecfaf3);
+  }
+
+  .node small{
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+    line-height:1.35;
+  }
+
+  .arrow{
+    width:3px;height:28px;
+    background:var(--line);
+    position:relative;
+  }
+
+  .arrow:after{
+    content:"";
+    position:absolute;
+    left:50%;bottom:-1px;
+    width:9px;height:9px;
+    border-right:3px solid var(--line);
+    border-bottom:3px solid var(--line);
+    transform:translateX(-50%) rotate(45deg);
+  }
+
+  .agent-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    width:100%;
+  }
+
+  .agent{
+    padding:18px;
+    border-radius:18px;
+    border:1px solid var(--line);
+    background:white;
+    min-height:138px;
+  }
+
+  .agent strong{
+    display:block;
+    margin-bottom:8px;
+    font-size:18px;
+  }
+
+  .agent p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.45;
+    font-size:14px;
+  }
+
+  .three-col{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+
+  .concept{
+    border-radius:22px;
+    padding:24px;
+    border:1px solid var(--line);
+    min-height:210px;
+  }
+
+  .concept h3{margin-top:8px}
+  .concept p{color:var(--muted);line-height:1.55}
+  .concept:nth-child(1){background:#fff7f9}
+  .concept:nth-child(2){background:#f7f9ff}
+  .concept:nth-child(3){background:#f5fff9}
+
+  .flow-wrap{
+    display:grid;
+    grid-template-columns:1fr 90px 1fr 90px 1fr;
+    align-items:center;
+    gap:10px;
+  }
+
+  .flow-arrow{
+    text-align:center;
+    font-size:34px;
+    color:var(--rose);
+    font-weight:900;
+  }
+
+  .loop{
+    margin-top:28px;
+    border:2px dashed var(--rose);
+    border-radius:22px;
+    padding:18px;
+    text-align:center;
+    color:#85334d;
+    font-weight:800;
+    background:#fff7f9;
+  }
+
+  .architecture{
+    display:grid;
+    grid-template-columns:1fr 1.25fr 1fr;
+    gap:20px;
+    align-items:start;
+  }
+
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .center-stack{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+
+  .connector-note{
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  .callout{
+    margin-top:24px;
+    padding:18px 20px;
+    border-radius:18px;
+    background:#2d2730;
+    color:white;
+    font-size:19px;
+    line-height:1.5;
+    text-align:center;
+  }
+
+  footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-top:1px solid rgba(0,0,0,.06);
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(12px);
+  }
+
+  .controls{
+    display:flex;
+    gap:10px;
+  }
+
+  button{
+    border:none;
+    border-radius:14px;
+    padding:12px 18px;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s ease;
+  }
+
+  button:hover{transform:translateY(-1px)}
+  .secondary{background:#eee7eb;color:var(--ink)}
+  .primary-btn{background:var(--rose);color:white;box-shadow:0 8px 20px rgba(216,93,122,.24)}
+  button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+  .dots{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .dot{
+    width:9px;height:9px;
+    border-radius:999px;
+    background:#d8cfd4;
+    transition:.25s ease;
+  }
+
+  .dot.active{
+    width:28px;
+    background:var(--rose);
+  }
+
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  @media (max-width:900px){
+    body{overflow:auto}
+    .app{min-height:100%;height:auto}
+    main{min-height:760px}
+    .stage{padding:20px}
+    .hero,.architecture,.three-col{grid-template-columns:1fr}
+    .agent-grid{grid-template-columns:1fr 1fr}
+    .flow-wrap{grid-template-columns:1fr}
+    .flow-arrow{transform:rotate(90deg)}
+  }
+
+  .case-banner{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:24px;
+    align-items:center;
+    padding:24px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#fff7f9,#f3f6ff);
+    border:1px solid var(--line);
+  }
+
+  .couple{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+
+  .couple-icon{
+    width:92px;height:92px;
+    border-radius:28px;
+    display:grid;place-items:center;
+    font-size:48px;
+    background:white;
+    box-shadow:0 12px 28px rgba(62,42,52,.10);
+  }
+
+  .forecast-panel{
+    padding:20px;
+    border-radius:20px;
+    background:#253149;
+    color:white;
+  }
+
+  .forecast-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:start;
+    gap:16px;
+  }
+
+  .forecast-number{
+    font-size:52px;
+    font-weight:900;
+    line-height:1;
+  }
+
+  .risk-high{
+    display:inline-flex;
+    padding:7px 10px;
+    border-radius:999px;
+    background:#ffdce3;
+    color:#8c2944;
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+
+  .timeline{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+
+  .time-cell{
+    padding:12px 8px;
+    border-radius:14px;
+    background:rgba(255,255,255,.10);
+    text-align:center;
+    font-size:13px;
+  }
+
+  .time-cell strong{
+    display:block;
+    margin-top:5px;
+    font-size:18px;
+  }
+
+  .evidence-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:18px;
+  }
+
+  .evidence{
+    border-radius:18px;
+    border:1px solid var(--line);
+    background:white;
+    padding:17px;
+  }
+
+  .evidence .tag{
+    display:inline-block;
+    margin-bottom:8px;
+    padding:5px 9px;
+    border-radius:999px;
+    background:#eee9ff;
+    color:#57428b;
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+
+  .evidence strong{display:block;margin-bottom:6px}
+  .evidence p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+
+  .plan-card{
+    border-radius:22px;
+    border:2px solid var(--line);
+    padding:22px;
+    background:white;
+  }
+
+  .plan-card.rejected{
+    border-color:#d97070;
+    background:#fff8f8;
+  }
+
+  .plan-card.accepted{
+    border-color:var(--green);
+    background:#f6fff9;
+  }
+
+  .status{
+    display:inline-flex;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:12px;
+  }
+
+  .status.no{background:#ffe0e0;color:#8b2929}
+  .status.yes{background:#dff5e8;color:#246847}
+
+  .score-row{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-top:18px;
+  }
+
+  .score{
+    padding:12px 8px;
+    border-radius:14px;
+    text-align:center;
+    background:#f4eff2;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .score strong{
+    display:block;
+    color:var(--ink);
+    font-size:18px;
+    margin-bottom:3px;
+  }
+
+  .agent-trace{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:22px 0;
+  }
+
+  .trace-step{
+    border:1px solid var(--line);
+    background:white;
+    border-radius:16px;
+    padding:13px 15px;
+    font-size:13px;
+    font-weight:800;
+    box-shadow:0 8px 20px rgba(62,42,52,.06);
+  }
+
+  .trace-arrow{
+    color:var(--rose);
+    font-size:22px;
+    font-weight:900;
+  }
+
+  .final-recommendation{
+    border-radius:24px;
+    background:linear-gradient(135deg,#253149,#3f4b65);
+    color:white;
+    padding:26px;
+  }
+
+  .final-recommendation h3{
+    font-size:30px;
+    margin-bottom:14px;
+  }
+
+  .final-recommendation ul{
+    margin:0;
+    padding-left:22px;
+    line-height:1.7;
+  }
+
+  @media(max-width:900px){
+    .case-banner,.evidence-grid{grid-template-columns:1fr}
+    .timeline,.score-row{grid-template-columns:1fr 1fr}
+  }
+
+
+  .quiz-grid{
+    display:grid;
+    gap:18px;
+  }
+
+  .quiz-question{
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:20px;
+    background:white;
+  }
+
+  .quiz-question h3{
+    font-size:18px;
+    margin-bottom:14px;
+  }
+
+  .quiz-options{
+    display:grid;
+    gap:10px;
+  }
+
+  .quiz-option{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    cursor:pointer;
+    transition:.2s ease;
+    background:#fff;
+  }
+
+  .quiz-option:hover{
+    border-color:var(--rose);
+    background:#fff8fa;
+  }
+
+  .quiz-option input{
+    margin-top:3px;
+  }
+
+  .quiz-actions{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-top:22px;
+    flex-wrap:wrap;
+  }
+
+  .quiz-result{
+    padding:14px 16px;
+    border-radius:14px;
+    font-weight:800;
+    display:none;
+  }
+
+  .quiz-result.show{
+    display:block;
+  }
+
+  .quiz-result.pass{
+    background:#e6f6ec;
+    color:#246847;
+  }
+
+  .quiz-result.review{
+    background:#fff0e6;
+    color:#8a4d22;
+  }
+
+  .feedback{
+    margin-top:12px;
+    padding:12px 14px;
+    border-radius:14px;
+    font-size:14px;
+    line-height:1.45;
+    display:none;
+  }
+
+  .feedback.show{
+    display:block;
+  }
+
+  .feedback.correct{
+    background:#eef9f2;
+    color:#246847;
+  }
+
+  .feedback.incorrect{
+    background:#fff0f0;
+    color:#8b2929;
+  }
+
+
+  .mission-control{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:22px;
+    align-items:start;
+  }
+
+  .control-panel{
+    border-radius:24px;
+    background:#1f2738;
+    color:white;
+    padding:24px;
+    box-shadow:0 16px 36px rgba(31,39,56,.22);
+  }
+
+  .control-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+  }
+
+  .live-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+
+  .live-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:#62d89a;
+    box-shadow:0 0 0 6px rgba(98,216,154,.12);
+    animation:pulseDot 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseDot{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.35)}
+  }
+
+  .metric-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:18px;
+  }
+
+  .metric{
+    border-radius:16px;
+    background:rgba(255,255,255,.08);
+    padding:14px;
+  }
+
+  .metric span{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    opacity:.62;
+    margin-bottom:6px;
+  }
+
+  .metric strong{
+    font-size:18px;
+  }
+
+  .progress-shell{
+    height:12px;
+    background:rgba(255,255,255,.10);
+    border-radius:999px;
+    overflow:hidden;
+    margin-top:8px;
+  }
+
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#62d89a,#8bc6ff);
+    border-radius:999px;
+    transition:width .6s ease;
+  }
+
+  .activity-log{
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  .log-row{
+    display:grid;
+    grid-template-columns:26px 1fr;
+    gap:10px;
+    align-items:start;
+    padding:12px;
+    border-radius:14px;
+    background:rgba(255,255,255,.06);
+    opacity:.45;
+    transition:.35s ease;
+  }
+
+  .log-row.active{
+    opacity:1;
+    background:rgba(255,255,255,.12);
+  }
+
+  .log-row.complete{
+    opacity:.82;
+  }
+
+  .log-icon{
+    width:24px;height:24px;
+    border-radius:8px;
+    display:grid;place-items:center;
+    background:rgba(255,255,255,.12);
+    font-size:13px;
+  }
+
+  .mission-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:16px;
+  }
+
+  .mission-summary{
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:24px;
+    background:white;
+  }
+
+  .mission-summary h3{
+    font-size:28px;
+  }
+
+  .next-lesson{
+    border-radius:28px;
+    padding:36px;
+    background:
+      radial-gradient(circle at top right,rgba(91,124,250,.16),transparent 36%),
+      linear-gradient(135deg,#fff,#fff7fa);
+    border:1px solid var(--line);
+    text-align:center;
+  }
+
+  .next-lesson .big{
+    font-size:clamp(40px,6vw,72px);
+    line-height:1.02;
+    margin:10px 0 18px;
+    letter-spacing:-.04em;
+  }
+
+  .stay-tuned{
+    display:inline-block;
+    margin-top:24px;
+    padding:14px 20px;
+    border-radius:999px;
+    background:var(--rose);
+    color:white;
+    font-weight:900;
+    letter-spacing:.03em;
+    box-shadow:0 10px 24px rgba(216,93,122,.24);
+  }
+
+  @media(max-width:900px){
+    .mission-control{grid-template-columns:1fr}
+  }
+
+
+  .opening-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:30px;
+    align-items:center;
+  }
+  .question-title{
+    font-size:clamp(52px,7vw,92px);
+    line-height:.95;
+    margin:8px 0 20px;
+    letter-spacing:-.055em;
+  }
+  .definition-card{
+    margin-top:22px;
+    padding:20px 22px;
+    border-radius:20px;
+    background:#2d2730;
+    color:white;
+    font-size:21px;
+    line-height:1.5;
+    box-shadow:0 16px 34px rgba(45,39,48,.18);
+  }
+  .experience-preview{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+  .preview-chip{
+    padding:12px 10px;
+    border-radius:16px;
+    background:white;
+    border:1px solid var(--line);
+    text-align:center;
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+  }
+  .preview-chip span{
+    display:block;
+    font-size:24px;
+    margin-bottom:6px;
+  }
+  .story-panel{
+    min-height:420px;
+    border-radius:28px;
+    padding:28px;
+    background:
+      radial-gradient(circle at top right,rgba(91,124,250,.20),transparent 34%),
+      linear-gradient(160deg,#fff7fa,#f4f7ff);
+    border:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .story-scene{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .scene-icons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:58px;
+    margin-top:18px;
+  }
+  .scene-question{
+    margin-top:24px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(8px);
+    color:var(--ink);
+    font-size:18px;
+    line-height:1.5;
+    font-weight:700;
+  }
+  .introducing{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+    color:var(--rose);
+    font-weight:900;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    font-size:13px;
+  }
+  .experience-slide{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:30px;
+    align-items:center;
+  }
+  .experience-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .experience-item{
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+    background:white;
+    font-weight:800;
+  }
+  .experience-item span{
+    display:block;
+    font-size:26px;
+    margin-bottom:8px;
+  }
+  .ready-card{
+    border-radius:28px;
+    padding:32px;
+    background:linear-gradient(135deg,#2d2730,#4a3e4b);
+    color:white;
+    text-align:center;
+  }
+  .ready-card .big{
+    font-size:56px;
+    margin-bottom:12px;
+  }
+  @media(max-width:900px){
+    .opening-grid,.experience-slide{grid-template-columns:1fr}
+    .experience-preview{grid-template-columns:1fr 1fr}
+  }
+
+
+  .relationship-map{
+    display:grid;
+    grid-template-columns:1fr 90px 1fr;
+    gap:16px;
+    align-items:center;
+    margin-top:24px;
+  }
+
+  .relationship-column{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .relationship-arrow{
+    text-align:center;
+    color:var(--rose);
+    font-size:34px;
+    font-weight:900;
+  }
+
+  .relationship-label{
+    display:block;
+    margin-top:6px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .agent-workbench{
+    display:grid;
+    grid-template-columns:1fr 1.15fr 1fr;
+    gap:18px;
+    align-items:center;
+    margin-top:20px;
+  }
+
+  .workbench-side{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .workbench-center{
+    border:2px solid var(--rose);
+    border-radius:24px;
+    padding:24px;
+    background:linear-gradient(180deg,#fff,#fff6f8);
+    text-align:center;
+    box-shadow:0 14px 30px rgba(216,93,122,.10);
+  }
+
+  .mini-flow{
+    display:grid;
+    grid-template-columns:1fr 64px 1fr 64px 1fr;
+    gap:8px;
+    align-items:center;
+    margin-top:24px;
+  }
+
+  .relationship-note{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+
+  .note-box{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+    background:white;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  .note-box strong{
+    display:block;
+    margin-bottom:5px;
+  }
+
+  @media(max-width:900px){
+    .relationship-map,.agent-workbench{grid-template-columns:1fr}
+    .relationship-arrow{transform:rotate(90deg)}
+    .mini-flow{grid-template-columns:1fr}
+    .relationship-note{grid-template-columns:1fr}
+  }
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">💍</div>
+      <div>
+        <h1>Wed Not Wet</h1>
+        <p>Agentic AI Application Storyboard</p>
+      </div>
+    </div>
+    <div class="stage-counter" id="counter">Stage 1 of 8</div>
+  </header>
+
+  <main>
+    <section class="stage active">
+      <div class="card">
+        <div class="opening-grid">
+          <div>
+            <div class="eyebrow">Introduction</div>
+            <div class="question-title">What is<br>Agentic AI?</div>
+            <p class="lead">Agentic AI is software that coordinates specialized reasoning, information, and actions to achieve an objective—even when the path changes along the way.</p>
+
+            <div class="definition-card">
+              You are about to watch an application set a goal, call specialists, retrieve context, use tools when needed, reject a weak plan, loop, and settle on a better solution.
+            </div>
+
+            <div class="experience-preview">
+              <div class="preview-chip"><span>🎯</span>Objective</div>
+              <div class="preview-chip"><span>🧭</span>Orchestrator</div>
+              <div class="preview-chip"><span>🤝</span>Agents</div>
+              <div class="preview-chip"><span>🔁</span>Loop</div>
+            </div>
+          </div>
+
+          <div class="story-panel">
+            <div class="story-scene">
+              <div>
+                <div class="introducing">A real-world style example</div>
+                <div class="scene-icons">
+                  <span>👩🏽‍❤️‍👨🏻</span>
+                  <span>🏛️</span>
+                  <span>🌩️</span>
+                </div>
+                <div class="scene-question">
+                  A couple plans an outdoor wedding. The forecast turns bad. Can software coordinate weather, venue, budget, food, music, and guest needs to preserve the day?
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em">Introducing</div>
+                <div style="font-size:48px;font-weight:900;letter-spacing:-.04em;margin-top:4px">Wed Not Wet</div>
+                <div style="color:var(--muted);font-size:18px">An Agentic AI Application</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="experience-slide">
+          <div class="ready-card">
+            <div class="big">💍☂️</div>
+            <h2 style="font-size:48px;color:white;margin-bottom:12px">Wed Not Wet</h2>
+            <p style="font-size:20px;line-height:1.5;margin:0;color:rgba(255,255,255,.78)">
+              A wedding-planning application that works to preserve the special day whether it rains or shines.
+            </p>
+          </div>
+
+          <div>
+            <div class="eyebrow">What You Are About to Experience</div>
+            <h2 style="font-size:48px">Watch the architecture come alive</h2>
+            <div class="experience-list">
+              <div class="experience-item"><span>🎯</span>A shared objective</div>
+              <div class="experience-item"><span>🧭</span>An orchestrator</div>
+              <div class="experience-item"><span>🤝</span>Specialized agents</div>
+              <div class="experience-item"><span>📚</span>Retrievals</div>
+              <div class="experience-item"><span>🛠️</span>Optional tools</div>
+              <div class="experience-item"><span>🧠</span>LLM-supported reasoning</div>
+              <div class="experience-item"><span>🌳</span>Contingent paths</div>
+              <div class="experience-item"><span>🔁</span>Optimization and looping</div>
+            </div>
+            <div class="callout" style="margin-top:20px">Ready? Let’s plan a wedding.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 2</div>
+        <h2>What is agentic AI?</h2>
+        <p class="lead">At its core, it is still software. A main application—the orchestrator—coordinates smaller, specialized components called agents.</p>
+        <div class="diagram">
+          <div class="node primary"><strong>Orchestrator</strong><small>Coordinates work and checks progress</small></div>
+          <div class="arrow"></div>
+          <div class="agent-grid">
+            <div class="agent"><strong>Agent A</strong><p>Handles one specialized part of the problem.</p></div>
+            <div class="agent"><strong>Agent B</strong><p>Handles another specialized part.</p></div>
+            <div class="agent"><strong>Agent C</strong><p>Returns findings to the orchestrator.</p></div>
+          </div>
+        </div>
+        <div class="callout">The programming language is not what makes the system agentic. The organization of the work does.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 3</div>
+        <h2>The business problem</h2>
+        <p class="lead">The couple wants an outdoor wedding. But rain affects more than location: food, music, photographs, decorations, guests, timing, and cost may all change.</p>
+        <div class="three-col">
+          <div class="concept"><div style="font-size:42px">🌦️</div><h3>Changing condition</h3><p>The weather forecast changes as the special day approaches.</p></div>
+          <div class="concept"><div style="font-size:42px">💒</div><h3>Desired experience</h3><p>The ceremony, meal, music, photographs, and celebration should still happen.</p></div>
+          <div class="concept"><div style="font-size:42px">🧭</div><h3>Need for coordination</h3><p>The application must compare alternatives and recommend the best path.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 4</div>
+        <h2>The optimized state</h2>
+        <div class="diagram">
+          <div class="node goal" style="min-width:430px">
+            <strong>The wedding takes place somewhere</strong>
+            <small>With the planned ceremony, guests, meal, music, photography, décor, and celebration preserved as much as possible.</small>
+          </div>
+          <div class="arrow"></div>
+          <div class="node primary"><strong>Wed Not Wet Orchestrator</strong><small>Searches for the best achievable wedding plan</small></div>
+        </div>
+        <div class="callout">The system is not optimizing for “indoors.” It is optimizing for a successful wedding experience.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 5</div>
+        <h2>The agent team</h2>
+        <div class="agent-grid">
+          <div class="agent"><strong>🌦 Weather Agent</strong><p>Determines whether the outdoor plan remains viable.</p></div>
+          <div class="agent"><strong>🏛 Venue Agent</strong><p>Identifies indoor, tented, delayed, or alternate-location options.</p></div>
+          <div class="agent"><strong>🍽 Catering Agent</strong><p>Preserves meal service and dietary requirements.</p></div>
+          <div class="agent"><strong>🎵 Experience Agent</strong><p>Protects music, décor, photography, dancing, and guest experience.</p></div>
+          <div class="agent"><strong>💰 Budget Agent</strong><p>Tests cost, contract, and approval constraints.</p></div>
+          <div class="agent"><strong>📣 Communications Agent</strong><p>Prepares and sends updates only after a plan is approved.</p></div>
+        </div>
+        <div class="callout">Each agent contributes specialized reasoning. The orchestrator owns the shared objective.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 6</div>
+        <h2>Retrievals and tools</h2>
+        <div class="three-col">
+          <div class="concept">
+            <div style="font-size:42px">🧠</div>
+            <h3>Agents</h3>
+            <p>Interpret information, compare options, and return recommendations.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">📚</div>
+            <h3>Retrievals</h3>
+            <p>Wedding plan, couple preferences, contracts, guest list, venue rules, and budget records.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🛠️</div>
+            <h3>Tools</h3>
+            <p>Weather service, venue calendar, calculator, email, SMS, maps, and booking systems.</p>
+          </div>
+        </div>
+        <div class="callout">Retrieval provides context. Tools obtain live information or perform actions. Availability does not require use.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 7</div>
+        <h2>Who coordinates whom?</h2>
+        <p class="lead">The orchestrator owns the overall objective. It assigns focused work to specialist agents, receives their results, and decides what should happen next.</p>
+
+        <div class="relationship-map">
+          <div class="relationship-column">
+            <div class="node goal">
+              <strong>Wedding Objective</strong>
+              <small>Preserve the best possible wedding experience</small>
+            </div>
+            <div class="node primary">
+              <strong>Orchestrator</strong>
+              <small>Keeps the objective, selects agents, evaluates results, and controls the loop</small>
+            </div>
+          </div>
+
+          <div class="relationship-arrow">
+            ⇄
+            <span class="relationship-label">assigns work<br>receives results</span>
+          </div>
+
+          <div class="relationship-column">
+            <div class="node"><strong>Weather Agent</strong><small>Assesses weather risk</small></div>
+            <div class="node"><strong>Venue Agent</strong><small>Finds viable locations</small></div>
+            <div class="node"><strong>Experience Agent</strong><small>Tests whether the frills are preserved</small></div>
+          </div>
+        </div>
+
+        <div class="callout">The orchestrator coordinates the agents. The agents do not replace the orchestrator or independently redefine the objective.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 8</div>
+        <h2>What does an agent use?</h2>
+        <p class="lead">An agent is a specialized application component. To complete its assignment, it may retrieve stored information, call an LLM for reasoning, or use a tool for live data or action.</p>
+
+        <div class="agent-workbench">
+          <div class="workbench-side">
+            <div class="node tool">
+              <strong>Retrieval Sources</strong>
+              <small>Contracts, preferences, floor plans, guest information, budget records</small>
+            </div>
+            <div class="relationship-arrow">→<span class="relationship-label">provides context</span></div>
+          </div>
+
+          <div class="workbench-center">
+            <div style="font-size:42px;margin-bottom:8px">🤝</div>
+            <h3>Specialist Agent</h3>
+            <p style="color:var(--muted);line-height:1.5;margin:0">Receives a task from the orchestrator, gathers what it needs, performs its focused work, and returns a result.</p>
+          </div>
+
+          <div class="workbench-side">
+            <div class="node llm">
+              <strong>LLM</strong>
+              <small>May help interpret, compare, reason, summarize, or generate language</small>
+            </div>
+            <div class="node tool">
+              <strong>Tools</strong>
+              <small>Weather service, calendar, calculator, email, SMS</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="relationship-note">
+          <div class="note-box"><strong>Retrieval answers:</strong> “What stored information should the agent know?”</div>
+          <div class="note-box"><strong>The LLM helps answer:</strong> “How should this information be interpreted or compared?”</div>
+          <div class="note-box"><strong>Tools answer:</strong> “What live information or action is needed?”</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Stage 9</div>
+        <h2>How the relationships form a loop</h2>
+        <p class="lead">The orchestrator does not simply call every agent once. It evaluates each returned result and decides whether the current wedding plan is good enough.</p>
+
+        <div class="mini-flow">
+          <div class="node primary">
+            <strong>1. Orchestrator</strong>
+            <small>Assigns a focused task</small>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="node">
+            <strong>2. Agent</strong>
+            <small>Uses retrieval, an LLM, or tools as needed</small>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="node goal">
+            <strong>3. Result</strong>
+            <small>Returns evidence or a candidate plan</small>
+          </div>
+        </div>
+
+        <div class="loop">
+          The orchestrator evaluates the result.<br><br>
+          ACCEPTABLE → continue toward execution<br>
+          NOT ACCEPTABLE → revise the plan, call another agent, retrieve more information, or loop again
+        </div>
+
+        <div class="callout">The LLM may help inside the loop, but the application’s orchestrator controls the objective, sequence, and stopping decision.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 1</div>
+        <h2>Meet Maya and Jordan</h2>
+        <div class="case-banner">
+          <div>
+            <div class="couple">
+              <div class="couple-icon">👩🏽‍❤️‍👨🏻</div>
+              <div>
+                <h3>Saturday at Willow Creek Gardens</h3>
+                <p class="lead" style="font-size:18px;margin:0">An outdoor ceremony for 120 guests, followed by dinner, a live band, dancing, photographs, and a sparkler send-off.</p>
+              </div>
+            </div>
+            <div class="pill-row">
+              <span class="pill">Outdoor garden ceremony</span>
+              <span class="pill">Live eight-piece band</span>
+              <span class="pill">120 guests</span>
+              <span class="pill">$4,000 contingency</span>
+            </div>
+          </div>
+          <div class="forecast-panel">
+            <div class="forecast-top">
+              <div>
+                <div style="opacity:.72;font-size:13px">Wedding-day forecast</div>
+                <div class="forecast-number">78%</div>
+                <div>chance of thunderstorms</div>
+              </div>
+              <span class="risk-high">High risk</span>
+            </div>
+            <div class="timeline">
+              <div class="time-cell">2 PM<strong>Cloudy</strong></div>
+              <div class="time-cell">4 PM<strong>Rain</strong></div>
+              <div class="time-cell">5 PM<strong>Storms</strong></div>
+              <div class="time-cell">7 PM<strong>Clearing</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">The ceremony is scheduled for 5 PM—the same time the forecast shows the highest storm risk.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 2</div>
+        <h2>The orchestrator gathers evidence</h2>
+        <div class="agent-trace">
+          <div class="trace-step">🌦 Weather Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">🏛 Venue Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">🎵 Experience Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">💰 Budget Agent</div>
+        </div>
+        <div class="evidence-grid">
+          <div class="evidence"><span class="tag">Live tool</span><strong>Weather service</strong><p>Thunderstorms are likely from 4:30–6:30 PM, with lightning possible.</p></div>
+          <div class="evidence"><span class="tag">Retrieval</span><strong>Venue contract</strong><p>The indoor ballroom is included, but it must be selected four hours before the ceremony.</p></div>
+          <div class="evidence"><span class="tag">Retrieval</span><strong>Couple preferences</strong><p>The live band and formal first dance are identified as must-have experiences.</p></div>
+          <div class="evidence"><span class="tag">Retrieval</span><strong>Venue floor plan</strong><p>The ballroom fits all guests and dinner tables—but not the eight-piece band with a dance floor.</p></div>
+        </div>
+        <div class="callout">The obvious answer—move everything indoors—does not fully satisfy the objective.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 3</div>
+        <h2>Candidate Plan 1 fails</h2>
+        <div class="plan-card rejected">
+          <span class="status no">Rejected by orchestrator</span>
+          <h3>Move the entire wedding into the ballroom</h3>
+          <p class="lead" style="font-size:18px">This avoids the storm and preserves the meal, schedule, and guest comfort. However, the band cannot fit while retaining a dance floor.</p>
+          <div class="score-row">
+            <div class="score"><strong>✓</strong>Safety</div>
+            <div class="score"><strong>✓</strong>Guests</div>
+            <div class="score"><strong>✓</strong>Meal</div>
+            <div class="score"><strong>✕</strong>Live band</div>
+            <div class="score"><strong>✕</strong>Full experience</div>
+          </div>
+        </div>
+        <div class="loop">
+          Objective not achieved.<br><br>
+          The orchestrator loops: retrieve more information, call additional agents, and test another arrangement.
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 4</div>
+        <h2>The system searches for a better path</h2>
+        <div class="agent-trace">
+          <div class="trace-step">🏛 Venue Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">🎵 Experience Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">🍽 Catering Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">💰 Budget Agent</div>
+        </div>
+        <div class="evidence-grid">
+          <div class="evidence"><span class="tag">Retrieval</span><strong>Covered pavilion plan</strong><p>A separate covered pavilion can hold the band and dance floor after 7 PM.</p></div>
+          <div class="evidence"><span class="tag">Live tool</span><strong>Updated hourly forecast</strong><p>Storms should pass by 6:45 PM, with a low rain probability afterward.</p></div>
+          <div class="evidence"><span class="tag">Retrieval</span><strong>Catering service plan</strong><p>Dinner can begin indoors while the pavilion is dried and prepared.</p></div>
+          <div class="evidence"><span class="tag">Calculation</span><strong>Added cost</strong><p>Extra labor, flooring, and guest guidance cost $2,850—within the contingency budget.</p></div>
+        </div>
+        <div class="callout">A hybrid plan becomes possible: shelter during the storm, then restore the outdoor-style celebration afterward.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 5</div>
+        <h2>Candidate Plan 2 meets the objective</h2>
+        <div class="plan-card accepted">
+          <span class="status yes">Recommended</span>
+          <h3>Indoor ceremony and dinner; covered-pavilion band and dancing</h3>
+          <p class="lead" style="font-size:18px">The ceremony begins on time in the ballroom. Dinner follows indoors. After the storm passes, guests move to the covered pavilion for the live band, first dance, cake, and sparkler send-off.</p>
+          <div class="score-row">
+            <div class="score"><strong>✓</strong>Safety</div>
+            <div class="score"><strong>✓</strong>Schedule</div>
+            <div class="score"><strong>✓</strong>Live band</div>
+            <div class="score"><strong>✓</strong>Budget</div>
+            <div class="score"><strong>✓</strong>Experience</div>
+          </div>
+        </div>
+        <div class="callout">The best plan is neither simply “outside” nor “inside.” It is the plan that best preserves the desired outcome.</div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Case Stage 6</div>
+        <h2>The approved recommendation becomes action</h2>
+        <div class="final-recommendation">
+          <h3>Wed Not Wet recommendation</h3>
+          <ul>
+            <li>Move the 5 PM ceremony and dinner into the ballroom.</li>
+            <li>Prepare the covered pavilion for the band and dancing beginning at 7 PM.</li>
+            <li>Use the $2,850 contingency allocation for extra labor and temporary flooring.</li>
+            <li>Send revised instructions to guests, vendors, the wedding party, and transportation staff.</li>
+            <li>Continue weather monitoring; keep the full indoor plan available as a fallback.</li>
+          </ul>
+        </div>
+        <div class="agent-trace">
+          <div class="trace-step">📣 Communications Agent</div><div class="trace-arrow">→</div>
+          <div class="trace-step">Email guests</div><div class="trace-arrow">→</div>
+          <div class="trace-step">Message vendors</div><div class="trace-arrow">→</div>
+          <div class="trace-step">Update itinerary</div>
+        </div>
+        <div class="callout">The system stops optimizing once the plan satisfies the objective and the authorized actions are ready to execute.</div>
+      </div>
+    </section>
+
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">What We Learned</div>
+        <h2>Agentic AI is coordinated software working toward an objective</h2>
+        <div class="three-col">
+          <div class="concept">
+            <div style="font-size:42px">🎯</div>
+            <h3>Objective</h3>
+            <p>The application begins with a desired outcome. In Wed Not Wet, the goal is not simply to move indoors—it is to preserve the wedding experience.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🧭</div>
+            <h3>Orchestration</h3>
+            <p>The orchestrator selects agents, evaluates results, determines what is missing, and decides whether to stop or continue.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🔁</div>
+            <h3>Optimization</h3>
+            <p>The system can loop through multiple candidate plans until it finds one that satisfies the objective within acceptable constraints.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🤝</div>
+            <h3>Specialized Agents</h3>
+            <p>Different agents contribute focused reasoning about weather, venue, catering, experience, budget, and communications.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">📚</div>
+            <h3>Retrievals and Tools</h3>
+            <p>Agents retrieve stored context and may use live tools, but tool availability does not mean every tool must be used.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🧠</div>
+            <h3>The LLM</h3>
+            <p>The LLM is not the whole application. It is a reasoning and language capability used by the orchestrator or agents where helpful.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Assumptions & Caveats</div>
+        <h2>What this example intentionally simplifies</h2>
+        <div class="three-col">
+          <div class="concept">
+            <div style="font-size:42px">🎓</div>
+            <h3>Educational Example</h3>
+            <p>Wed Not Wet is designed to introduce agentic AI concepts. Real-world systems are typically more complex and domain-specific.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">⚙️</div>
+            <h3>Not an Implementation</h3>
+            <p>This lesson focuses on the architecture and flow of an agentic application rather than programming languages, frameworks, prompts, or code.</p>
+          </div>
+          <div class="concept">
+            <div style="font-size:42px">🛡️</div>
+            <h3>Production Systems</h3>
+            <p>Operational systems often include approvals, security controls, audit logging, permissions, monitoring, deterministic validation, and governance requirements beyond this introductory example.</p>
+          </div>
+        </div>
+        <div class="callout">
+          The goal of this lesson is to understand the <strong>conceptual composition</strong> of an agentic AI application. The technical details of building one come next.
+        </div>
+      </div>
+    </section>
+
+<section class="stage">
+      <div class="card hero">
+        <div>
+          <div class="eyebrow">Conclusion</div>
+          <h2>Wed Not Wet</h2>
+          <p class="lead">A simple wedding case reveals the core structure of an agentic AI application: a fixed objective, specialized agents, retrieved context, optional tools, LLM-supported reasoning, contingent paths, and a loop that continues until a satisfactory outcome is found.</p>
+          <div class="callout" style="text-align:left;margin-top:28px">
+            The objective stays the same.<br>
+            The path changes as the system learns.
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="umbrella">💍☀️</div>
+          <div style="position:absolute;bottom:34px;text-align:center;font-weight:800;color:var(--muted)">
+            The wedding happened.<br>
+            The experience was preserved.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Interactive Assessment</div>
+        <h2>Check Your Understanding</h2>
+        <p class="lead" style="font-size:18px">Answer all five questions, then select <strong>Submit Assessment</strong>.</p>
+
+        <form id="quizForm" class="quiz-grid">
+          <div class="quiz-question" data-question="q1">
+            <h3>1. What is the primary objective of Wed Not Wet?</h3>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1" value="a"> Prevent any rain from occurring.</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="b"> Move every outdoor wedding indoors.</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="c"> Preserve the best possible wedding experience despite changing conditions.</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="d"> Replace the wedding planner.</label>
+            </div>
+            <div class="feedback" id="q1Feedback"></div>
+          </div>
+
+          <div class="quiz-question" data-question="q2">
+            <h3>2. What is the role of the orchestrator?</h3>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2" value="a"> Perform every task by itself.</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="b"> Coordinate agents, evaluate results, and decide whether to continue or stop.</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="c"> Only send messages to guests.</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="d"> Replace all traditional code.</label>
+            </div>
+            <div class="feedback" id="q2Feedback"></div>
+          </div>
+
+          <div class="quiz-question" data-question="q3">
+            <h3>3. Which statement best describes retrievals?</h3>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3" value="a"> They provide stored context such as contracts, preferences, and plans.</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="b"> They always send emails automatically.</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="c"> They are the same thing as the orchestrator.</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="d"> They eliminate the need for tools.</label>
+            </div>
+            <div class="feedback" id="q3Feedback"></div>
+          </div>
+
+          <div class="quiz-question" data-question="q4">
+            <h3>4. Why did the first indoor plan fail?</h3>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4" value="a"> The ballroom had no electricity.</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="b"> The venue refused to allow guests inside.</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="c"> It could not preserve the live band and dance floor, which were must-have experiences.</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="d"> The weather improved immediately.</label>
+            </div>
+            <div class="feedback" id="q4Feedback"></div>
+          </div>
+
+          <div class="quiz-question" data-question="q5">
+            <h3>5. What is the role of the LLM in this application?</h3>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q5" value="a"> It is the entire application.</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="b"> It helps with reasoning, comparison, interpretation, and language tasks where useful.</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="c"> It guarantees perfect weather forecasts.</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="d"> It replaces all tools and retrievals.</label>
+            </div>
+            <div class="feedback" id="q5Feedback"></div>
+          </div>
+        </form>
+
+        <div class="quiz-actions">
+          <button type="button" class="primary-btn" id="submitQuiz">Submit Assessment</button>
+          <button type="button" class="secondary" id="resetQuiz">Reset</button>
+          <div class="quiz-result" id="quizResult"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="stage">
+      <div class="card">
+        <div class="eyebrow">Live Orchestration</div>
+        <h2>Watch Wed Not Wet work the problem</h2>
+        <div class="mission-control">
+          <div class="control-panel">
+            <div class="control-header">
+              <div>
+                <div style="font-size:13px;opacity:.68">Wed Not Wet Mission Control</div>
+                <h3 style="margin:4px 0 0">Current optimization run</h3>
+              </div>
+              <div class="live-badge"><span class="live-dot"></span> Live</div>
+            </div>
+
+            <div class="metric-grid">
+              <div class="metric"><span>Current goal</span><strong>Preserve wedding experience</strong></div>
+              <div class="metric"><span>Current candidate</span><strong id="candidateText">Not yet selected</strong></div>
+              <div class="metric"><span>Confidence</span><strong id="confidenceText">22%</strong><div class="progress-shell"><div class="progress-fill" id="confidenceBar"></div></div></div>
+              <div class="metric"><span>Status</span><strong id="statusText">Gathering evidence</strong></div>
+            </div>
+
+            <div class="activity-log" id="activityLog">
+              <div class="log-row active"><div class="log-icon">1</div><div><strong>Weather Agent</strong><br><span>Checking storm timing and lightning risk.</span></div></div>
+              <div class="log-row"><div class="log-icon">2</div><div><strong>Venue Agent</strong><br><span>Reviewing ballroom and pavilion capacity.</span></div></div>
+              <div class="log-row"><div class="log-icon">3</div><div><strong>Experience Agent</strong><br><span>Testing must-have features against the candidate plan.</span></div></div>
+              <div class="log-row"><div class="log-icon">4</div><div><strong>Budget Agent</strong><br><span>Checking contingency limits and added costs.</span></div></div>
+              <div class="log-row"><div class="log-icon">5</div><div><strong>Orchestrator</strong><br><span>Evaluating whether the objective is satisfied.</span></div></div>
+            </div>
+
+            <div class="mission-actions">
+              <button type="button" class="primary-btn" id="runMission">Run Orchestration</button>
+              <button type="button" class="secondary" id="resetMission">Reset</button>
+            </div>
+          </div>
+
+          <div class="mission-summary">
+            <div class="eyebrow">What learners should notice</div>
+            <h3>The system does not follow one fixed path</h3>
+            <p class="lead" style="font-size:18px">The orchestrator calls different agents as new information appears. It may reject a candidate, loop, retrieve more context, and test a better plan before stopping.</p>
+            <div class="pill-row">
+              <span class="pill">Dynamic sequencing</span>
+              <span class="pill">Intermediate evaluation</span>
+              <span class="pill">Confidence changes</span>
+              <span class="pill">Candidate rejection</span>
+              <span class="pill">Loop until acceptable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="next-lesson">
+          <div class="eyebrow">Next Lesson</div>
+          <div class="big">How is Agentic AI built?</div>
+          <p class="lead" style="margin:0 auto;max-width:860px">
+            In the next lesson, we will examine the technical composition of an agentic AI application: orchestrator logic, agent instructions, retrieval pipelines, tools, model calls, memory, state, controls, and stopping conditions.
+          </p>
+          <div class="stay-tuned">Up next: Under the Hood of Agentic AI</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>
+      <div class="hint">Use ← → keys, Space, or the buttons</div>
+      <div class="hint" style="margin-top:4px;font-weight:700">Copyright Dan Schaupner · Use permitted under Apache 2.0 License</div>
+    </div>
+    <div class="dots" id="dots"></div>
+    <div class="controls">
+      <button class="secondary" id="prev">Previous</button>
+      <button class="primary-btn" id="next">Next</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const stages = [...document.querySelectorAll('.stage')];
+  const counter = document.getElementById('counter');
+  const dotsWrap = document.getElementById('dots');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let current = 0;
+
+  stages.forEach((_,i)=>{
+    const dot=document.createElement('div');
+    dot.className='dot'+(i===0?' active':'');
+    dot.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  function render(){
+    stages.forEach((stage,i)=>{
+      stage.classList.remove('active','exit-left');
+      if(i===current) stage.classList.add('active');
+      else if(i<current) stage.classList.add('exit-left');
+    });
+    [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+    counter.textContent=`Stage ${current+1} of ${stages.length}`;
+    prev.disabled=current===0;
+    next.textContent=current===stages.length-1?'Restart':'Next';
+  }
+
+  function goTo(index){
+    current=Math.max(0,Math.min(stages.length-1,index));
+    render();
+  }
+
+  next.addEventListener('click',()=>{
+    if(current===stages.length-1) current=0;
+    else current++;
+    render();
+  });
+
+  prev.addEventListener('click',()=>{
+    current=Math.max(0,current-1);
+    render();
+  });
+
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight',' ','PageDown'].includes(e.key)){
+      e.preventDefault();
+      next.click();
+    }
+    if(['ArrowLeft','PageUp'].includes(e.key)){
+      e.preventDefault();
+      prev.click();
+    }
+    if(e.key==='Home') goTo(0);
+    if(e.key==='End') goTo(stages.length-1);
+  });
+
+  render();
+
+  const quizAnswers = {
+    q1: {answer:'c', correct:'Correct. The system optimizes for the wedding experience, not simply an indoor move.', incorrect:'Review the application objective: preserve the best possible wedding experience despite changing conditions.'},
+    q2: {answer:'b', correct:'Correct. The orchestrator coordinates, evaluates, loops, and stops.', incorrect:'The orchestrator coordinates the agents and decides what happens next.'},
+    q3: {answer:'a', correct:'Correct. Retrievals provide stored wedding-specific context.', incorrect:'Retrievals supply stored context such as contracts, plans, preferences, and guest information.'},
+    q4: {answer:'c', correct:'Correct. The first plan failed because it sacrificed a must-have feature.', incorrect:'The indoor plan did not preserve the live band and dance floor, which were must-have experiences.'},
+    q5: {answer:'b', correct:'Correct. The LLM supports reasoning and language tasks but is not the whole application.', incorrect:'The LLM is one reasoning capability inside the broader application.'}
+  };
+
+  const submitQuiz = document.getElementById('submitQuiz');
+  const resetQuiz = document.getElementById('resetQuiz');
+  const quizResult = document.getElementById('quizResult');
+
+  if(submitQuiz){
+    submitQuiz.addEventListener('click',()=>{
+      let score = 0;
+      let answered = 0;
+
+      Object.entries(quizAnswers).forEach(([q,info])=>{
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const feedback = document.getElementById(`${q}Feedback`);
+        feedback.className = 'feedback show';
+
+        if(selected){
+          answered++;
+          if(selected.value === info.answer){
+            score++;
+            feedback.classList.add('correct');
+            feedback.textContent = info.correct;
+          } else {
+            feedback.classList.add('incorrect');
+            feedback.textContent = info.incorrect;
+          }
+        } else {
+          feedback.classList.add('incorrect');
+          feedback.textContent = 'Please select an answer.';
+        }
+      });
+
+      quizResult.className = 'quiz-result show ' + (score >= 4 ? 'pass' : 'review');
+      quizResult.textContent = answered < 5
+        ? `You answered ${answered} of 5 questions. Current score: ${score}/5.`
+        : score >= 4
+          ? `Score: ${score}/5 — Strong understanding.`
+          : `Score: ${score}/5 — Review the feedback and try again.`;
+    });
+  }
+
+  if(resetQuiz){
+    resetQuiz.addEventListener('click',()=>{
+      document.getElementById('quizForm').reset();
+      document.querySelectorAll('.feedback').forEach(el=>{
+        el.className='feedback';
+        el.textContent='';
+      });
+      quizResult.className='quiz-result';
+      quizResult.textContent='';
+    });
+  }
+
+
+  const runMission = document.getElementById('runMission');
+  const resetMission = document.getElementById('resetMission');
+  const candidateText = document.getElementById('candidateText');
+  const confidenceText = document.getElementById('confidenceText');
+  const confidenceBar = document.getElementById('confidenceBar');
+  const statusText = document.getElementById('statusText');
+  const missionRows = [...document.querySelectorAll('#activityLog .log-row')];
+  let missionTimers = [];
+
+  const missionStates = [
+    {
+      row: 0,
+      candidate: 'No candidate yet',
+      confidence: 22,
+      status: 'Weather risk detected'
+    },
+    {
+      row: 1,
+      candidate: 'Move entire event indoors',
+      confidence: 49,
+      status: 'Testing venue capacity'
+    },
+    {
+      row: 2,
+      candidate: 'Move entire event indoors',
+      confidence: 41,
+      status: 'Rejected: live band and dance floor lost'
+    },
+    {
+      row: 1,
+      candidate: 'Searching for another venue configuration',
+      confidence: 55,
+      status: 'Looping to Venue Agent'
+    },
+    {
+      row: 3,
+      candidate: 'Hybrid ballroom + pavilion',
+      confidence: 73,
+      status: 'Checking cost and timing'
+    },
+    {
+      row: 4,
+      candidate: 'Hybrid ballroom + pavilion',
+      confidence: 91,
+      status: 'Objective satisfied'
+    }
+  ];
+
+  function clearMissionTimers(){
+    missionTimers.forEach(timer => clearTimeout(timer));
+    missionTimers = [];
+  }
+
+  function updateMissionRows(activeRow, completedRows){
+    missionRows.forEach((row, index) => {
+      row.classList.remove('active', 'complete');
+      if(completedRows.includes(index)) row.classList.add('complete');
+      if(index === activeRow) row.classList.add('active');
+    });
+  }
+
+  function applyMissionState(index){
+    const state = missionStates[index];
+    const completedMap = [
+      [],
+      [0],
+      [0,1],
+      [0,2],
+      [0,1,2],
+      [0,1,2,3]
+    ];
+
+    updateMissionRows(state.row, completedMap[index] || []);
+    candidateText.textContent = state.candidate;
+    confidenceText.textContent = `${state.confidence}%`;
+    confidenceBar.style.width = `${state.confidence}%`;
+    statusText.textContent = state.status;
+  }
+
+  function resetMissionPanel(){
+    clearMissionTimers();
+    updateMissionRows(0, []);
+    candidateText.textContent = 'Not yet selected';
+    confidenceText.textContent = '22%';
+    confidenceBar.style.width = '22%';
+    statusText.textContent = 'Gathering evidence';
+    if(runMission){
+      runMission.disabled = false;
+      runMission.textContent = 'Run Orchestration';
+    }
+  }
+
+  if(runMission){
+    confidenceBar.style.width = '22%';
+
+    runMission.addEventListener('click', () => {
+      clearMissionTimers();
+      resetMissionPanel();
+      runMission.disabled = true;
+      runMission.textContent = 'Running...';
+
+      missionStates.forEach((state, index) => {
+        const timer = setTimeout(() => {
+          applyMissionState(index);
+
+          if(index === missionStates.length - 1){
+            runMission.disabled = false;
+            runMission.textContent = 'Run Again';
+          }
+        }, index * 1350);
+
+        missionTimers.push(timer);
+      });
+    });
+  }
+
+  if(resetMission){
+    resetMission.addEventListener('click', resetMissionPanel);
+  }
+
+</script>
+</body>
+</html>
