@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCADA Cart Digital Twin</title>
+<style>
+:root{
+  --bg:#07131c; --panel:#102635; --panel2:#0b1c28; --edge:#35596d;
+  --text:#edf7fb; --muted:#9bb3c0; --water:#20a8df; --water2:#69d7ff;
+  --sensor-a:#ffd166; --sensor-b:#ff9f43; --sensor-c:#c792ea;
+  --command:#55e39a; --valve:#ff75d8; --power:#ff5f56; --common:#1b1f24;
+  --danger:#ff6b7a; --pipe:#557584;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 14% 0%,rgba(39,129,175,.18),transparent 35%),
+    linear-gradient(180deg,#071019,#0a1822);
+}
+.page{max-width:1580px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:16px}
+h1{margin:0;font-size:clamp(28px,4vw,46px)}
+.subtitle{max-width:980px;color:var(--muted);line-height:1.5;margin-top:8px}
+.status{
+  min-width:260px;padding:14px 18px;border-radius:16px;
+  background:rgba(16,38,53,.95);border:1px solid rgba(105,215,255,.22);
+  box-shadow:0 15px 36px rgba(0,0,0,.28)
+}
+.status-row{display:flex;justify-content:space-between;margin:5px 0;color:var(--muted)}
+.status-row strong{color:var(--text)}
+.online{color:#55e39a!important}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px}
+.plant{
+  position:relative;min-height:1180px;overflow:hidden;border-radius:24px;
+  background:linear-gradient(180deg,#0b1d2a,#0b202d);
+  border:1px solid rgba(105,215,255,.18);
+  box-shadow:0 20px 55px rgba(0,0,0,.3)
+}
+.grid{position:absolute;inset:0;pointer-events:none;background-image:
+ linear-gradient(rgba(105,215,255,.04) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(105,215,255,.04) 1px,transparent 1px);
+ background-size:44px 44px}
+
+.hmi{
+  position:absolute;left:50%;top:18px;transform:translateX(-50%);
+  width:min(820px,84%);z-index:6;padding:16px;border-radius:18px;
+  background:linear-gradient(180deg,#17384b,#102a39);
+  border:1px solid rgba(105,215,255,.32);
+  box-shadow:0 16px 36px rgba(0,0,0,.32)
+}
+.hmi-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.hmi h2{margin:0;font-size:19px}
+.badge{font-size:12px;padding:6px 10px;border-radius:999px;color:#55e39a;
+ background:rgba(85,227,154,.11);border:1px solid rgba(85,227,154,.28)}
+.hmi-screen{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  background:#081922;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.07)
+}
+.hmi-box{padding:10px;border-radius:10px;background:#0d2330;color:var(--muted);font-size:12px}
+.hmi-box strong{color:#8ee1ff}
+
+.interface-zone{
+  position:absolute;left:50%;top:185px;transform:translateX(-50%);
+  width:min(980px,90%);z-index:5;padding:16px;border-radius:18px;
+  background:linear-gradient(180deg,#102d3d,#0a2230);
+  border:1px solid rgba(105,215,255,.25);
+  box-shadow:0 14px 30px rgba(0,0,0,.28)
+}
+.zone-head{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:12px}
+.zone-head h3{margin:0;font-size:17px}
+.zone-head span{color:var(--muted);font-size:12px}
+.modules{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px
+}
+.module{
+  min-height:92px;padding:10px;border-radius:10px;
+  background:linear-gradient(180deg,#16394a,#0c2734);
+  border:1px solid rgba(255,255,255,.09);
+  position:relative
+}
+.module.active{border-color:#55e39a;box-shadow:0 0 16px rgba(85,227,154,.18)}
+.module h4{margin:0 0 5px;font-size:12px;color:#dcebf1}
+.module p{margin:0;color:var(--muted);font-size:10px;line-height:1.35}
+.module-led{position:absolute;right:8px;top:8px;width:9px;height:9px;border-radius:50%;background:#34515d}
+.module.active .module-led{background:#55e39a;box-shadow:0 0 10px #55e39a}
+
+.terminal-zone{
+  position:absolute;left:50%;top:405px;transform:translateX(-50%);
+  width:min(980px,90%);z-index:5
+}
+.terminal-title{font-size:13px;color:#8ee1ff;margin-bottom:7px;font-weight:800}
+.terminal-strip{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:8px;
+  padding:12px;border-radius:14px;background:#091922;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 12px 24px rgba(0,0,0,.25)
+}
+.terminal{
+  position:relative;padding:10px 6px 8px;border-radius:8px;text-align:center;
+  background:#1b3441;border:1px solid #56717d;color:#d6e5eb;font-size:10px
+}
+.screw{
+  width:15px;height:15px;margin:0 auto 5px;border-radius:50%;
+  background:radial-gradient(circle,#d8e2e6 0 32%,#5d747e 34% 58%,#263c46 60%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)
+}
+.term-label{font-family:ui-monospace,monospace}
+
+.tanks{
+  position:absolute;top:620px;left:5%;right:5%;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:7%;z-index:3
+}
+.tank-wrap{display:flex;flex-direction:column;align-items:center;position:relative}
+.tank-label{font-weight:800;font-size:20px;margin-bottom:8px}
+.tank{
+  width:185px;height:245px;position:relative;overflow:hidden;
+  border:5px solid #94afbc;border-top:11px solid #c7d5dc;
+  border-radius:12px 12px 28px 28px;
+  background:linear-gradient(90deg,rgba(255,255,255,.06),transparent 33%,rgba(255,255,255,.04));
+  box-shadow:inset 0 0 30px rgba(255,255,255,.04),0 14px 28px rgba(0,0,0,.35)
+}
+.water{
+  position:absolute;left:0;right:0;bottom:0;height:10%;
+  background:linear-gradient(180deg,var(--water2),var(--water));
+  transition:height .24s linear
+}
+.water:before{
+  content:"";position:absolute;left:-15%;top:-8px;width:130%;height:16px;
+  border-radius:50%;background:rgba(255,255,255,.32);animation:wave 1.7s linear infinite
+}
+@keyframes wave{
+  0%{transform:translateX(-4%) scaleY(.8)}
+  50%{transform:translateX(4%) scaleY(1.12)}
+  100%{transform:translateX(-4%) scaleY(.8)}
+}
+.sensor-head{position:absolute;top:20px;right:7px;width:31px;height:18px;border-radius:5px;background:#d8e4ea;z-index:2}
+.sensor{position:absolute;top:36px;right:19px;width:8px;height:155px;border-radius:5px;z-index:2;
+ background:linear-gradient(#f6d365,#fda085);box-shadow:0 0 12px rgba(255,209,102,.35)}
+.readout{margin-top:10px;padding:6px 10px;border-radius:9px;background:#091a24;
+ border:1px solid rgba(255,255,255,.08);color:#88ddff;font-family:ui-monospace,monospace;font-size:13px}
+.pump{
+  margin-top:12px;width:88px;height:42px;border-radius:24px;display:flex;align-items:center;justify-content:center;
+  background:#203d4b;border:2px solid #5b7885;color:var(--muted);font-size:11px
+}
+.pump:before{content:"";width:17px;height:17px;border-radius:50%;border:3px dotted #7d98a4;margin-right:6px}
+.pump.active{border-color:#55e39a;color:#55e39a;box-shadow:0 0 18px rgba(85,227,154,.22)}
+.pump.active:before{border-color:#55e39a;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.reservoir-label{position:absolute;bottom:194px;left:50%;transform:translateX(-50%);z-index:4;font-weight:800}
+.reservoir{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;
+  width:min(650px,72%);height:150px;overflow:hidden;
+  border:6px solid #91aebd;border-top:12px solid #c6d9e1;border-radius:12px 12px 28px 28px;
+  box-shadow:0 18px 35px rgba(0,0,0,.38)
+}
+.reservoir .water{height:38%;background:linear-gradient(180deg,#4ccbf2,#228bc3)}
+
+svg{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.pipe{fill:none;stroke:var(--pipe);stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.pipe-inner{fill:none;stroke:#102a37;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.flow{
+  fill:none;stroke:var(--water2);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:16 18;opacity:0
+}
+.flow.active{opacity:1;animation:flow .75s linear infinite;filter:drop-shadow(0 0 5px rgba(105,215,255,.8))}
+.signal{fill:none;stroke-width:3;stroke-dasharray:7 10;opacity:.85;animation:flow .8s linear infinite}
+.sensor-a{stroke:var(--sensor-a)} .sensor-b{stroke:var(--sensor-b)} .sensor-c{stroke:var(--sensor-c)}
+.command{fill:none;stroke:var(--command);stroke-width:4;stroke-dasharray:10 12;opacity:0}
+.command.active{opacity:1;animation:flow .65s linear infinite;filter:drop-shadow(0 0 5px rgba(85,227,154,.8))}
+.valve-command{fill:none;stroke:var(--valve);stroke-width:4;stroke-dasharray:8 12;opacity:0}
+.valve-command.active{opacity:1;animation:flow .65s linear infinite;filter:drop-shadow(0 0 5px rgba(255,117,216,.8))}
+.harness{fill:none;stroke:#5f7884;stroke-width:5;opacity:.75}
+.power-line{fill:none;stroke:var(--power);stroke-width:3;stroke-dasharray:4 8;opacity:.9}
+.common-line{fill:none;stroke:#222b31;stroke-width:4;stroke-dasharray:4 8;opacity:.95}
+.valve-body{fill:#152f3b;stroke:#d7e5eb;stroke-width:3}
+.valve-disc{fill:#324e5b;stroke:#9db4bf;stroke-width:3;transform-box:fill-box;transform-origin:center}
+.valve-disc.open{fill:var(--valve);stroke:#ffd0f5;transform:rotate(90deg);filter:drop-shadow(0 0 7px rgba(255,117,216,.75))}
+.valve-label{fill:#d9edf5;font-size:12px;font-weight:700}
+.packet-a{fill:var(--sensor-a)} .packet-b{fill:var(--sensor-b)} .packet-c{fill:var(--sensor-c)}
+.packet-command{fill:var(--command)} .packet-valve{fill:var(--valve)}
+@keyframes flow{to{stroke-dashoffset:-34}}
+
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.card,details{
+  border-radius:17px;background:linear-gradient(180deg,rgba(16,38,53,.97),rgba(10,27,39,.97));
+  border:1px solid rgba(105,215,255,.16);box-shadow:0 14px 30px rgba(0,0,0,.22)
+}
+.card{padding:17px}.card h3{margin:0 0 12px}
+.phase{padding:12px;border-radius:12px;background:#091a24;border:1px solid rgba(255,255,255,.07);
+ color:#99e7ff;font-weight:800;text-align:center;margin-bottom:10px}
+.controls{display:grid;gap:9px}
+button{
+  border:0;border-radius:11px;padding:11px 13px;font-weight:800;cursor:pointer;
+  background:linear-gradient(180deg,#8ae1ff,#51bce9);color:#06131b
+}
+button.secondary{background:#1a3a4b;color:var(--text);border:1px solid rgba(255,255,255,.08)}
+button.danger{background:linear-gradient(180deg,#ff8b97,#ff6878)}
+button.valve-open{background:linear-gradient(180deg,#ff9be3,#ff70d2);color:#261020}
+.alarm{display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:13px;
+ background:rgba(255,107,122,.12);border:1px solid rgba(255,107,122,.35);color:#ffa6af}
+.alarm.show{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.legend-item{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:999px;
+ background:#091a24;border:1px solid rgba(255,255,255,.07);color:var(--muted);font-size:11px}
+.swatch{width:18px;height:4px;border-radius:999px}
+details{overflow:hidden}
+summary{cursor:pointer;padding:15px 17px;font-weight:800;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"＋";float:right;color:#8ee1ff}
+details[open] summary:after{content:"−"}
+.details-body{padding:0 17px 16px;color:var(--muted);font-size:13px;line-height:1.5}
+
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+  .page{padding:12px}header{flex-direction:column}.status{width:100%}.plant{min-height:1500px}
+  .hmi,.interface-zone,.terminal-zone{width:94%}.modules{grid-template-columns:repeat(2,1fr)}
+  .terminal-strip{grid-template-columns:repeat(4,1fr)}.tanks{top:900px;grid-template-columns:1fr;gap:22px}
+  .tank{width:145px;height:165px}.sensor{height:98px}svg{display:none}.reservoir{width:88%}.sidebar{display:flex}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div>
+    <h1>SCADA Cart Digital Twin</h1>
+    <div class="subtitle">
+      A visual model of the trainer’s likely architecture: HMI software on the top shelf,
+      eight separate interface housings, rear thumbscrew terminal junctions, bundled field wiring,
+      three process tanks, pumps, sensors, and a common ABC-to-FT valve.
+    </div>
+  </div>
+  <div class="status">
+    <div class="status-row"><span>HMI</span><strong class="online">ONLINE</strong></div>
+    <div class="status-row"><span>Mode</span><strong id="modeText">AUTO</strong></div>
+    <div class="status-row"><span>Active phase</span><strong id="phaseText">A → B</strong></div>
+    <div class="status-row"><span>Field interface</span><strong>8 channels</strong></div>
+  </div>
+</header>
+
+<div class="layout">
+<section class="plant">
+  <div class="grid"></div>
+
+  <div class="hmi">
+    <div class="hmi-head">
+      <h2>HMI / SCADA Workstation</h2>
+      <div class="badge">Runtime active</div>
+    </div>
+    <div class="hmi-screen">
+      <div class="hmi-box"><strong>Process overview</strong><br>Tank levels, pump state, valve state, alarms</div>
+      <div class="hmi-box"><strong>Control path</strong><br>Software controller → interface housings → terminal strip → field devices</div>
+    </div>
+  </div>
+
+  <div class="interface-zone">
+    <div class="zone-head">
+      <h3>Eight Interface Housings Under the Keyboard</h3>
+      <span>Individual sensor, relay, driver, and common-service channels</span>
+    </div>
+    <div class="modules">
+      <div class="module" id="modA"><div class="module-led"></div><h4>Housing 1</h4><p>Tank A level signal interface</p></div>
+      <div class="module" id="modB"><div class="module-led"></div><h4>Housing 2</h4><p>Tank B level signal interface</p></div>
+      <div class="module" id="modC"><div class="module-led"></div><h4>Housing 3</h4><p>Tank C level signal interface</p></div>
+      <div class="module" id="modAB"><div class="module-led"></div><h4>Housing 4</h4><p>Pump A → B relay or driver</p></div>
+      <div class="module" id="modBC"><div class="module-led"></div><h4>Housing 5</h4><p>Pump B → C relay or driver</p></div>
+      <div class="module" id="modCA"><div class="module-led"></div><h4>Housing 6</h4><p>Pump C → A relay or driver</p></div>
+      <div class="module" id="modValve"><div class="module-led"></div><h4>Housing 7</h4><p>ABC → FT valve actuator channel</p></div>
+      <div class="module active" id="modCommon"><div class="module-led"></div><h4>Housing 8</h4><p>Common power, communications, or spare interface</p></div>
+    </div>
+  </div>
+
+  <div class="terminal-zone">
+    <div class="terminal-title">Rear thumbscrew junctions / field termination strip</div>
+    <div class="terminal-strip">
+      <div class="terminal"><div class="screw"></div><div class="term-label">A-SENSE</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">B-SENSE</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">C-SENSE</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">PUMP-AB</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">PUMP-BC</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">PUMP-CA</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">VALVE-FT</div></div>
+      <div class="terminal"><div class="screw"></div><div class="term-label">24V / COM</div></div>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 1100 1180" preserveAspectRatio="none" aria-hidden="true">
+    <!-- HMI communications into housings -->
+    <path class="signal sensor-a" d="M400 150 C400 180,260 185,260 230"/>
+    <path class="signal sensor-b" d="M470 150 C470 180,395 185,395 230"/>
+    <path class="signal sensor-c" d="M540 150 C540 180,530 185,530 230"/>
+    <path class="command" id="cmdAB" d="M610 150 C610 180,665 185,665 230"/>
+    <path class="command" id="cmdBC" d="M665 150 C665 180,800 185,800 230"/>
+    <path class="command" id="cmdCA" d="M720 150 C720 180,935 185,935 230"/>
+    <path class="valve-command" id="cmdValve" d="M770 150 C770 205,935 250,935 325"/>
+
+    <!-- short wiring from housings to rear terminal strip -->
+    <path class="signal sensor-a" d="M260 325 L210 425"/>
+    <path class="signal sensor-b" d="M395 325 L330 425"/>
+    <path class="signal sensor-c" d="M530 325 L450 425"/>
+    <path class="command" id="termAB" d="M665 325 L570 425"/>
+    <path class="command" id="termBC" d="M800 325 L690 425"/>
+    <path class="command" id="termCA" d="M935 325 L810 425"/>
+    <path class="valve-command" id="termValve" d="M935 325 L930 425"/>
+
+    <!-- red +24VDC and black common from housing 8 -->
+    <path class="power-line" d="M935 325 C1020 365,1020 470,1010 610"/>
+    <path class="common-line" d="M960 325 C1050 370,1055 480,1040 640"/>
+
+    <!-- bundled field harness descending behind cart -->
+    <path class="harness" d="M210 470 C210 520,220 560,220 650"/>
+    <path class="harness" d="M330 470 C340 530,420 560,480 650"/>
+    <path class="harness" d="M450 470 C470 535,520 565,550 650"/>
+    <path class="harness" d="M570 470 C530 540,420 600,315 755"/>
+    <path class="harness" d="M690 470 C680 540,665 620,645 755"/>
+    <path class="harness" d="M810 470 C830 540,860 620,885 755"/>
+    <path class="harness" d="M930 470 C900 580,760 760,550 970"/>
+
+    <!-- color-coded signals inside the harness -->
+    <path class="signal sensor-a" d="M210 470 C210 520,220 560,220 650"/>
+    <path class="signal sensor-b" d="M330 470 C340 530,420 560,480 650"/>
+    <path class="signal sensor-c" d="M450 470 C470 535,520 565,550 650"/>
+    <path class="command" id="wireAB" d="M570 470 C530 540,420 600,315 755"/>
+    <path class="command" id="wireBC" d="M690 470 C680 540,665 620,645 755"/>
+    <path class="command" id="wireCA" d="M810 470 C830 540,860 620,885 755"/>
+    <path class="valve-command" id="wireValve" d="M930 470 C900 580,760 760,550 970"/>
+
+    <!-- process pipes -->
+    <path class="pipe" d="M275 770 C350 770,390 770,445 770"/>
+    <path class="pipe-inner" d="M275 770 C350 770,390 770,445 770"/>
+    <path class="flow active" id="flowAB" d="M275 770 C350 770,390 770,445 770"/>
+
+    <path class="pipe" d="M605 770 C680 770,720 770,785 770"/>
+    <path class="pipe-inner" d="M605 770 C680 770,720 770,785 770"/>
+    <path class="flow" id="flowBC" d="M605 770 C680 770,720 770,785 770"/>
+
+    <path class="pipe" d="M880 808 C980 845,985 910,925 950 C810 1025,295 1025,175 940 C125 905,135 845,220 808"/>
+    <path class="pipe-inner" d="M880 808 C980 845,985 910,925 950 C810 1025,295 1025,175 940 C125 905,135 845,220 808"/>
+    <path class="flow" id="flowCA" d="M880 808 C980 845,985 910,925 950 C810 1025,295 1025,175 940 C125 905,135 845,220 808"/>
+
+    <!-- ABC to FT manifold and valve -->
+    <path class="pipe" d="M220 860 C250 940,390 950,505 980"/>
+    <path class="pipe-inner" d="M220 860 C250 940,390 950,505 980"/>
+    <path class="pipe" d="M550 860 L550 960"/>
+    <path class="pipe-inner" d="M550 860 L550 960"/>
+    <path class="pipe" d="M880 860 C850 940,710 950,595 980"/>
+    <path class="pipe-inner" d="M880 860 C850 940,710 950,595 980"/>
+    <path class="pipe" d="M550 1000 L550 1080"/>
+    <path class="pipe-inner" d="M550 1000 L550 1080"/>
+
+    <path class="flow" id="drainA" d="M220 860 C250 940,390 950,505 980"/>
+    <path class="flow" id="drainB" d="M550 860 L550 960"/>
+    <path class="flow" id="drainC" d="M880 860 C850 940,710 950,595 980"/>
+    <path class="flow" id="drainFT" d="M550 1000 L550 1080"/>
+
+    <g id="commonValve" transform="translate(550 980)">
+      <polygon class="valve-body" points="-34,-20 0,0 -34,20"/>
+      <polygon class="valve-body" points="34,-20 0,0 34,20"/>
+      <rect class="valve-disc" id="valveDisc" x="-5" y="-25" width="10" height="50" rx="4"/>
+      <rect x="-15" y="-48" width="30" height="18" rx="4" fill="#273f4c" stroke="#bdd0d8" stroke-width="2"/>
+      <text x="0" y="47" text-anchor="middle" class="valve-label">ABC → FT</text>
+    </g>
+  </svg>
+
+  <div class="tanks">
+    <div class="tank-wrap">
+      <div class="tank-label">Tank A</div>
+      <div class="tank"><div class="sensor-head"></div><div class="sensor"></div><div class="water" id="waterA"></div></div>
+      <div class="readout">Level: <span id="levelA">80</span>%</div>
+      <div class="pump active" id="pumpAB">A → B</div>
+    </div>
+    <div class="tank-wrap">
+      <div class="tank-label">Tank B</div>
+      <div class="tank"><div class="sensor-head"></div><div class="sensor"></div><div class="water" id="waterB"></div></div>
+      <div class="readout">Level: <span id="levelB">10</span>%</div>
+      <div class="pump" id="pumpBC">B → C</div>
+    </div>
+    <div class="tank-wrap">
+      <div class="tank-label">Tank C</div>
+      <div class="tank"><div class="sensor-head"></div><div class="sensor"></div><div class="water" id="waterC"></div></div>
+      <div class="readout">Level: <span id="levelC">10</span>%</div>
+      <div class="pump" id="pumpCA">C → A</div>
+    </div>
+  </div>
+
+  <div class="reservoir-label">FT — Lower Reservoir</div>
+  <div class="reservoir"><div class="water" id="waterFT"></div></div>
+</section>
+
+<aside class="sidebar">
+  <div class="card">
+    <div class="phase" id="phaseBox">Phase 1: Tank A is pumping into Tank B</div>
+    <div class="controls">
+      <button id="runBtn">Pause Automatic Cycle</button>
+      <button class="valve-open" id="valveBtn">Open ABC → FT Valve</button>
+      <button class="danger" id="faultBtn">Inject Sensor Fault</button>
+      <button class="secondary" id="resetBtn">Reset Simulation</button>
+    </div>
+    <div class="alarm" id="alarmBox">Alarm: Tank B sensor signal is implausible. Pump and valve outputs are inhibited.</div>
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--sensor-a)"></span>A sensor</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--sensor-b)"></span>B sensor</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--sensor-c)"></span>C sensor</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--command)"></span>Pump commands</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--valve)"></span>Valve command</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--power)"></span>+24 VDC</div>
+      <div class="legend-item"><span class="swatch" style="background:#222b31"></span>DC common</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--water2)"></span>Water flow</div>
+    </div>
+  </div>
+
+  <details open>
+    <summary>Why eight housings are shown</summary>
+    <div class="details-body">
+      The top-down view suggests several separate enclosed interface channels rather than one exposed PLC rack.
+      This model assigns three housings to sensor inputs, three to pump outputs, one to the FT valve,
+      and one to common power, communications, or a spare channel. The exact function of each housing
+      remains an informed reconstruction until labels or internal wiring are visible.
+    </div>
+  </details>
+
+  <details>
+    <summary>Thumbscrew junctions</summary>
+    <div class="details-body">
+      The rear junctions are modeled as field termination points. Short internal wires connect each housing
+      to a thumbscrew terminal, while longer harness wires descend behind the cart to sensors, pumps,
+      and the valve actuator. This gives the trainer a clean disconnect and troubleshooting boundary.
+    </div>
+  </details>
+
+  <details>
+    <summary>Automatic sequence</summary>
+    <div class="details-body">
+      Tank A pumps into B. When B reaches its threshold, B pumps into C. When C reaches its threshold,
+      C returns the water to A. Opening the ABC-to-FT valve pauses the automatic sequence and drains all
+      three process tanks into the lower reservoir.
+    </div>
+  </details>
+</aside>
+</div>
+</div>
+
+<script>
+const state={A:80,B:10,C:10,FT:38,phase:0,running:true,fault:false,valveOpen:false};
+const $=id=>document.getElementById(id);
+function active(id,on){$(id).classList.toggle('active',on)}
+
+function update(){
+  for(const k of ['A','B','C']){
+    $('water'+k).style.height=state[k]+'%';
+    $('level'+k).textContent=Math.round(state[k]);
+  }
+  $('waterFT').style.height=state.FT+'%';
+
+  const enabled=state.running&&!state.fault&&!state.valveOpen;
+  const ab=enabled&&state.phase===0;
+  const bc=enabled&&state.phase===1;
+  const ca=enabled&&state.phase===2;
+  const valve=state.valveOpen&&!state.fault;
+
+  active('pumpAB',ab); active('pumpBC',bc); active('pumpCA',ca);
+  active('flowAB',ab); active('flowBC',bc); active('flowCA',ca);
+  active('cmdAB',ab); active('cmdBC',bc); active('cmdCA',ca);
+  active('termAB',ab); active('termBC',bc); active('termCA',ca);
+  active('wireAB',ab); active('wireBC',bc); active('wireCA',ca);
+  active('cmdValve',valve); active('termValve',valve); active('wireValve',valve);
+  active('drainA',valve&&state.A>5); active('drainB',valve&&state.B>5);
+  active('drainC',valve&&state.C>5); active('drainFT',valve&&(state.A>5||state.B>5||state.C>5));
+
+  $('modAB').classList.toggle('active',ab);
+  $('modBC').classList.toggle('active',bc);
+  $('modCA').classList.toggle('active',ca);
+  $('modValve').classList.toggle('active',valve);
+  $('modA').classList.add('active'); $('modB').classList.add('active'); $('modC').classList.add('active');
+  $('valveDisc').classList.toggle('open',valve);
+
+  const names=['A → B','B → C','C → A'];
+  const descriptions=[
+    'Phase 1: Tank A is pumping into Tank B',
+    'Phase 2: Tank B is pumping into Tank C',
+    'Phase 3: Tank C is returning water to Tank A'
+  ];
+  $('phaseText').textContent=state.fault?'FAULT HOLD':state.valveOpen?'ABC → FT':state.running?names[state.phase]:'PAUSED';
+  $('phaseBox').textContent=state.fault?'Outputs inhibited by sensor fault':
+    state.valveOpen?'Common valve open: A, B, and C are draining into FT':
+    state.running?descriptions[state.phase]:'Automatic sequence paused';
+  $('modeText').textContent=state.fault?'FAULT':state.valveOpen?'MANUAL DRAIN':state.running?'AUTO':'PAUSED';
+  $('alarmBox').classList.toggle('show',state.fault);
+  $('runBtn').textContent=state.running&&!state.valveOpen?'Pause Automatic Cycle':'Resume Automatic Cycle';
+  $('valveBtn').textContent=state.valveOpen?'Close ABC → FT Valve':'Open ABC → FT Valve';
+}
+
+function tick(){
+  if(state.fault)return;
+  const rate=.55;
+
+  if(state.valveOpen){
+    const available=Math.max(0,state.A-5)+Math.max(0,state.B-5)+Math.max(0,state.C-5);
+    const capacity=Math.max(0,92-state.FT);
+    if(available>0&&capacity>0){
+      let total=0;
+      for(const k of ['A','B','C']){
+        const amount=Math.min(.22,Math.max(0,state[k]-5),Math.max(0,capacity-total));
+        state[k]-=amount;
+        total+=amount;
+      }
+      state.FT=Math.min(92,state.FT+total*.62);
+    }
+    update();
+    return;
+  }
+
+  if(!state.running)return;
+
+  if(state.phase===0){
+    const amount=Math.min(rate,state.A-18,72-state.B);
+    if(amount>0){state.A-=amount;state.B+=amount}
+    if(state.B>=72||state.A<=18)state.phase=1;
+  }else if(state.phase===1){
+    const amount=Math.min(rate,state.B-18,76-state.C);
+    if(amount>0){state.B-=amount;state.C+=amount}
+    if(state.C>=76||state.B<=18)state.phase=2;
+  }else{
+    const amount=Math.min(rate*1.15,state.C-10,80-state.A);
+    if(amount>0){state.C-=amount;state.A+=amount}
+    if(state.A>=80||state.C<=10){
+      state.A=80;state.B=10;state.C=10;state.phase=0;
+    }
+  }
+  update();
+}
+
+$('runBtn').onclick=()=>{
+  if(state.fault)return;
+  if(state.valveOpen)state.valveOpen=false;
+  state.running=!state.running;
+  update();
+};
+$('valveBtn').onclick=()=>{
+  if(state.fault)return;
+  state.valveOpen=!state.valveOpen;
+  if(state.valveOpen)state.running=false;
+  update();
+};
+$('faultBtn').onclick=()=>{
+  state.fault=!state.fault;
+  if(state.fault){state.running=false;state.valveOpen=false;state.B=96}
+  else{Object.assign(state,{A:80,B:10,C:10,FT:38,phase:0,running:true,fault:false,valveOpen:false})}
+  update();
+};
+$('resetBtn').onclick=()=>{
+  Object.assign(state,{A:80,B:10,C:10,FT:38,phase:0,running:true,fault:false,valveOpen:false});
+  update();
+};
+
+setInterval(tick,120);
+update();
+</script>
+</body>
+</html>
