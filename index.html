@@ -1,154 +1,52 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Daniel Schaupner — Technologist, Builder, Teacher</title>
-<meta content="A public-facing professional story about technology, organizational movement, AI, teaching, and what comes next." name="description"/>
-<link rel="stylesheet" href="css/styles.css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Dan Schaupner helps organizations move consequential technology initiatives from incomplete conditions into validated operation.">
+  <meta name="theme-color" content="#080808">
+  <title>Dan Schaupner — Technology Initiative Intervention</title>
+  <style>
+    :root{--bg:#080808;--panel:#101011;--panel2:#151516;--white:#f0efec;--silver:#c4c4c6;--muted:#929296;--dim:#66676b;--line:rgba(225,225,228,.16);--serif:Georgia,"Times New Roman",serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--max:1180px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--silver);font-family:var(--sans);line-height:1.65;overflow-x:hidden}a{color:inherit}::selection{background:#ddd;color:#080808}.progress{position:fixed;inset:0 auto auto 0;width:0;height:2px;background:linear-gradient(90deg,#777,#fff);z-index:100}.wrap{width:min(calc(100% - 48px),var(--max));margin-inline:auto}
+    .nav{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:absolute;inset:0 0 auto;z-index:10}.nav .wrap{display:flex;justify-content:space-between;align-items:center}.brand{font-family:var(--serif);font-size:16px;letter-spacing:.06em;text-decoration:none;color:var(--white)}.nav-link{text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:#aaa;border-bottom:1px solid #666;padding-bottom:4px}
+    .hero{min-height:100svh;display:flex;align-items:center;padding:126px 0 70px;background:radial-gradient(circle at 82% 22%,#1b1b1d 0,transparent 34%),linear-gradient(135deg,#070707,#0d0d0e);border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.65fr);gap:clamp(48px,8vw,110px);align-items:center}.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:8px 13px;margin-bottom:28px;text-transform:uppercase;letter-spacing:.17em;font-size:10px;color:#c2c2c4}.badge:before{content:"";width:5px;height:5px;border-radius:50%;background:#ddd;box-shadow:0 0 10px #ddd}.kicker{display:flex;align-items:center;gap:12px;margin:0 0 24px;text-transform:uppercase;letter-spacing:.19em;font-size:10px;color:#888}.kicker:before{content:"";width:34px;height:1px;background:#777}h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--white);letter-spacing:-.035em;margin:0}h1{font-size:clamp(3.2rem,6.1vw,5.9rem);line-height:.94;max-width:760px}.hero-text{font-size:clamp(1.05rem,1.45vw,1.22rem);color:#b3b3b6;max-width:650px;margin:34px 0 0}.portrait{margin:0;position:relative}.portrait:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px var(--line),inset 0 -100px 100px rgba(0,0,0,.34);pointer-events:none}.portrait img{display:block;width:100%;height:auto;max-height:610px;object-fit:contain;filter:contrast(1.05)}.portrait figcaption{position:absolute;z-index:2;left:18px;bottom:14px;text-transform:uppercase;letter-spacing:.16em;font-size:9px;color:#d0d0d1}.scroll{display:inline-flex;align-items:center;gap:12px;margin-top:38px;text-transform:uppercase;letter-spacing:.18em;font-size:9px;color:#696a6e;text-decoration:none}.scroll:after{content:"↓";font-size:14px;animation:down 1.8s ease-in-out infinite}@keyframes down{50%{transform:translateY(5px)}}
+    .section{padding:clamp(84px,9vw,128px) 0;border-bottom:1px solid var(--line)}.section.dark{background:var(--panel)}.section-head{display:grid;grid-template-columns:80px minmax(250px,.75fr) minmax(300px,1fr);gap:clamp(28px,5vw,70px);align-items:start}.section-no{font-family:var(--serif);font-style:italic;font-size:13px;color:#606166;padding-top:9px}.section h2{font-size:clamp(2.5rem,4.8vw,5rem);line-height:1}.section-copy .lead{font-family:var(--serif);font-size:clamp(1.45rem,2.25vw,2.25rem);line-height:1.27;color:#d6d6d7;margin:0 0 28px}.section-copy p{color:#999a9e;margin:0 0 20px;font-size:1.02rem}.section-copy strong{color:#ddd;font-weight:500}
+    .project-list{margin:56px 0 0 80px;border-top:1px solid var(--line)}.project{display:grid;grid-template-columns:44px 1fr auto;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);transition:padding .25s,color .25s}.project:hover{padding-left:8px;color:#fff}.project i{font-family:var(--serif);font-style:italic;color:#666}.project b{font-family:var(--serif);font-size:clamp(1.15rem,1.8vw,1.55rem);font-weight:400;color:#d0d0d2}.project small{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#65666a}
+    .options{display:grid;grid-template-columns:repeat(3,1fr);margin:56px 0 0 80px;border:1px solid var(--line)}.option{padding:30px;min-height:260px;display:flex;flex-direction:column;border-right:1px solid var(--line);transition:background .25s}.option:last-child{border:0}.option:hover,.option.focus{background:rgba(255,255,255,.035)}.option small{font-family:var(--serif);font-style:italic;color:#666}.option h3{font-size:1.8rem;margin:auto 0 12px}.option p{font-size:.92rem;color:#8d8e92;margin:0}
+    .interlude{padding:clamp(100px,13vw,180px) 0;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(circle at center,#151517,transparent 48%)}.interlude blockquote{max-width:1000px;margin:0 auto;font-family:var(--serif);font-size:clamp(2.5rem,5vw,5.5rem);line-height:1.08;color:#e3e2df;letter-spacing:-.035em}.interlude em{color:#88898d}
+    .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:32px}.tag{border:1px solid var(--line);padding:10px 13px;text-transform:uppercase;letter-spacing:.12em;font-size:10px;color:#999a9e;transition:.25s}.tag:hover{border-color:#777;color:#eee;transform:translateY(-2px)}
+    .engagement{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(45px,8vw,100px);margin:56px 0 0 80px}.steps{counter-reset:s}.step{counter-increment:s;display:grid;grid-template-columns:42px 1fr;gap:14px;padding:21px 0;border-top:1px solid var(--line)}.step:before{content:"0"counter(s);font-family:var(--serif);font-style:italic;color:#65666a}.step h3{font-size:1.35rem;margin-bottom:5px}.step p{margin:0;color:#85868a;font-size:.9rem}.result{border:1px solid var(--line);padding:clamp(30px,4vw,50px);background:linear-gradient(145deg,rgba(255,255,255,.04),transparent)}.result small{letter-spacing:.18em;text-transform:uppercase;color:#747579;font-size:9px}.result p{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.7rem);line-height:1.2;color:#d5d5d6;margin:24px 0 0}
+    .cases{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin:56px 0 0 80px;background:var(--line);border:1px solid var(--line)}.case{background:#0b0b0c;padding:clamp(30px,4vw,48px);min-height:265px;display:flex;flex-direction:column}.case small{letter-spacing:.16em;text-transform:uppercase;color:#6c6d71;font-size:9px}.case h3{font-size:clamp(1.6rem,2.5vw,2.7rem);line-height:1.12;margin:auto 0 15px}.case p{margin:0;color:#898a8e;font-size:.94rem;max-width:48ch}
+    .bio-intro{max-width:1080px}.credential{font-family:var(--serif);font-size:clamp(2.3rem,4.2vw,4.6rem);line-height:1.12;color:#ddd;margin:35px 0}.credential span{color:#737478}.bio-note{max-width:680px;margin-left:auto;color:#999a9e;font-size:1.05rem}.speaker{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(280px,1fr);gap:clamp(44px,8vw,100px);align-items:center;margin-top:70px}.speaker figure{margin:0;border:1px solid var(--line);background:#090909}.speaker img{display:block;width:100%;height:auto}.speaker-copy small{display:block;text-transform:uppercase;letter-spacing:.18em;font-size:9px;color:#707176;margin-bottom:18px}.speaker-copy p{font-family:var(--serif);font-size:clamp(1.6rem,3vw,3.2rem);line-height:1.18;color:#ceced0;margin:0}
+    .cta{padding:clamp(110px,14vw,180px) 0;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(circle,#18181a,transparent 48%)}.cta h2{font-size:clamp(3.2rem,6vw,6rem)}.cta p{max-width:660px;margin:24px auto 38px;color:#96979b}.button{display:inline-flex;align-items:center;gap:24px;padding:16px 20px 16px 25px;border:1px solid #666;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:10px;transition:.25s}.button:after{content:"↗";font-size:16px}.button:hover{background:#ddd;color:#080808;border-color:#ddd;transform:translateY(-2px)}
+    .places{padding:clamp(85px,10vw,130px) 0 38px;background:#0c0c0d}.places-head{display:grid;grid-template-columns:1fr 420px;gap:50px;align-items:end;margin-bottom:48px}.places h2{font-size:clamp(3.2rem,6vw,6.5rem)}.places-head p{color:#898a8e;margin:0}.cloud{padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap}.place{font-family:var(--serif);font-size:clamp(1.2rem,2.15vw,2.2rem);color:#747579;transition:.2s}.place.major{color:#c2c2c4}.place:not(:last-child):after{content:" / ";color:#363638;margin:0 .26em}.place:hover{color:#eee}.footer{display:flex;justify-content:space-between;margin-top:90px;padding-top:24px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.15em;font-size:9px;color:#65666a}.footer a{text-decoration:none}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
+    @media(max-width:800px){.wrap{width:min(calc(100% - 36px),var(--max))}.nav{height:68px}.nav-link{display:none}.hero{padding:100px 0 58px}.hero-grid{grid-template-columns:1fr;gap:38px}.hero-copy{order:1}.portrait{order:2;max-width:330px}.portrait img{max-height:none}.section{padding:78px 0}.section-head{grid-template-columns:1fr;gap:25px}.section-no{padding:0}.project-list,.options,.engagement,.cases{margin-left:0;margin-top:42px}.project{grid-template-columns:32px 1fr}.project small{display:none}.options{grid-template-columns:1fr}.option{min-height:210px;border-right:0;border-bottom:1px solid var(--line)}.option:last-child{border-bottom:0}.engagement{grid-template-columns:1fr;gap:35px}.cases{grid-template-columns:1fr}.case{min-height:245px}.speaker{grid-template-columns:1fr;margin-top:55px}.speaker figure{max-width:440px}.places-head{grid-template-columns:1fr;gap:22px}.footer{display:block}.footer div+div{margin-top:10px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.scroll:after{animation:none}}
+  </style>
 </head>
 <body>
-<div aria-hidden="true" class="progress-rail"></div>
-<nav aria-label="Page sections" class="top-nav">
-<a href="#identity">Identity</a>
-<a href="#ai">AI</a>
-<a href="#pattern">Pattern</a>
-<a href="#career">Career</a>
-<a href="#teaching">Teaching</a>
-<a href="#where">Where I've Been</a><a href="#contact">Contact</a>
-</nav>
-<main>
-<section class="hero" id="identity">
-<div>
-<p class="eyebrow">Technologist · Builder · Teacher</p>
-<h1>Dan Schaupner</h1>
-<p class="lead">Technology has been the medium of my career. The recurring work has been helping people, systems, responsibilities, risk, and evidence move from intention to a condition management can confidently adopt.</p>
-<div class="purpose">This page is a story about that professional identity: how I approach AI, why the same organizational patterns keep appearing, how long I have been working inside them, why teaching is a natural extension of the work, and why I remain open to thoughtful ideas and opportunities.</div>
-</div>
-<div class="portrait-wrap">
-<img alt="Daniel Schaupner speaking at a professional event" src="assets/images/daniel-schaupner.png"/>
-</div>
-<a aria-label="Scroll to the next section" class="scroll-cue" href="#ai">Scroll to continue</a>
-</section>
-<div class="story">
-<section class="section" id="ai">
-<p class="kicker">AI is today’s proving ground</p>
-<h2>AI is new.<br/>The organizational challenge is familiar.</h2>
-<p class="intro">Capable leaders see through AI hype without using it as an excuse for inaction. They deliberately define how their organizations will adopt, restrict, defer, or compete through AI.</p>
-<p class="quote">Understanding AI is not the same as making an organization ready to act on it.</p>
-<div class="grid">
-<article class="card"><h3>Technical fluency</h3><p>Applications, agents, retrieval, prompts, model differentiation, supply chains, architecture, and technical risk demand serious understanding.</p></article>
-<article class="card"><h3>Operational readiness</h3><p>People, assets, responsibilities, processes, risk, and evidence must move together before an organization can act with confidence.</p></article>
-<article class="card"><h3>Decision space</h3><p>Leadership gains the ability to adopt, defer, restrict, experiment, invest, or compete without paralysis.</p></article>
-</div>
-</section>
-<section class="section" id="pattern">
-<p class="kicker">The recurring pattern</p>
-<h2>The technology changes.<br/>The movement does not.</h2>
-<p class="intro">Whenever consequential technology meets organizational change, the same underlying pattern appears: establish the mandate, understand the current condition, align the moving parts, validate the result, and give management usable options.</p>
-<div class="method-list">
-<div class="method-item"><div><strong>Establish the actual condition</strong><span>Determine where the organization truly stands, not where plans or assumptions say it stands.</span></div></div>
-<div class="method-item"><div><strong>Define what must move</strong><span>Clarify the people, technology, assets, responsibilities, risk, processes, and evidence involved.</span></div></div>
-<div class="method-item"><div><strong>Orchestrate the movement</strong><span>Sequence decisions and actions so that one observable outcome enables the next.</span></div></div>
-<div class="method-item"><div><strong>Validate operation</strong><span>Demonstrate that the capability works in the operating reality where people must rely upon it.</span></div></div>
-<div class="method-item"><div><strong>Expand management’s options</strong><span>Present a condition leadership can confidently adopt, scale, change, defer, or use to pursue new value.</span></div></div>
-</div>
-</section>
-<section class="section" id="career">
-<p class="kicker">A long pattern of application</p>
-<h2>I have been doing this across technological eras.</h2>
-<p class="intro">When I began my career, I thought I was choosing cybersecurity. What I really found was a pivotal role in helping organizations achieve more with new technology.</p>
-<div class="timeline">
-<div class="era"><strong>Enterprise technology</strong><span>Learning how complex systems, engineering constraints, and operating realities shape what organizations can actually do.</span></div>
-<div class="era"><strong>Internet and cloud</strong><span>Helping organizations adopt new architectures, services, delivery models, and consulting capabilities across markets.</span></div>
-<div class="era"><strong>Cybersecurity</strong><span>Using security as the medium for transformation, governance, operational readiness, risk decisions, and validated performance.</span></div>
-<div class="era"><strong>Artificial intelligence</strong><span>Applying the same discipline to a technology whose possibilities are new but whose adoption pattern is recognizable.</span></div>
-</div>
-<p class="quote">The technologies have changed. The pattern has not.</p>
-</section>
-<section class="section">
-<p class="kicker">What I actually do</p>
-<h2>Technology has been my medium.<br/>Organizational movement has been my work.</h2>
-<p class="intro">Whether serving as a Chief Technology Officer, Head of Practice, Principal, Consultant, or institutional leader, I have performed the same essential role: establish the actual condition, define what must happen next, communicate the path, maintain an accurate picture of progress, validate the outcomes, and present management with an operation it can confidently adopt.</p>
-<div class="grid">
-<article class="card"><h3>Technical command</h3><p>Deep functional and architectural understanding of the technologies involved. Consequential change cannot be directed through superficial understanding.</p></article>
-<article class="card"><h3>Common operating picture</h3><p>A shared, decision-ready view of the current position, intended destination, path, evidence of movement, and next expected outcome.</p></article>
-<article class="card"><h3>Orchestration</h3><p>The deliberate placement and movement of people, assets, technology, responsibilities, and decisions through time.</p></article>
-</div>
-</section>
-<section class="section">
-<p class="kicker">How the work gets done</p>
-<h2>Strategic in consequence.<br/>Concrete in execution.</h2>
-<p class="intro">I work through the same operating reality as the people responsible for delivery: meetings, briefings, architecture reviews, whiteboards, project plans, written decisions, negotiations, status reports, diagrams, action lists, and version-controlled working documents.</p>
-<p class="quote">I review the architecture. I draw the relationships. I write the plan. I brief management. I manage the people. I maintain the record. I follow the decision through to an observable result.</p>
-</section>
-<section class="section" id="teaching">
-<p class="kicker">Why I teach</p>
-<h2>I enjoy helping people become capable.</h2>
-<p class="intro">Teaching has become one of the most enjoyable and enduring parts of my professional life. It is not separate from my work as a technologist; it is an extension of how I understand technology, leadership, and organizational readiness.</p>
-<div class="grid">
-<article class="card"><h3>University teaching</h3><p>I teach Python, cybersecurity fundamentals, artificial intelligence in cybersecurity, and special topics in cybersecurity at the University of Cincinnati.</p></article>
-<article class="card"><h3>Professional education</h3><p>I have authored and delivered practitioner education through ISC2 in identity and access management, API security, incident response, cloud security, and artificial intelligence in software assurance.</p></article>
-<article class="card"><h3>Public explanation</h3><p>I share ideas through executive briefings, conference presentations, webinars, articles, technical papers, courseware, and mentoring.</p></article>
-</div>
-<div class="teacher-note">Whether in a classroom, on a stage, across a conference table, or on a ball field, I have always found satisfaction in helping people recognize what they are capable of understanding—and then watching them do something with it.</div>
-</section>
-<section class="section">
-<p class="kicker">Depth without closure</p>
-<h2>I go deep because shallow understanding does not survive consequential decisions.</h2>
-<p class="intro">My work has given me exposure to technical architecture, organizational design, consulting, government, education, risk, governance, workforce development, writing, and delivery. The point is not to claim mastery of everything. It is to understand enough of the whole system to connect what specialists know, what leaders need, and what the organization must actually do next.</p>
-<p class="quote">In-depth does not mean closed. The more I learn, the more interested I become in thoughtful disagreement, new evidence, and ideas that change the available options.</p>
-</section>
-<section class="section final">
-<p class="kicker">What comes next</p>
-<h2>I am always open to the next useful conversation.</h2>
-<p class="invitation">Whether it is about a new technology, an organizational challenge, a wild idea over coffee, mentoring, teaching, consulting, or simply comparing notes about where things might be headed, I enjoy meeting thoughtful people who want to build what comes next.</p>
-<p class="invitation">I keep an open door and a special place in my heart for emerging professionals. I am always looking for the next opportunity.</p>
-</section><section class="section where-section" id="where">
-<div class="where-intro">
-<div>
-<p class="kicker">Where I've been</p>
-<h2>Depth comes from going places.<br/>And doing the work.</h2>
-</div>
-<p class="where-summary">A career measured not only in titles, but in institutions, industries, countries, classrooms, briefing rooms, operating environments, and the people trusted to carry the work forward.</p>
-</div>
-<div class="where-board">
-<article class="where-item feature"><div><small>Institutions</small><strong>The University of Michigan · Virginia Tech · University of Cincinnati · Cambridge University</strong></div></article>
-<article class="where-item wide tall"><div><small>National security</small><strong>The Pentagon · DARPA · CISA · Inside a mountain base</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>Bahrain</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>Vietnam</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>China</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>Paris</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>Berlin</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>London</strong></div></article>
-<article class="where-item medium"><div><small>Global</small><strong>Boston</strong></div></article>
-<article class="where-item wide"><div><small>Industry</small><strong>Mercedes-Benz · BMW · Miami Dolphins</strong></div></article>
-<article class="where-item wide"><div><small>Cyber workforce</small><strong>Ohio Cyber Range Institute</strong></div></article>
-<article class="where-item wide tall"><div><small>Teaching</small><strong>Cloud instructor · University professor · Built entire university courses</strong></div></article>
-<article class="where-item wide tall"><div><small>Hands-on leadership</small><strong>Trained hundreds in incident response</strong></div></article>
-<article class="where-item wide tall"><div><small>Public presence</small><strong>Presented in Paris · Presented to French Chambers of Commerce across Asia-Pacific</strong></div></article>
-<article class="where-item medium"><div><small>Languages</small><strong>Speaks German</strong></div></article>
-<article class="where-item medium"><div><small>Engineering roots</small><strong>Built space materials</strong></div></article>
-</div>
-<p class="where-closing">Different places. Different technologies. Different people. The same instinct: understand the system deeply, help move it forward, and leave others more capable than I found them.</p>
-</section>
-</div>
-</main>
-<footer class="site-footer" id="contact">
-<div class="footer-inner">
-<div>
-<p class="kicker" style="color:rgba(255,255,255,.58)">Continue the conversation</p>
-<h2>Daniel Schaupner, MBA, CISSP, CISM</h2>
-</div>
-<div class="footer-contact">
-<a href="mailto:info@danschaupner.com">info@danschaupner.com</a>
-<a href="tel:+12029034163">202-903-4163</a>
-<span>Cincinnati, Ohio</span>
-<a href="https://www.linkedin.com/in/schaupner" rel="noopener noreferrer" target="_blank">linkedin.com/in/schaupner</a>
-</div>
-</div>
-</footer>
-<script src="js/main.js"></script>
+  <div class="progress" aria-hidden="true"></div>
+  <nav class="nav"><div class="wrap"><a class="brand" href="#top">Dan Schaupner</a><a class="nav-link" href="#invitation">Request an introduction</a></div></nav>
+  <header class="hero" id="top"><div class="wrap hero-grid">
+    <div class="hero-copy"><div class="badge">Advisory work by invitation only</div><p class="kicker">Technology initiative intervention</p><h1>The project that should already be done.</h1><p class="hero-text">I help organizations understand why consequential technology initiatives have stalled—and move people, technology, risk, and operating processes into validated operation.</p><a class="scroll" href="#recognition">Follow the project</a></div>
+    <figure class="portrait"><img src="assets/images/dan-schaupner-portrait-greyscale.png" alt="Portrait of Dan Schaupner" width="1010" height="1266"><figcaption>Dan Schaupner</figcaption></figure>
+  </div></header>
+  <main>
+    <section class="section" id="recognition"><div class="wrap"><div class="section-head reveal"><span class="section-no">01 / Recognition</span><div><p class="kicker">You know the one</p><h2>It still matters. It still hasn’t moved.</h2></div><div class="section-copy"><p class="lead">There is probably one initiative in your organization that remains stalled, incomplete, expensive, or difficult to explain.</p><p>It may have survived three planning cycles. Everyone agrees it should be resolved, but no one has had the time—or the distance—to establish what is actually preventing progress.</p></div></div><div class="project-list reveal"><div class="project"><i>01</i><b>The platform that never reached reliable operation</b><small>Incomplete</small></div><div class="project"><i>02</i><b>The capability purchased but never fully obtained</b><small>Underperforming</small></div><div class="project"><i>03</i><b>The cybersecurity problem that keeps returning</b><small>Exposed</small></div><div class="project"><i>04</i><b>The process consuming more than it should</b><small>Expensive</small></div></div></div></section>
+    <section class="section dark"><div class="wrap"><div class="section-head reveal"><span class="section-no">02 / The decision</span><div><p class="kicker">Before committing more</p><h2>Clarity first.</h2></div><div class="section-copy"><p class="lead">A permanent hire or a major consultancy may eventually be right. Neither is always the right first move.</p><p>Hiring takes time. A large engagement can bring more cost and machinery than the initiative requires. Continuing as before preserves the conditions that allowed it to stall.</p></div></div><div class="options reveal"><article class="option"><small>I</small><h3>Hire</h3><p>Months to search, onboard, and discover whether the fit is right.</p></article><article class="option"><small>II</small><h3>Engage at scale</h3><p>Useful when warranted—but expensive before the condition is clear.</p></article><article class="option focus"><small>III</small><h3>Intervene with focus</h3><p>Establish the condition, identify the constraint, and define the practical next move.</p></article></div></div></section>
+    <section class="interlude"><div class="wrap"><blockquote class="reveal">I enter the space between <em>what was intended</em> and what is actually operating.</blockquote></div></section>
+    <section class="section"><div class="wrap"><div class="section-head reveal"><span class="section-no">03 / Where I enter</span><div><p class="kicker">Diagnosis to movement</p><h2>See clearly. Organize deliberately. Finish.</h2></div><div class="section-copy"><p class="lead">I establish the actual condition, recognize the pattern behind the impasse, and organize what must move.</p><p>That means aligning the responsible people, technical assets, decisions, risks, and operating processes—then giving management decision-ready options grounded in evidence.</p><p><strong>The objective is not another methodology.</strong> It is to determine why this initiative has not moved, what will permit it to move now, and how success will be validated.</p></div></div></div></section>
+    <section class="section dark"><div class="wrap"><div class="section-head reveal"><span class="section-no">04 / The work itself</span><div><p class="kicker">Ordinary evidence</p><h2>Where projects really live.</h2></div><div class="section-copy"><p class="lead">No theater. The work happens through the organization’s existing reality.</p><p>Conversations reveal intent. Records expose drift. Technical evidence separates assumption from condition. The people closest to the work often know exactly where progress stopped.</p><div class="tags"><span class="tag">Conversations</span><span class="tag">Project records</span><span class="tag">Meetings</span><span class="tag">Tickets</span><span class="tag">Shared documents</span><span class="tag">Technical evidence</span><span class="tag">Whiteboards</span><span class="tag">Collaboration platforms</span></div></div></div></div></section>
+    <section class="section"><div class="wrap"><div class="section-head reveal"><span class="section-no">05 / Start small</span><div><p class="kicker">A bounded beginning</p><h2>Clarity before commitment.</h2></div><div class="section-copy"><p class="lead">The initial engagement is deliberately modest: enough access to establish what is happening and determine what would permit the initiative to move.</p></div></div><div class="engagement reveal"><div class="steps"><div class="step"><div><h3>Establish</h3><p>Understand the intended outcome and current condition.</p></div></div><div class="step"><div><h3>Diagnose</h3><p>Identify the technical, organizational, financial, or risk constraint.</p></div></div><div class="step"><div><h3>Recommend</h3><p>Present a practical path, decision, and definition of done.</p></div></div></div><div class="result"><small>The result may be</small><p>A focused correction. A recovery plan. Specialist support. A defined hire. A larger implementation. Or the informed decision to redesign, transfer, or stop.</p></div></div></div></section>
+    <section class="section dark"><div class="wrap"><div class="section-head reveal"><span class="section-no">06 / Evidence</span><div><p class="kicker">Selected work</p><h2>Complex conditions. Operational outcomes.</h2></div><div class="section-copy"><p class="lead">Across sectors and borders, the pattern remains consistent: understand the real condition, align the system around it, and move the work into operation.</p></div></div><div class="cases reveal"><article class="case"><small>Global cloud consulting</small><h3>Built capability across more than twelve countries.</h3><p>Aligned expertise, delivery, and commercial operations across a complex international environment.</p></article><article class="case"><small>Cybersecurity & risk</small><h3>Reconstructed operations that were not working.</h3><p>Turned incomplete programs into disciplined, usable practices with accountable operating models.</p></article><article class="case"><small>Government adoption</small><h3>Removed barriers between policy, risk, and cloud capability.</h3><p>Helped technical and executive stakeholders translate ambiguity into defensible decisions.</p></article><article class="case"><small>Education at scale</small><h3>Built courses, ranges, and hands-on readiness.</h3><p>Created complete university courses and trained hundreds in practical incident response.</p></article></div></div></section>
+    <section class="section"><div class="wrap"><div class="bio-intro reveal"><p class="kicker">07 / Practitioner · executive · professor</p><p class="credential">Former CTO. Former head of a North American practice for a French global technology company. University professor. Organizational leader. <span>Still a hands-on technologist.</span></p><p class="bio-note">My work spans systems, software, cloud, cybersecurity, artificial intelligence, and the operating structures that make them useful. The credentials are not the offer. The offer is experienced, focused help with the important technology project your organization has not yet been able to finish.</p></div><div class="speaker reveal"><figure><img src="assets/images/dan-schaupner-speaking.png" alt="Dan Schaupner speaking on stage" width="1018" height="1136" loading="lazy"></figure><div class="speaker-copy"><small>In the room</small><p>Executive judgment, academic rigor, and the practical fluency to work directly with the people and technology involved.</p></div></div></div></section>
+    <section class="cta" id="invitation"><div class="wrap reveal"><div class="badge">By invitation only</div><h2>Bring me the project.</h2><p>Tell me what was supposed to happen, what happened instead, and why the initiative still matters. Introductions are welcomed when there is a consequential project, an accountable sponsor, and a genuine willingness to establish the truth of the situation.</p><a class="button" href="mailto:?subject=Introduction%20to%20Dan%20Schaupner">Request an introduction</a></div></section>
+    <section class="places"><div class="wrap"><div class="places-head reveal"><h2>Where I’ve Been</h2><p>A career measured not only in titles, but in rooms entered, systems understood, people prepared, and hard things made operational.</p></div><div class="cloud reveal" aria-label="Selected places and experiences"><span class="place major">University of Michigan</span><span class="place major">Virginia Tech</span><span class="place major">The Pentagon</span><span class="place">Bahrain</span><span class="place">Vietnam</span><span class="place">China</span><span class="place major">Paris</span><span class="place">Berlin</span><span class="place">London</span><span class="place">inside a mountain base</span><span class="place major">DARPA</span><span class="place major">Mercedes-Benz</span><span class="place">Miami Dolphins</span><span class="place major">Ohio Cyber Range Institute</span><span class="place major">University of Cincinnati</span><span class="place major">CISA</span><span class="place">Cambridge University</span><span class="place">Boston</span><span class="place">cloud instructor</span><span class="place major">university professor</span><span class="place">speaks German</span><span class="place">built space materials</span><span class="place">presented in Paris</span><span class="place major">presented to French Chambers of Commerce across Asia-Pacific</span><span class="place major">BMW</span><span class="place">trained hundreds in hands-on incident response</span><span class="place major">built entire university courses</span></div><footer class="footer"><div>Dan Schaupner · Technology initiative intervention</div><div><a href="#top">Return to top ↑</a></div></footer></div></section>
+  </main>
+  <script>
+    (()=>{const bar=document.querySelector('.progress'),items=document.querySelectorAll('.reveal'),reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;const progress=()=>{const d=document.documentElement.scrollHeight-innerHeight;bar.style.width=(d?scrollY/d*100:0)+'%'};addEventListener('scroll',progress,{passive:true});progress();if(reduced){items.forEach(x=>x.classList.add('visible'));return}const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -35px'});items.forEach(x=>io.observe(x))})();
+  </script>
 </body>
 </html>
