@@ -731,11 +731,8 @@
     padding:14px 16px;
     border-radius:14px;
     font-weight:800;
-    display:none;
-  }
-
-  .quiz-result.show{
-    display:block;
+    font-size:18px;
+    line-height:1.5;
   }
 
   .quiz-result.pass{
@@ -746,6 +743,43 @@
   .quiz-result.review{
     background:#fff0e6;
     color:#8a4d22;
+  }
+
+  .quiz-modal{
+    width:min(520px,calc(100% - 32px));
+    padding:0;
+    border:0;
+    border-radius:24px;
+    color:var(--ink);
+    background:white;
+    box-shadow:0 28px 80px rgba(43,36,48,.30);
+  }
+
+  .quiz-modal::backdrop{
+    background:rgba(43,36,48,.58);
+    backdrop-filter:blur(4px);
+  }
+
+  .quiz-modal-content{
+    padding:28px;
+    text-align:center;
+  }
+
+  .quiz-modal-icon{
+    font-size:48px;
+    margin-bottom:8px;
+  }
+
+  .quiz-modal h3{
+    font-size:28px;
+    margin-bottom:14px;
+  }
+
+  .quiz-modal-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
   }
 
   .feedback{
@@ -1243,6 +1277,9 @@
     .final-recommendation h3{font-size:25px}
     .quiz-question{padding:16px}
     .quiz-option{padding:12px}
+    .quiz-modal-content{padding:24px 18px}
+    .quiz-modal-actions{flex-direction:column}
+    .quiz-modal-actions button{width:100%}
     .next-lesson{padding:24px 18px}
     .opening-grid,.experience-slide,.hero{gap:22px}
     .story-panel{min-height:300px}
@@ -1782,7 +1819,7 @@
               The wedding happened.<br>
               The experience was preserved.
             </div>
-            <button class="primary-btn quiz-cta" id="quizCta" type="button">Do you know about Agentic AI? Test your knowledge!</button>
+            <button class="primary-btn quiz-cta" id="quizCta" type="button">Do you know about Agentic AI?<br>Test your knowledge!</button>
           </div>
         </div>
       </div>
@@ -1855,8 +1892,19 @@
         <div class="quiz-actions">
           <button type="button" class="primary-btn" id="submitQuiz">Submit Assessment</button>
           <button type="button" class="secondary" id="resetQuiz">Reset</button>
-          <div class="quiz-result" id="quizResult"></div>
         </div>
+
+        <dialog class="quiz-modal" id="quizModal" aria-labelledby="quizModalTitle">
+          <div class="quiz-modal-content">
+            <div class="quiz-modal-icon" aria-hidden="true">🎓</div>
+            <h3 id="quizModalTitle">Your Assessment Result</h3>
+            <div class="quiz-result" id="quizResult" aria-live="polite"></div>
+            <div class="quiz-modal-actions">
+              <button type="button" class="primary-btn" id="closeQuizModal">Review Answers</button>
+              <button type="button" class="secondary" id="retryQuiz">Try Again</button>
+            </div>
+          </div>
+        </dialog>
       </div>
     </section>
 
@@ -2036,6 +2084,9 @@
   const submitQuiz = document.getElementById('submitQuiz');
   const resetQuiz = document.getElementById('resetQuiz');
   const quizResult = document.getElementById('quizResult');
+  const quizModal = document.getElementById('quizModal');
+  const closeQuizModal = document.getElementById('closeQuizModal');
+  const retryQuiz = document.getElementById('retryQuiz');
 
   if(submitQuiz){
     submitQuiz.addEventListener('click',()=>{
@@ -2063,14 +2114,28 @@
         }
       });
 
-      quizResult.className = 'quiz-result show ' + (score >= 4 ? 'pass' : 'review');
+      quizResult.className = 'quiz-result ' + (score >= 4 ? 'pass' : 'review');
       quizResult.textContent = answered < 5
         ? `You answered ${answered} of 5 questions. Current score: ${score}/5.`
         : score >= 4
           ? `Score: ${score}/5 — Strong understanding.`
           : `Score: ${score}/5 — Review the feedback and try again.`;
+
+      quizModal.showModal();
     });
   }
+
+  closeQuizModal.addEventListener('click', () => quizModal.close());
+
+  retryQuiz.addEventListener('click', () => {
+    quizModal.close();
+    resetQuiz.click();
+    document.getElementById('quizForm').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  quizModal.addEventListener('click', event => {
+    if(event.target === quizModal) quizModal.close();
+  });
 
   if(resetQuiz){
     resetQuiz.addEventListener('click',()=>{
@@ -2079,6 +2144,7 @@
         el.className='feedback';
         el.textContent='';
       });
+      if(quizModal.open) quizModal.close();
       quizResult.className='quiz-result';
       quizResult.textContent='';
     });
