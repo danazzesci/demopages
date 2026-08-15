@@ -84,6 +84,40 @@
     text-transform:uppercase;
   }
 
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+
+  .home-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 11px;
+    border:1px solid rgba(43,36,48,.14);
+    border-radius:999px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:750;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:.2s ease;
+  }
+
+  .home-link:hover{
+    color:var(--ink);
+    border-color:rgba(43,36,48,.30);
+    background:white;
+  }
+
+  .home-icon{
+    font-size:15px;
+    line-height:1;
+  }
+
+  .home-link-mobile{display:none}
+
   main{
     position:relative;
     min-height:0;
@@ -1230,6 +1264,10 @@
     .brand h1{font-size:17px}
     .brand p{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .stage-counter{font-size:11px;white-space:nowrap;margin-left:12px}
+    .header-actions{gap:8px}
+    .home-link{padding:7px 9px}
+    .home-link-desktop{display:none}
+    .home-link-mobile{display:inline}
     main{min-height:0;overflow:hidden}
     .stage{padding:16px;align-items:stretch;overflow:hidden}
     .card{
@@ -1271,6 +1309,7 @@
     .stage{padding:10px}
     .card{padding:20px 17px;border-radius:18px}
     .brand p{display:none}
+    .home-link{font-size:11px}
     .three-col,.agent-grid,.experience-list,.evidence-grid,
     .timeline,.score-row,.metric-grid,.experience-preview{grid-template-columns:1fr}
     .timeline,.score-row,.metric-grid,.experience-preview{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1316,7 +1355,14 @@
         <p>Agentic AI Application Storyboard</p>
       </div>
     </div>
-    <div class="stage-counter" id="counter">Stage 1 of 8</div>
+    <div class="header-actions">
+      <a class="home-link" href="../" aria-label="Back to danschaupner.com homepage">
+        <span class="home-icon" aria-hidden="true">⌂</span>
+        <span class="home-link-desktop">Back to danschaupner.com</span>
+        <span class="home-link-mobile">Home</span>
+      </a>
+      <div class="stage-counter" id="counter">Stage 1 of 8</div>
+    </div>
   </header>
 
   <main>
