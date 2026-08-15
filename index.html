@@ -17,7 +17,7 @@
 :root{--ink:#10241d;--paper:#f2efe6;--acid:#c9ff45;--rust:#e25536;--muted:#68716b;--serif:Georgia,"Times New Roman",serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--max:1220px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}.shell{width:min(calc(100% - 48px),var(--max));margin-inline:auto}
 .nav{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #10241d30;font-size:12px;font-weight:750;letter-spacing:.04em}.brand{display:flex;align-items:center;gap:12px}.mark{display:grid;place-items:center;width:34px;height:34px;background:var(--ink);color:var(--paper);font-size:11px}.links{display:flex;gap:30px}.links a:hover{color:var(--rust)}
-.article-rail{display:grid;grid-template-columns:minmax(0,1fr) auto;height:72px;margin-top:18px;border:1px solid #10241d55;background:#e8e3d5;box-shadow:0 7px 20px #10241d12;overflow:hidden}.article-window{position:relative;min-width:0;overflow:hidden;background:repeating-linear-gradient(0deg,#f7f2e7 0,#f7f2e7 3px,#f2ecdf 4px,#f2ecdf 7px);box-shadow:inset 0 12px 20px #10241d12,inset 0 -12px 20px #10241d12}.article-window.is-scrolling-forward{animation:paper-roll-forward .62s cubic-bezier(.65,.05,.22,1)}.article-window.is-scrolling-backward{animation:paper-roll-backward .62s cubic-bezier(.65,.05,.22,1)}@keyframes paper-roll-forward{from{background-position-y:0}to{background-position-y:-56px}}@keyframes paper-roll-backward{from{background-position-y:0}to{background-position-y:56px}}.article-window:before,.article-window:after{content:"";position:absolute;z-index:2;left:0;right:0;height:20px;pointer-events:none}.article-window:before{top:0;background:linear-gradient(180deg,#c8c0af,transparent)}.article-window:after{bottom:0;background:linear-gradient(0deg,#c8c0af,transparent)}.article-strip{display:flex;flex-direction:column;height:100%;transition:transform .62s cubic-bezier(.65,.05,.22,1);will-change:transform}.article-item{display:flex;flex:0 0 100%;align-items:center;gap:12px;min-width:0;padding:15px 34px}.article-kicker{flex:0 0 auto;color:var(--rust);font-size:9px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}.article-link{display:flex;align-items:center;gap:10px;min-width:0;font:700 clamp(15px,1.6vw,20px)/1.2 var(--serif)}.article-link:hover .article-title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}.article-new{display:none;flex:0 0 auto;padding:4px 7px;background:var(--rust);color:#fff;font:850 8px/1 var(--sans);letter-spacing:.11em;text-transform:uppercase;transform:rotate(-2deg)}.article-new.visible{display:inline-block}.article-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.article-controls{display:flex;align-items:stretch;border-left:1px solid #10241d55;background:var(--paper)}.article-control{display:grid;place-items:center;width:58px;border:0;border-left:1px solid #10241d30;background:transparent;color:var(--ink);font-size:22px;cursor:pointer;transition:background .2s,color .2s}.article-control:first-child{border-left:0}.article-control:hover{background:var(--ink);color:var(--acid)}.article-control:focus-visible{outline:3px solid var(--rust);outline-offset:-4px}.article-control:disabled{color:#10241d55;cursor:not-allowed}.article-control:disabled:hover{background:transparent;color:#10241d55}
+.article-rail{display:grid;grid-template-columns:minmax(0,1fr) auto;height:72px;margin-top:18px;border:1px solid #10241d55;background:#e8e3d5;box-shadow:0 7px 20px #10241d12;overflow:hidden}.article-window{position:relative;min-width:0;overflow:hidden;background:repeating-linear-gradient(0deg,#f7f2e7 0,#f7f2e7 3px,#f2ecdf 4px,#f2ecdf 7px);box-shadow:inset 0 12px 20px #10241d12,inset 0 -12px 20px #10241d12}.article-window.is-scrolling-forward{animation:paper-roll-forward .62s cubic-bezier(.65,.05,.22,1)}.article-window.is-scrolling-backward{animation:paper-roll-backward .62s cubic-bezier(.65,.05,.22,1)}@keyframes paper-roll-forward{from{background-position-y:0}to{background-position-y:-56px}}@keyframes paper-roll-backward{from{background-position-y:0}to{background-position-y:56px}}.article-window:before,.article-window:after{content:"";position:absolute;z-index:2;left:0;right:0;height:20px;pointer-events:none}.article-window:before{top:0;background:linear-gradient(180deg,#c8c0af,transparent)}.article-window:after{bottom:0;background:linear-gradient(0deg,#c8c0af,transparent)}.article-strip{display:flex;flex-direction:column;height:100%;transition:transform .62s cubic-bezier(.65,.05,.22,1);will-change:transform}.article-strip.is-resetting{transition:none}.article-item{display:flex;flex:0 0 100%;align-items:center;gap:12px;min-width:0;padding:15px 34px}.article-kicker{flex:0 0 auto;color:var(--rust);font-size:9px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}.article-link{display:flex;align-items:center;gap:10px;min-width:0;font:700 clamp(15px,1.6vw,20px)/1.2 var(--serif)}.article-link:hover .article-title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}.article-new{display:none;flex:0 0 auto;padding:4px 7px;background:var(--rust);color:#fff;font:850 8px/1 var(--sans);letter-spacing:.11em;text-transform:uppercase;transform:rotate(-2deg)}.article-new.visible{display:inline-block}.article-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.article-controls{display:flex;align-items:stretch;border-left:1px solid #10241d55;background:var(--paper)}.article-control{display:grid;place-items:center;width:58px;border:0;border-left:1px solid #10241d30;background:transparent;color:var(--ink);font-size:22px;cursor:pointer;transition:background .2s,color .2s}.article-control:first-child{border-left:0}.article-control:hover{background:var(--ink);color:var(--acid)}.article-control:focus-visible{outline:3px solid var(--rust);outline-offset:-4px}
 .hero{min-height:760px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:5vw;align-items:center;padding-block:64px}.eyebrow,.label,.tag{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow{display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:28px;border-top:2px solid var(--rust)}h1{max-width:830px;margin:28px 0 32px;font-size:clamp(36px,4.9vw,70px);line-height:.94;letter-spacing:-.055em}h1 em{display:block;color:var(--rust);font:400 italic 1em/1 var(--serif)}.dek{max-width:680px;margin:0;font:clamp(22px,2.5vw,34px)/1.25 var(--serif)}.hero-actions{display:flex;align-items:center;gap:20px;margin-top:36px}.button{display:inline-block;padding:14px 18px;border:1px solid var(--ink);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.button.dark{background:var(--ink);color:var(--paper)}
 .portrait{position:relative;margin:20px 0 0;padding:14px;border:1px solid var(--rust);overflow:hidden}.portrait img{width:100%;height:min(560px,62vw);object-fit:cover;object-position:center 24%;filter:contrast(1.04)}
 .reframe{padding:125px 0 140px;border-top:1px solid #10241d35}.label{margin:0 0 40px;color:var(--rust)}.reframe-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:9vw}.reframe h2,.path h2,.about h2{margin:0;font-size:clamp(42px,5.4vw,72px);line-height:.98;letter-spacing:-.048em}.body-copy{font-size:18px}.body-copy p{margin:0 0 24px}
@@ -34,9 +34,9 @@ footer{min-height:100px;display:grid;grid-template-columns:1fr 1fr 1fr;align-ite
 <body>
 <nav class="nav shell" aria-label="Main navigation"><a class="brand" href="#top"><span class="mark">DS</span><span>Dan Schaupner</span></a><div class="links"><a href="#decisions">The decisions</a><a href="#about">About</a><a href="mailto:info@danschaupner.com">Contact</a></div></nav>
 <aside class="article-rail shell" aria-label="Available articles">
-<div class="article-window" aria-live="polite"><div class="article-strip" id="articleStrip">
-<div class="article-item" data-published="2026-08-05"><span class="article-kicker">Current field notes</span><a class="article-link" href="#decisions"><span class="article-new" aria-label="New article">New</span><span class="article-title">AI-Powered Cybersecurity: Three Leadership Decisions</span></a></div>
+<div class="article-window" aria-live="off"><div class="article-strip" id="articleStrip">
 <div class="article-item" data-published="2026-08-15"><span class="article-kicker">Interactive illustration</span><a class="article-link" href="wed_not_wet/"><span class="article-new" aria-label="New article">New</span><span class="article-title">Wed Not Wet: An Agentic AI Application</span></a></div>
+<div class="article-item" data-published="2026-08-05"><span class="article-kicker">Current field notes</span><a class="article-link" href="#decisions"><span class="article-new" aria-label="New article">New</span><span class="article-title">AI-Powered Cybersecurity: Three Leadership Decisions</span></a></div>
 </div></div>
 <div class="article-controls" aria-label="Article navigation"><button class="article-control" id="articlePrevious" type="button" aria-label="Previous article">←</button><button class="article-control" id="articleNext" type="button" aria-label="Next article">→</button></div>
 </aside>
@@ -84,35 +84,88 @@ if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce
 
 const articleStrip=document.getElementById('articleStrip');
 const articleWindow=articleStrip.closest('.article-window');
-const articleItems=[...articleStrip.querySelectorAll('.article-item')];
+const articleRail=articleStrip.closest('.article-rail');
+const articleItems=[...articleStrip.querySelectorAll('.article-item')]
+  .sort((a,b)=>new Date(b.dataset.published)-new Date(a.dataset.published));
 const articlePrevious=document.getElementById('articlePrevious');
 const articleNext=document.getElementById('articleNext');
 let articleIndex=0;
+let stripPosition=1;
+let articleTimer;
+let articleMoving=false;
+const reducedArticleMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const today=new Date();
 today.setHours(0,0,0,0);
 articleItems.forEach(item=>{
+  articleStrip.appendChild(item);
   const published=new Date(`${item.dataset.published}T00:00:00`);
   const ageInDays=(today-published)/86400000;
   item.querySelector('.article-new').classList.toggle('visible',ageInDays>=0&&ageInDays<30);
 });
 
-function showArticle(index){
-  const nextIndex=Math.max(0,Math.min(articleItems.length-1,index));
-  if(nextIndex!==articleIndex){
-    articleWindow.classList.remove('is-scrolling-forward','is-scrolling-backward');
-    void articleWindow.offsetWidth;
-    articleWindow.classList.add(nextIndex>articleIndex?'is-scrolling-forward':'is-scrolling-backward');
+const firstArticleClone=articleItems[0].cloneNode(true);
+const lastArticleClone=articleItems.at(-1).cloneNode(true);
+[firstArticleClone,lastArticleClone].forEach(clone=>{
+  clone.setAttribute('aria-hidden','true');
+  clone.querySelectorAll('a').forEach(link=>link.tabIndex=-1);
+});
+articleStrip.prepend(lastArticleClone);
+articleStrip.append(firstArticleClone);
+
+function positionArticleStrip(animate=true){
+  articleStrip.classList.toggle('is-resetting',!animate);
+  articleStrip.style.transform=`translate3d(0,-${stripPosition*100}%,0)`;
+  if(!animate){
+    void articleStrip.offsetHeight;
+    articleStrip.classList.remove('is-resetting');
   }
-  articleIndex=nextIndex;
-  articleStrip.style.transform=`translate3d(0,-${articleIndex*100}%,0)`;
-  articlePrevious.disabled=articleIndex===0;
-  articleNext.disabled=articleIndex===articleItems.length-1;
 }
 
-articlePrevious.addEventListener('click',()=>showArticle(articleIndex-1));
-articleNext.addEventListener('click',()=>showArticle(articleIndex+1));
-showArticle(0);
+function startArticleTimer(){
+  clearInterval(articleTimer);
+  if(articleItems.length>1&&!document.hidden){
+    articleTimer=setInterval(()=>moveArticle(1,false),7500);
+  }
+}
+
+function moveArticle(direction,restartTimer=true){
+  if(articleMoving||articleItems.length<2)return;
+  articleMoving=true;
+  articleIndex=(articleIndex+direction+articleItems.length)%articleItems.length;
+  stripPosition+=direction;
+  articleWindow.classList.remove('is-scrolling-forward','is-scrolling-backward');
+  void articleWindow.offsetWidth;
+  articleWindow.classList.add(direction>0?'is-scrolling-forward':'is-scrolling-backward');
+  positionArticleStrip(true);
+  if(reducedArticleMotion){
+    if(stripPosition===0)stripPosition=articleItems.length;
+    if(stripPosition===articleItems.length+1)stripPosition=1;
+    positionArticleStrip(false);
+    articleMoving=false;
+  }
+  if(restartTimer)startArticleTimer();
+}
+
+articleStrip.addEventListener('transitionend',event=>{
+  if(event.propertyName!=='transform')return;
+  if(stripPosition===0){stripPosition=articleItems.length;positionArticleStrip(false)}
+  if(stripPosition===articleItems.length+1){stripPosition=1;positionArticleStrip(false)}
+  articleMoving=false;
+});
+
+articlePrevious.addEventListener('click',()=>moveArticle(-1));
+articleNext.addEventListener('click',()=>moveArticle(1));
+articleRail.addEventListener('mouseenter',()=>clearInterval(articleTimer));
+articleRail.addEventListener('mouseleave',startArticleTimer);
+articleRail.addEventListener('focusin',()=>clearInterval(articleTimer));
+articleRail.addEventListener('focusout',()=>setTimeout(()=>{
+  if(!articleRail.contains(document.activeElement))startArticleTimer();
+}));
+document.addEventListener('visibilitychange',()=>document.hidden?clearInterval(articleTimer):startArticleTimer());
+
+positionArticleStrip(false);
+startArticleTimer();
 </script>
 </body>
 </html>
