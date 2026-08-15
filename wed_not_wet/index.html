@@ -933,7 +933,10 @@
   }
 
   .stay-tuned{
-    display:inline-block;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
     margin-top:24px;
     padding:14px 20px;
     border-radius:999px;
@@ -941,7 +944,14 @@
     color:white;
     font-weight:900;
     letter-spacing:.03em;
+    text-decoration:none;
     box-shadow:0 10px 24px rgba(216,93,122,.24);
+    transition:.2s ease;
+  }
+
+  .stay-tuned:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 28px rgba(216,93,122,.30);
   }
 
   @media(max-width:900px){
@@ -1905,12 +1915,15 @@
     <section class="stage">
       <div class="card">
         <div class="next-lesson">
-          <div class="eyebrow">Next Lesson</div>
-          <div class="big">How is Agentic AI built?</div>
+          <div class="eyebrow">Keep the conversation going</div>
+          <div class="big">Was this interesting?</div>
           <p class="lead" style="margin:0 auto;max-width:860px">
-            In the next lesson, we will examine the technical composition of an agentic AI application: orchestrator logic, agent instructions, retrieval pipelines, tools, model calls, memory, state, controls, and stopping conditions.
+            If so, follow me on LinkedIn as I post more illustrations, articles, and opportunities to test your knowledge.
           </p>
-          <div class="stay-tuned">Up next: Under the Hood of Agentic AI</div>
+          <a class="stay-tuned" href="https://www.linkedin.com/in/schaupner/" target="_blank" rel="noopener noreferrer" aria-label="Follow Dan Schaupner on LinkedIn (opens in a new tab)">
+            <span aria-hidden="true">in</span>
+            Follow me on LinkedIn
+          </a>
         </div>
       </div>
     </section>
