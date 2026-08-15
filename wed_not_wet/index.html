@@ -176,6 +176,27 @@
     animation:float 3.5s ease-in-out infinite;
   }
 
+  .hero-art-content{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    text-align:center;
+  }
+
+  .hero-art-caption{
+    font-weight:800;
+    color:var(--muted);
+    line-height:1.45;
+  }
+
+  .quiz-cta{
+    max-width:320px;
+    line-height:1.35;
+  }
+
   @keyframes float{
     0%,100%{transform:translateY(0) rotate(-2deg)}
     50%{transform:translateY(-10px) rotate(2deg)}
@@ -1745,10 +1766,13 @@
           </div>
         </div>
         <div class="hero-art">
-          <div class="umbrella">💍☀️</div>
-          <div style="position:absolute;bottom:34px;text-align:center;font-weight:800;color:var(--muted)">
-            The wedding happened.<br>
-            The experience was preserved.
+          <div class="hero-art-content">
+            <div class="umbrella" aria-hidden="true">💍☀️</div>
+            <div class="hero-art-caption">
+              The wedding happened.<br>
+              The experience was preserved.
+            </div>
+            <button class="primary-btn quiz-cta" id="quizCta" type="button">Do you know about Agentic AI? Test your knowledge!</button>
           </div>
         </div>
       </div>
@@ -1950,6 +1974,7 @@
   });
 
   document.addEventListener('keydown',e=>{
+    if(e.target.closest('button, input, label, form')) return;
     if(['ArrowRight',' ','PageDown'].includes(e.key)){
       e.preventDefault();
       next.click();
@@ -1966,6 +1991,10 @@
   let touchStartY = 0;
 
   const mainElement = document.querySelector('main');
+  const quizCta = document.getElementById('quizCta');
+
+  quizCta.addEventListener('click', () => goTo(current + 1));
+
   mainElement.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].clientX;
     touchStartY = e.changedTouches[0].clientY;
