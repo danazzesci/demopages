@@ -813,6 +813,11 @@
     align-items:start;
   }
 
+  .interactive-title{
+    font-size:clamp(28px,3.1vw,44px);
+    white-space:nowrap;
+  }
+
   .control-panel{
     border-radius:24px;
     background:#1f2738;
@@ -1280,6 +1285,7 @@
     .quiz-modal-content{padding:24px 18px}
     .quiz-modal-actions{flex-direction:column}
     .quiz-modal-actions button{width:100%}
+    .interactive-title{font-size:clamp(15px,4.2vw,19px)}
     .next-lesson{padding:24px 18px}
     .opening-grid,.experience-slide,.hero{gap:22px}
     .story-panel{min-height:300px}
@@ -1912,7 +1918,7 @@
     <section class="stage">
       <div class="card">
         <div class="eyebrow">Live Orchestration</div>
-        <h2>Interactive: Click “Run Orchestration” below</h2>
+        <h2 class="interactive-title">Interactive: Click “Run Orchestration” below</h2>
         <p class="lead" style="font-size:18px">Watch Wed Not Wet evaluate evidence, reject a weak candidate, loop, and arrive at a stronger plan.</p>
         <div class="mission-control">
           <div class="control-panel">
