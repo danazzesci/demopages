@@ -1012,6 +1012,34 @@
     letter-spacing:-.04em;
   }
 
+  .final-score{
+    width:min(100%,420px);
+    margin:0 auto 24px;
+    padding:18px 22px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:white;
+    box-shadow:0 10px 28px rgba(77,43,60,.08);
+  }
+
+  .final-score span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+
+  .final-score strong{
+    display:block;
+    margin:4px 0;
+    color:var(--rose);
+    font:700 32px/1.2 Georgia,"Times New Roman",serif;
+  }
+
+  .final-score small{color:var(--muted)}
+
   .stay-tuned{
     display:inline-flex;
     align-items:center;
@@ -2025,6 +2053,11 @@
         <div class="next-lesson">
           <div class="eyebrow">Keep the conversation going</div>
           <div class="big">Was this interesting?</div>
+          <div class="final-score" aria-live="polite">
+            <span>Your quiz result</span>
+            <strong id="finalQuizScore">Quiz not completed</strong>
+            <small id="finalQuizScoreNote">Complete the assessment to see your score here.</small>
+          </div>
           <p class="lead" style="margin:0 auto;max-width:860px">
             If so, follow me on LinkedIn as I post more illustrations, articles, and opportunities to test your knowledge.
           </p>
@@ -2058,6 +2091,17 @@
   const prev = document.getElementById('prev');
   const next = document.getElementById('next');
   let current = 0;
+  let quizCompleted = false;
+  let quizStarted = false;
+
+  const quizForm = document.getElementById('quizForm');
+  const quizStageIndex = stages.indexOf(quizForm.closest('.stage'));
+
+  function trackClarityEvent(eventName){
+    if(typeof window.clarity === 'function'){
+      window.clarity('event', eventName);
+    }
+  }
 
   stages.forEach((_,i)=>{
     const dot=document.createElement('div');
@@ -2076,6 +2120,7 @@
     counter.textContent=`Stage ${current+1} of ${stages.length}`;
     prev.disabled=current===0;
     next.textContent=current===stages.length-1?'Restart':'Next';
+    trackClarityEvent(`stage_view_${String(current+1).padStart(2,'0')}`);
   }
 
   function goTo(index){
@@ -2084,6 +2129,11 @@
   }
 
   next.addEventListener('click',()=>{
+    if(current === quizStageIndex && !quizCompleted){
+      const leaveQuiz = window.confirm("Are you sure? You haven't completed the quiz. Continue to the next screen?");
+      if(!leaveQuiz) return;
+      trackClarityEvent('quiz_skip_confirmed');
+    }
     if(current===stages.length-1) current=0;
     else current++;
     render();
@@ -2147,6 +2197,8 @@
   const quizModal = document.getElementById('quizModal');
   const closeQuizModal = document.getElementById('closeQuizModal');
   const retryQuiz = document.getElementById('retryQuiz');
+  const finalQuizScore = document.getElementById('finalQuizScore');
+  const finalQuizScoreNote = document.getElementById('finalQuizScoreNote');
 
   if(submitQuiz){
     submitQuiz.addEventListener('click',()=>{
@@ -2181,6 +2233,16 @@
           ? `Score: ${score}/5 — Strong understanding.`
           : `Score: ${score}/5 — Review the feedback and try again.`;
 
+      quizCompleted = answered === Object.keys(quizAnswers).length;
+      trackClarityEvent(quizCompleted ? 'quiz_submitted_complete' : 'quiz_submitted_partial');
+      if(quizCompleted){
+        const scoreBand = score >= 4 ? '4_5' : score >= 2 ? '2_3' : '0_1';
+        trackClarityEvent(`quiz_score_${scoreBand}`);
+      }
+      finalQuizScore.textContent = `${score}/5`;
+      finalQuizScoreNote.textContent = quizCompleted
+        ? (score >= 4 ? 'Strong understanding.' : 'Review the feedback and try again anytime.')
+        : `Latest submission: ${answered} of 5 questions answered.`;
       quizModal.showModal();
     });
   }
@@ -2199,7 +2261,9 @@
 
   if(resetQuiz){
     resetQuiz.addEventListener('click',()=>{
-      document.getElementById('quizForm').reset();
+      quizCompleted = false;
+      quizStarted = false;
+      quizForm.reset();
       document.querySelectorAll('.feedback').forEach(el=>{
         el.className='feedback';
         el.textContent='';
@@ -2207,8 +2271,18 @@
       if(quizModal.open) quizModal.close();
       quizResult.className='quiz-result';
       quizResult.textContent='';
+      finalQuizScore.textContent='Quiz not completed';
+      finalQuizScoreNote.textContent='Complete the assessment to see your score here.';
     });
   }
+
+  quizForm.addEventListener('change', () => {
+    quizCompleted = false;
+    if(!quizStarted){
+      quizStarted = true;
+      trackClarityEvent('quiz_started');
+    }
+  });
 
 
   const runMission = document.getElementById('runMission');
@@ -2307,6 +2381,7 @@
     confidenceBar.style.width = '22%';
 
     runMission.addEventListener('click', () => {
+      trackClarityEvent('orchestration_started');
       clearMissionTimers();
       resetMissionPanel();
       runMission.disabled = true;
@@ -2319,6 +2394,7 @@
           if(index === missionStates.length - 1){
             runMission.disabled = false;
             runMission.textContent = 'Run Again';
+            trackClarityEvent('orchestration_completed');
           }
         }, index * 1350);
 
@@ -2330,6 +2406,10 @@
   if(resetMission){
     resetMission.addEventListener('click', resetMissionPanel);
   }
+
+  document.querySelector('.stay-tuned').addEventListener('click', () => {
+    trackClarityEvent('linkedin_clicked');
+  });
 
 </script>
 </body>
