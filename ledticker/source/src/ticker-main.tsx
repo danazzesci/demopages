@@ -1,0 +1,1 @@
+import React from'react';import{createRoot}from'react-dom/client';import'../app/globals.css';import Ticker from'../app/ticker/page';createRoot(document.getElementById('root')!).render(<React.StrictMode><Ticker/></React.StrictMode>);

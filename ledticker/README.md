@@ -1,5 +1,5 @@
 # Signal LED Ticker
 
-The public entry point at `/ledticker/` embeds the deployed Signal LED Ticker. The complete application source is preserved in `source/`.
+The public entry point at `/ledticker/` runs the Signal LED Ticker directly from GitHub Pages. The separate display route is available at `/ledticker/ticker/`, and the complete Vite/React application source is preserved in `source/`.
 
-The live application uses a server endpoint for market and news feeds, so GitHub Pages serves the entry page while the hosted application supplies the live runtime.
+Sports data is loaded directly from ESPN-compatible browser feeds. Market quotes and CNBC headlines use browser-accessible feed adapters, with built-in fallback text if a provider is temporarily unavailable.
