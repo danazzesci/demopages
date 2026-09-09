@@ -350,3 +350,14 @@ tv-single-ticker{zoom:.5;width:100%;min-height:48px}
 .career-aside img,.mobile-layout .career-aside img{float:none;display:block;margin:0 auto 14px;}
 .mobile-layout .career-aside p{clear:both}
 .mobile-layout .presenter-name{font-size:17px;letter-spacing:.1em}
+
+/* Preserve the original photograph and proportional market-strip footprint. */
+body{grid-template-rows:42px 62.5px calc((100vw - 56px)/4) minmax(0,1fr) 40px 48px}
+.market-strip{width:calc((100% - 56px)/2);margin-left:auto;margin-right:auto;}
+.presenter-banner{margin:0 28px;}
+.presenter-photo{width:100%;height:100%;aspect-ratio:4/1;}
+.presenter-photo img{object-fit:contain;object-position:left center;}
+.presenter-name{top:78%;font-size:clamp(17px,2.6cqw,38px);}
+body.mobile-layout{grid-template-rows:42px 62.5px calc((100vw - 20px)/4) minmax(0,1fr) 40px 58px}
+.mobile-layout .market-strip{width:calc(100% - 20px);margin-left:10px;margin-right:10px;}
+.mobile-layout .presenter-banner{margin:0 10px;}
