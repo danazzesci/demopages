@@ -361,3 +361,11 @@ body{grid-template-rows:42px 62.5px calc((100vw - 56px)/4) minmax(0,1fr) 40px 48
 body.mobile-layout{grid-template-rows:42px 62.5px calc((100vw - 20px)/4) minmax(0,1fr) 40px 58px}
 .mobile-layout .market-strip{width:calc(100% - 20px);margin-left:10px;margin-right:10px;}
 .mobile-layout .presenter-banner{margin:0 10px;}
+
+/* Match the full background canvas; crop only below the middle of the badge. */
+body{--presenter-width:min(100vw,calc((100dvh - 192.5px)/.7625));grid-template-rows:42px 62.5px calc(var(--presenter-width)*.2) minmax(0,1fr) 40px 48px;}
+.presenter-banner,.mobile-layout .presenter-banner{width:var(--presenter-width);margin:0 auto;overflow:hidden;}
+.presenter-photo{width:100%;height:100%;aspect-ratio:auto;overflow:hidden;}
+.presenter-photo img{width:100%;height:auto;object-fit:initial;}
+.presenter-name{top:auto;bottom:8%;font-size:clamp(14px,2.6cqw,38px);}
+body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 62.5px calc(var(--presenter-width)*.2) minmax(0,1fr) 40px 58px;}
