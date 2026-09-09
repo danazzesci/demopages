@@ -331,3 +331,22 @@ body.mobile-layout{grid-template-rows:42px 125px minmax(0,1fr) 40px 58px}
 .mobile-layout #article-home svg{width:32px;height:32px}
 .mobile-layout #article-home span{font-size:10px}
 .mobile-layout .article-mode #count{font-size:9px}
+
+/* Compact quote strip and permanent presenter banner. */
+body{grid-template-rows:42px 62.5px clamp(90px,17vh,160px) minmax(0,1fr) 40px 48px}
+body.mobile-layout{grid-template-rows:42px 62.5px 94px minmax(0,1fr) 40px 58px}
+.market-strip,.mobile-layout .market-strip{margin-top:3px;margin-bottom:3px;padding:3px 9px}
+.market-heading{line-height:10px}
+.market-heading>span,.market-heading a{font-size:8px}
+.market-row{height:40px;gap:8px}
+.quote-slot{padding-right:5px;margin-right:5px}
+tv-single-ticker{zoom:.5;width:100%;min-height:48px}
+.market-controls button,.mobile-layout .market-controls button{height:28px;width:25px;font-size:16px}
+#market-status{bottom:1px;font-size:8px}
+.presenter-banner{min-height:0;display:flex;justify-content:center;overflow:hidden;background:#1e1a24;border-bottom:1px solid var(--rule)}
+.presenter-photo{position:relative;height:100%;aspect-ratio:4/1;max-width:100%;container-type:inline-size;}
+.presenter-photo img{display:block;width:100%;height:100%;object-fit:contain}
+.presenter-name{position:absolute;left:40%;right:3%;top:76%;text-align:center;color:#fff8e4;font-family:Garamond,"EB Garamond","Apple Garamond","Times New Roman",serif;font-weight:400;font-size:clamp(14px,4cqw,28px);white-space:nowrap;letter-spacing:.14em;line-height:1;text-shadow:0 1px 4px #000}
+.career-aside img,.mobile-layout .career-aside img{float:none;display:block;margin:0 auto 14px;}
+.mobile-layout .career-aside p{clear:both}
+.mobile-layout .presenter-name{font-size:17px;letter-spacing:.1em}
