@@ -380,3 +380,6 @@ tv-single-ticker{zoom:.665;}
 .presenter-name,.mobile-layout .presenter-name{top:50%;bottom:auto;transform:translateY(-50%);font-size:clamp(28px,5.2cqw,76px);letter-spacing:.16em;color:#251f30;text-shadow:0 1px 1px #fff8e433;}
 body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc(var(--presenter-width)*.2) minmax(0,1fr) 40px 58px;}
 @media(max-width:540px){.presenter-name,.mobile-layout .presenter-name{font-size:5.2cqw;}}
+
+/* Neutral tonal adjustment: softer highlights without a color overlay. */
+.presenter-photo img{filter:brightness(.88) contrast(.98) saturate(.94);}
