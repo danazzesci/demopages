@@ -383,3 +383,6 @@ body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc
 
 /* Neutral tonal adjustment: softer highlights without a color overlay. */
 .presenter-photo img{filter:brightness(.88) contrast(.98) saturate(.94);}
+
+/* Restrained raised lettering, lit softly from above. */
+.presenter-name,.mobile-layout .presenter-name{text-shadow:0 -1px 0 rgba(255,248,228,.32),0 1px 1px rgba(10,8,15,.3);}
