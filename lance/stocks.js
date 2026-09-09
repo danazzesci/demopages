@@ -44,7 +44,7 @@
   document.querySelector('#market-prev').onclick = () => advance(-1);
   document.querySelector('#market-next').onclick = () => advance(1);
   new ResizeObserver(() => {
-    const nextCount = Math.max(1, Math.min(7, Math.floor(quotes.clientWidth / 145)));
+    const nextCount = Math.max(1, Math.min(7, Math.floor(quotes.clientWidth / 193)));
     if (nextCount !== count) { count = nextCount; render(); }
   }).observe(quotes);
   setInterval(() => {
