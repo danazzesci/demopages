@@ -386,3 +386,11 @@ body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc
 
 /* Restrained raised lettering, lit softly from above. */
 .presenter-name,.mobile-layout .presenter-name{text-shadow:0 -1px 0 rgba(255,248,228,.32),0 1px 1px rgba(10,8,15,.3);}
+
+/* Profile link follows the final letter as the name scales. */
+.presenter-wordmark{position:relative;display:inline-block;}
+.presenter-linkedin{position:absolute;right:.16em;top:calc(100% + 5px);display:flex;align-items:center;justify-content:center;width:clamp(18px,2.3cqw,30px);height:clamp(18px,2.3cqw,30px);color:#000;text-shadow:none;letter-spacing:normal;}
+.presenter-linkedin svg{display:block;width:100%;height:100%;}
+.presenter-linkedin:hover{opacity:.72;}
+.presenter-linkedin:focus-visible{outline:2px solid #000;outline-offset:3px;}
+@media(max-width:540px){.presenter-linkedin{top:calc(100% + 2px);width:16px;height:16px;}}
