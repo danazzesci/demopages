@@ -394,3 +394,11 @@ body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc
 .presenter-linkedin:hover{opacity:.72;}
 .presenter-linkedin:focus-visible{outline:2px solid #000;outline-offset:3px;}
 @media(max-width:540px){.presenter-linkedin{top:calc(100% + 2px);width:16px;height:16px;}}
+
+/* Crop the original 1400 × 350 photo from y=12 to y=190, keeping the head intact. */
+body{--presenter-width:min(100vw,calc((100dvh - 213.125px)/.689642857));grid-template-rows:42px 83.125px calc(var(--presenter-width)*.127142857) minmax(0,1fr) 40px 48px;}
+.presenter-photo img{transform:translateY(-3.428571%);}
+.presenter-name,.mobile-layout .presenter-name{top:71.91%;left:37%;right:6%;}
+.presenter-linkedin{left:100%;right:auto;top:50%;transform:translateY(-50%);}
+body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc(var(--presenter-width)*.127142857) minmax(0,1fr) 40px 58px;}
+@media(max-width:540px){.presenter-linkedin{top:50%;width:2.8cqw;height:2.8cqw;}}
