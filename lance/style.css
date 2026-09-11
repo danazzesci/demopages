@@ -402,3 +402,6 @@ body{--presenter-width:min(100vw,calc((100dvh - 213.125px)/.689642857));grid-tem
 .presenter-linkedin{left:100%;right:auto;top:50%;transform:translateY(-50%);}
 body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc(var(--presenter-width)*.127142857) minmax(0,1fr) 40px 58px;}
 @media(max-width:540px){.presenter-linkedin{top:50%;width:2.8cqw;height:2.8cqw;}}
+
+.market-heading>span{font-weight:700;color:var(--cream);font-size:10px;letter-spacing:.07em;}
+@media(max-width:700px){.market-heading a{display:none}.market-heading>span{font-size:9px;letter-spacing:.035em;}}
