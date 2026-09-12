@@ -69,6 +69,6 @@ mobileQuery.addEventListener('change', resize);
 document.fonts.ready.then(resize);
 new ResizeObserver(resize).observe(main);
 document.querySelector('#details').onclick = () => dialog.showModal();
-window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies') show(Number(location.hash.slice(1)) - 1, true, false); });
-show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies');
+window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines') show(Number(location.hash.slice(1)) - 1, true, false); });
+show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines');
 resize();

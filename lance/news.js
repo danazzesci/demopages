@@ -82,12 +82,42 @@
    const data=await response.json();if(!Array.isArray(data.items))throw Error('shape');
    dataState=data.status;
    const valid=data.items.filter(a=>a.title&&a.excerpt&&/^https:\/\//.test(a.url)).slice(0,10);
-   if(valid.length&&!active){items=valid;buildTicker();const id=location.hash.replace('#article-','');const found=items.findIndex(a=>a.id===id);if(found>=0)openArticle(found);}
+   if(valid.length&&!active){items=valid;buildTicker();if(!listView.hidden)renderHeadlines();const id=location.hash.replace('#article-','');const found=items.findIndex(a=>a.id===id);if(found>=0)openArticle(found);}
    else if(!items.length){track.replaceChildren(element('span','news-message',data.status==='loading'?'Loading company and infrastructure news…':'No matching headlines available. Retrying automatically.'));}
    if(data.status==='loading')setTimeout(load,4000);
   }catch{if(!items.length)track.replaceChildren(element('span','news-message','Headlines temporarily unavailable. Please try again shortly.'));}
  }
  window.addEventListener('hashchange',()=>{if(location.hash.startsWith('#article-')){const found=items.findIndex(a=>`#article-${a.id}`===location.hash);if(found>=0)openArticle(found);}});
+
+ const listView=element('section','');listView.id='headlines-view';listView.hidden=true;
+ listView.setAttribute('aria-labelledby','headlines-title');document.querySelector('#content').append(listView);
+ function renderHeadlines(){
+  listView.replaceChildren();
+  const heading=element('h1','','Latest Top Headlines');heading.id='headlines-title';heading.tabIndex=-1;
+  listView.append(heading,element('p','headlines-intro','Recent company, infrastructure and international news. Select a headline to read the excerpt.'));
+  const list=element('ul','headline-directory');
+  [...items].sort((a,b)=>new Date(b.published)-new Date(a.published)).forEach(article=>{
+   const row=element('li','');const title=element('a','headline-directory-title',article.title);
+   title.href='#article-'+article.id;title.onclick=e=>{e.preventDefault();openArticle(items.findIndex(a=>a.id===article.id));};
+   const meta=element('div','headline-directory-meta');
+   const source=element('a','',article.source);source.href=article.url;source.target='_blank';source.rel='noopener noreferrer';
+   meta.append(source,element('span','',new Date(article.published).toUTCString()));row.append(title,meta);list.append(row);
+  });
+  listView.append(items.length?list:element('p','','Headlines are loading or temporarily unavailable. Please try again shortly.'));
+ }
+ function openHeadlines(){
+  document.dispatchEvent(new Event('storyboard:show'));
+  document.querySelectorAll('.board').forEach(e=>e.hidden=true);
+  renderHeadlines();listView.hidden=false;home.hidden=false;
+  document.body.classList.add('article-mode','headlines-mode');
+  document.querySelector('#content').scrollTop=0;history.replaceState(null,'','#headlines');
+  document.querySelector('#headlines-title').focus({preventScroll:true});
+ }
+ document.querySelector('.see-headlines').onclick=e=>{e.preventDefault();openHeadlines();};
+ document.addEventListener('storyboard:show',()=>{listView.hidden=true;document.body.classList.remove('headlines-mode');});
+ window.addEventListener('hashchange',()=>{if(location.hash==='#headlines')openHeadlines();});
+ if(location.hash==='#headlines')openHeadlines();
+
  new ResizeObserver(fitArticle).observe(view);
  load();setInterval(load,600000);playState();
 })();
