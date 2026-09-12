@@ -19,6 +19,7 @@
  }
  function openArticle(i) {
   if(!items.length)return;
+  document.dispatchEvent(new Event("storyboard:show"));
   active=true;index=(i+items.length)%items.length;
   const article=items[index];
   document.body.classList.add('article-mode');

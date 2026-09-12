@@ -405,3 +405,20 @@ body.mobile-layout{--presenter-width:100vw;grid-template-rows:42px 83.125px calc
 
 .market-heading>span{font-weight:700;color:var(--cream);font-size:10px;letter-spacing:.07em;}
 @media(max-width:700px){.market-heading a{display:none}.market-heading>span{font-size:9px;letter-spacing:.035em;}}
+
+.b3 h1{text-wrap:balance;}
+.market-caption{display:flex;align-items:center;gap:12px;min-width:0;}
+.market-caption>span{font-weight:700;color:var(--cream);font-size:10px;letter-spacing:.07em;}
+.market-caption #see-companies{display:inline;flex:none;color:var(--cream);font-size:11px;text-decoration:underline;text-underline-offset:3px;}
+#companies-view h1{font-size:35px;margin-bottom:28px;font-weight:300;}
+.company-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px;}
+.company-group h2{font-size:17px;font-weight:700;color:var(--cream);border-bottom:1px solid var(--rule);padding-bottom:9px;margin:0 0 10px;}
+.company-group ul{list-style:none;margin:0;padding:0;}
+.company-group li{font-size:18px;line-height:1.5;margin:0 0 3px;}
+.company-group li span{color:var(--cream-muted);white-space:nowrap;}
+.company-mode #back,.company-mode #next,.company-mode .nav-progress{visibility:hidden;}
+.mobile-layout #companies-view h1{font-size:28px;}
+.mobile-layout .company-grid{grid-template-columns:1fr;gap:24px;}
+.mobile-layout .company-group h2{font-size:19px;}
+.mobile-layout .company-group li{font-size:19px;line-height:1.7;}
+@media(max-width:700px){.market-caption{gap:8px}.market-caption>span{font-size:8px;letter-spacing:0}.market-caption #see-companies{font-size:10px}}
