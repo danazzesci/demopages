@@ -18,6 +18,24 @@
      .card{width:100%;height:auto;max-height:none;padding:22px;overflow:visible;flex-shrink:0;transform-origin:center center}
      header{padding:0 18px} h2{font-size:38px} .lead{font-size:20px;line-height:1.4}
      .hero-art{min-height:180px} .question-title{font-size:52px} .story-panel{min-height:260px}
+     .card:has(.mission-control){margin:0;}
+     .card:has(.mission-control) .interactive-title{white-space:normal;font-size:32px;margin:6px 0;}
+     .card:has(.mission-control)>.lead{margin:8px 0 16px;}
+     .mission-control{grid-template-columns:minmax(0,2.3fr) minmax(0,1fr);gap:18px;align-items:stretch;}
+     .control-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;padding:18px;min-width:0;}
+     .control-header{grid-column:1/-1;margin:0;}
+     .metric-grid{grid-template-columns:1fr;gap:8px;margin:0;}
+     .metric{padding:10px;min-width:0;}
+     .metric strong{font-size:17px;line-height:1.2;overflow-wrap:anywhere;}
+     .metric span{margin-bottom:4px;}
+     .activity-log{margin:0;gap:8px;align-content:start;}
+     .log-row{padding:10px;font-size:15px;line-height:1.3;}
+     .mission-actions{grid-column:1/-1;margin:0;}
+     .mission-summary{padding:18px;min-width:0;}
+     .mission-summary h3{font-size:24px;line-height:1.2;}
+     .mission-summary .lead{font-size:17px!important;line-height:1.4;}
+     .mission-summary .pill-row{margin-top:12px;gap:7px;}
+     .mission-summary .pill{font-size:12px;padding:7px 9px;}
      .agent-trace{flex-wrap:wrap} .activity-log{max-height:none;overflow:visible}
     `;doc.head.append(style);
     function fitCards(){
