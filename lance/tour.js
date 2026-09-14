@@ -46,15 +46,15 @@
  tour.addEventListener('keydown',e=>{if(['ArrowRight','ArrowLeft'].includes(e.key)){e.preventDefault();e.stopPropagation();if(e.key==='ArrowRight')next.click();else back.click();}});
  let invite;
  const seenKey='dan-page-tour-invited-v1';
- function dismissInvite(){if(invite){invite.remove();invite=null;}}
- function placeInvite(){if(!invite)return;const r=launch.getBoundingClientRect();const left=Math.max(10,Math.min(innerWidth-invite.offsetWidth-10,r.left+r.width/2-invite.offsetWidth/2));invite.style.left=left+'px';invite.style.top=(r.bottom+12)+'px';invite.style.setProperty('--invite-pointer',Math.max(16,Math.min(invite.offsetWidth-16,r.left+r.width/2-left))+'px');}
+ function dismissInvite(){if(invite){invite.close();invite.remove();invite=null;}}
+ function placeInvite(){}
  try{
   if(!localStorage.getItem(seenKey)){
    localStorage.setItem(seenKey,'1');
-   invite=document.createElement('aside');invite.className='tour-invite';invite.setAttribute('aria-label','Page tour invitation');
-   invite.innerHTML='<button class="tour-invite-start">Take a tour?</button><button class="tour-invite-close" aria-label="Dismiss tour invitation">×</button>';
+   invite=document.createElement('dialog');invite.className='tour-invite';invite.setAttribute('aria-labelledby','welcome-title');invite.setAttribute('aria-describedby','welcome-copy');
+   invite.innerHTML='<span class="welcome-eyebrow">DAN SCHAUPNER</span><h2 id="welcome-title">Welcome. I’m glad you’re here.</h2><p id="welcome-copy">Explore how AI is changing work, along with perspectives, headlines, and interactive lessons. Would you like a quick look around?</p><div class="welcome-actions"><button class="tour-invite-start">Take a quick tour</button><button class="tour-invite-close">Explore on my own</button></div><p class="welcome-note">You can always find the page tour in the top bar.</p>';
    document.body.append(invite);invite.querySelector('.tour-invite-start').onclick=()=>launch.click();invite.querySelector('.tour-invite-close').onclick=dismissInvite;
-   placeInvite();
+   invite.addEventListener("cancel",e=>{e.preventDefault();dismissInvite();});invite.showModal();
   }
  }catch{ /* If storage is unavailable, omit the invitation rather than repeat it. */ }
  window.addEventListener('resize',()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{if(tour.open)position();placeInvite();})));

@@ -26,9 +26,14 @@ body.tour-palette-overview #canvas{scale:.62;transform-origin:center center;}
 .tour-content-step .tour-top{margin-bottom:10px;}
 .tour-content-step #tour-copy{font-size:16px;line-height:1.4;margin-bottom:12px;}
 .tour-content-step #tour-title{font-size:23px;margin-bottom:8px;}
-.tour-invite{position:fixed;z-index:1000;display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff8e4;color:#292331;border-radius:6px;box-shadow:0 5px 24px #0005;font:14px Helvetica,Arial,sans-serif;}
-.tour-invite:before{content:"";position:absolute;top:-7px;left:var(--invite-pointer);transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #fff8e4;}
-.tour-invite button{padding:5px;color:inherit;}
-.tour-invite button:focus-visible{outline-color:#292331;}
-.tour-invite-start{font-weight:600;}
+ .tour-invite{position:fixed;inset:0;margin:auto;width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:36px;background:#292331;color:var(--cream);border:1px solid #fff8e455;border-radius:14px;box-shadow:0 18px 70px #0007;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;text-align:center;}
+.tour-invite::backdrop{background:#100d1875;}
+.welcome-eyebrow{font-size:11px;letter-spacing:.19em;color:var(--cream-muted);}
+#welcome-title{font-size:29px;line-height:1.2;font-weight:400;margin:18px 0 16px;}
+#welcome-copy{font-size:18px;line-height:1.5;font-weight:300;margin:0 0 25px;}
+.welcome-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;}
+.tour-invite button{padding:12px 16px;border:1px solid var(--rule);border-radius:5px;font-size:15px;}
+.tour-invite-start{background:var(--cream);color:#292331;font-weight:600;}
+.welcome-note{font-size:13px;line-height:1.4;color:var(--cream-muted);margin:22px 0 0;}
+@media(max-width:600px){.tour-invite{padding:28px 22px;}#welcome-title{font-size:26px;}}
 @media(max-width:600px){body.tour-palette-overview #canvas{scale:.57;}.tour-content-step .tour-card{padding:14px 18px;}.tour-content-step #tour-copy{font-size:15px;}}
