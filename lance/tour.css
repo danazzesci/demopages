@@ -19,3 +19,16 @@
 #page-tour-overlay.tour-welcome::backdrop{background:#100d18b8;}
 .tour-arrow{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
 .tour-arrow path{fill:none;stroke:#f04e48;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Show the complete palette below the compact overview callout. */
+body.tour-palette-overview #canvas{scale:.62;transform-origin:center center;}
+.tour-content-step .tour-card{width:min(610px,calc(100vw - 28px));padding:18px 22px;}
+.tour-content-step .tour-top{margin-bottom:10px;}
+.tour-content-step #tour-copy{font-size:16px;line-height:1.4;margin-bottom:12px;}
+.tour-content-step #tour-title{font-size:23px;margin-bottom:8px;}
+.tour-invite{position:fixed;z-index:1000;display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff8e4;color:#292331;border-radius:6px;box-shadow:0 5px 24px #0005;font:14px Helvetica,Arial,sans-serif;}
+.tour-invite:before{content:"";position:absolute;top:-7px;left:var(--invite-pointer);transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #fff8e4;}
+.tour-invite button{padding:5px;color:inherit;}
+.tour-invite button:focus-visible{outline-color:#292331;}
+.tour-invite-start{font-weight:600;}
+@media(max-width:600px){body.tour-palette-overview #canvas{scale:.57;}.tour-content-step .tour-card{padding:14px 18px;}.tour-content-step #tour-copy{font-size:15px;}}
