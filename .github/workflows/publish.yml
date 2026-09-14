@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: '17 * * * *'
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -38,6 +38,21 @@ jobs:
           else:
               print('Feeds unavailable; preserving the bundled headline snapshot.')
           PY
+      - name: Publish refreshed news independently of Pages
+        run: |
+          cp _site/lance/news.json /tmp/latest-news.json
+          git fetch origin news-data || true
+          if git show-ref --verify --quiet refs/remotes/origin/news-data; then
+            git checkout -B news-data origin/news-data
+          else
+            git checkout -b news-data
+          fi
+          cp /tmp/latest-news.json lance/news.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lance/news.json
+          git diff --cached --quiet || git commit -m "Refresh international headlines"
+          git push origin news-data
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

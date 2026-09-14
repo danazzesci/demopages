@@ -47,7 +47,7 @@ def fetch_feed(feed):
    if any(part in link for part in ['/film/','/games/','/sport/','/culture/']) and not infra:continue
    try:date=parsedate_to_datetime(item.findtext('pubDate')).astimezone(timezone.utc)
    except (ValueError,TypeError,AttributeError):continue
-   if (datetime.now(timezone.utc)-date).days>10:continue
+   if (datetime.now(timezone.utc)-date).total_seconds()>72*3600:continue
    author=clean(item.findtext('{http://purl.org/dc/elements/1.1/}creator') or item.findtext('author'))
    # Show only a short publisher-provided excerpt; never scrape full articles.
    first=re.search(r'<p\b[^>]*>(.*?)</p>',item.findtext('description') or '',re.S|re.I)
@@ -64,7 +64,7 @@ def refresh():
  with LOCK:
   results=list(ThreadPoolExecutor(max_workers=6).map(fetch_feed,FEEDS))
   combined={item['id']:item for rows,_ in results for item in rows}
-  items=sorted(combined.values(),key=lambda x:(x['relevance'],x['published']),reverse=True)
+  items=sorted(combined.values(),key=lambda x:(x['published'],x['relevance']),reverse=True)
   seen=set();unique=[];source_counts={};topic_counts={}
   for item in items:
    key=re.sub(r'\W+','',item['title']).lower()

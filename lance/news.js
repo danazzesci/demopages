@@ -78,7 +78,7 @@
  document.addEventListener('visibilitychange',playState);
  async function load(){
   try{
-   const response=await fetch(['localhost','127.0.0.1'].includes(location.hostname)?'/api/news':'/lance/news.json',{cache:'no-store'});if(!response.ok)throw Error('feed');
+   const response=await fetch(['localhost','127.0.0.1'].includes(location.hostname)?'/api/news':'https://raw.githubusercontent.com/danazzesci/demopages/news-data/lance/news.json',{cache:'no-store'});if(!response.ok)throw Error('feed');
    const data=await response.json();if(!Array.isArray(data.items))throw Error('shape');
    dataState=data.status;
    const valid=data.items.filter(a=>a.title&&a.excerpt&&/^https:\/\//.test(a.url)).slice(0,10);
