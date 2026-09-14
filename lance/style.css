@@ -451,3 +451,9 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 .mobile-layout #features-view h1{font-size:30px;}
 .mobile-layout .feature-entry p{font-size:20px;}
 @media(max-width:450px){header #features-link{font-size:9px;letter-spacing:0;}}
+
+/* The embedded lesson owns the complete palette, including its Home control. */
+.lesson-mode .rail,.lesson-mode .border-signature,.lesson-mode #canvas::before{display:none;}
+.lesson-mode #content,.mobile-layout.lesson-mode #content{inset:0;overflow:hidden;}
+#lesson-view{position:relative;width:100%;height:100%;overflow:hidden;}
+#lesson-view iframe{position:absolute;left:50%;top:50%;width:1280px;height:810px;max-width:none;transform-origin:center;border-radius:0;}

@@ -12,9 +12,30 @@
    const frame=document.createElement('iframe');frame.title='Wed Not Wet — complete interactive lesson';frame.src='/wed_not_wet/?embedded=1';
    frame.onload=()=>{
     const doc=frame.contentDocument;
-    const style=doc.createElement('style');style.textContent='.app{grid-template-rows:56px minmax(0,1fr) 58px} .stage{padding:12px} .card{padding:20px;max-height:100%} header{padding:0 14px} h2{font-size:clamp(26px,4vw,42px)} .hero-art{min-height:160px}';doc.head.append(style);
+    const style=doc.createElement('style');style.textContent=`
+     html,body{overflow:hidden!important} .app{height:100%;grid-template-rows:56px minmax(0,1fr) 58px}
+     main{min-height:0;overflow:hidden} .stage{padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+     .card{width:100%;height:auto;max-height:none;padding:22px;overflow:visible;flex-shrink:0;transform-origin:center center}
+     header{padding:0 18px} h2{font-size:38px} .lead{font-size:20px;line-height:1.4}
+     .hero-art{min-height:180px} .question-title{font-size:52px} .story-panel{min-height:260px}
+     .agent-trace{flex-wrap:wrap} .activity-log{max-height:none;overflow:visible}
+    `;doc.head.append(style);
+    function fitCards(){
+     doc.querySelectorAll('.stage').forEach(stage=>{
+      const card=stage.querySelector('.card');if(!card)return;
+      card.style.transform='none';
+      const scale=Math.min(1,(stage.clientHeight-24)/card.scrollHeight,(stage.clientWidth-24)/card.scrollWidth);
+      card.style.transform=`scale(${Math.max(.1,scale)})`;
+     });
+    }
+    fitCards();doc.fonts.ready.then(fitCards);
+    const observer=new MutationObserver(()=>requestAnimationFrame(fitCards));
+    observer.observe(doc.querySelector('main'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['class']});
+    frame.contentWindow.addEventListener('resize',fitCards);
     doc.querySelectorAll('.home-link').forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector('header a').click();});
    };lesson.replaceChildren(frame);
+   const fitFrame=()=>{const scale=Math.min(lesson.clientWidth/1280,lesson.clientHeight/810);frame.style.transform=`translate(-50%,-50%) scale(${scale})`;};
+   new ResizeObserver(fitFrame).observe(lesson);fitFrame();
   }else{features.hidden=false;features.querySelector('h1').focus({preventScroll:true});}
   history.replaceState(null,'',kind==='lesson'?'#wed-not-wet':'#features');
  }
