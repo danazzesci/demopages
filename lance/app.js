@@ -58,17 +58,13 @@ function resize() {
   const mobile = mobileDevice || mobileQuery.matches || forceMobile;
   document.body.classList.toggle('mobile-layout', mobile);
   canvas.style.transform = mobile ? 'none' : `scale(${Math.min(main.clientWidth / 1440, main.clientHeight / 810)})`;
-  const toggle = document.querySelector('#view-toggle');
-  toggle.hidden = mobileDevice || mobileQuery.matches;
-  toggle.textContent = forceMobile ? 'Desktop view' : 'Mobile view';
-  toggle.setAttribute('aria-pressed', String(forceMobile));
   fitHeadline();
 }
-document.querySelector('#view-toggle').onclick = () => { forceMobile = !forceMobile; resize(); };
+
 mobileQuery.addEventListener('change', resize);
 document.fonts.ready.then(resize);
 new ResizeObserver(resize).observe(main);
 document.querySelector('#details').onclick = () => dialog.showModal();
-window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines') show(Number(location.hash.slice(1)) - 1, true, false); });
-show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines');
+window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
+show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet'].includes(location.hash));
 resize();
