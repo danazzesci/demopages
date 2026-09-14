@@ -1379,6 +1379,22 @@
   }
 
 </style>
+
+<style>
+#quizForm.quiz-grid{display:block;margin:0;}
+.quiz-question[hidden]{display:none!important;}
+#quizForm .quiz-question{padding:12px 0;border:0;background:transparent;}
+#quizForm .quiz-question h3{font-size:26px;line-height:1.3;margin-bottom:16px;}
+#quizForm .quiz-options{display:grid;grid-template-columns:1fr;gap:10px;}
+#quizForm .quiz-option{font-size:21px;line-height:1.3;min-height:48px;padding:12px 16px;cursor:pointer;}
+#quizForm input{width:20px;height:20px;flex-shrink:0;}
+.quiz-progress{font-size:17px;font-weight:700;color:var(--rose);margin:8px 0;}
+.quiz-actions [hidden]{display:none!important;}
+.quiz-paging footer .controls{visibility:hidden;}
+.quiz-paging .card>h2{font-size:34px;margin:6px 0;}
+.quiz-paging .card>.lead{font-size:18px!important;margin:8px 0;}
+.quiz-paging .quiz-actions{margin-top:12px;}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2412,5 +2428,5 @@
   });
 
 </script>
-</body>
+<script src="/wed_not_wet/quiz-pager.js?v=1"></script></body>
 </html>

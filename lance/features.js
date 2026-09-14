@@ -28,7 +28,7 @@
       card.style.transform=`scale(${Math.max(.1,scale)})`;
      });
     }
-    fitCards();doc.fonts.ready.then(fitCards);
+    fitCards();doc.fonts.ready.then(fitCards);doc.addEventListener('quiz-layout',()=>requestAnimationFrame(fitCards));
     const observer=new MutationObserver(()=>requestAnimationFrame(fitCards));
     observer.observe(doc.querySelector('main'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['class']});
     frame.contentWindow.addEventListener('resize',fitCards);
