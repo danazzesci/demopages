@@ -12,3 +12,9 @@
 .is-finale .celebration-finale{opacity:1;visibility:visible;}
 .is-finale .celebration-finale img{transform:scale(1);}
 @media(prefers-reduced-motion:reduce){.celebration-finale,.celebration-finale img{transition:none;transform:none;}}
+
+#features-view .feature-entry{padding-top:16px;}
+#features-view .feature-entry a{font-size:25px;}
+#features-view .feature-entry p{font-size:20px;line-height:1.4;margin:12px 0;}
+#features-view .celebration-feature{margin-top:22px;}
+#features-view .celebration-warning{font-size:17px;color:var(--cream-muted);}

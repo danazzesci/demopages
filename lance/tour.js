@@ -10,7 +10,8 @@
   ['#canvas','The main content area','This palette is the main content area on Dan’s page. Most featured materials appear here, including articles, interactive lessons, and the opening AI transformation storyboard. Use “Previous” and “Next” to explore the storyboard.'],
   ['.news-banner','Follow the headlines','The bottom strip slowly scrolls headlines about companies, data centers, infrastructure, and international developments. You can pause the strip whenever you like.'],
   ['.see-headlines','See the top headlines','Choose “Click to see top headlines” to display the latest headline list and article links in the main palette. Use “Home” to return to the opening storyboard.'],
-  ['#features-link','Explore the features','Choose “CLICK HERE FOR FEATURES” for articles and interactive experiences by Dan about AI and other topics. Start with “Wed Not Wet,” an interactive introduction to agentic AI.']
+  ['#features-link','Explore the features','Choose “CLICK HERE FOR FEATURES” for articles and interactive experiences by Dan about AI and other topics. Start with “Wed Not Wet,” an interactive introduction to agentic AI.'],
+  ['#celebrate','Celebrate the wins','Sometimes you need a quick way to celebrate something you’ve accomplished, no matter how big or small. Choose “Celebrate” for a short burst of music and celebration. This makes noise—set your volume first.']
  ];
  const card=tour.querySelector('.tour-card'),ring=tour.querySelector('.tour-ring'),back=tour.querySelector('.tour-back'),next=tour.querySelector('.tour-next');let index=0;
  function position(){

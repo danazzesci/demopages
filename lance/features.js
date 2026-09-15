@@ -1,7 +1,7 @@
 (() => {
  const content=document.querySelector('#content');
  const features=document.createElement('section');features.id='features-view';features.hidden=true;
- features.innerHTML='<h1 tabindex="-1">Features</h1><article class="feature-entry"><a href="#wed-not-wet">Wed Not Wet — An Agentic AI Lesson</a><p>A wedding threatened by rain becomes a practical lesson in agentic AI: an orchestrator coordinates specialist agents, gathers evidence, tests possible plans, and adapts until the wedding’s objectives are met.</p><p>See why a clear objective, sound evidence, and human approval matter when AI moves from producing answers to coordinating action. Includes the complete storyboard, assessment, and simulation.</p></article>';
+ features.innerHTML='<h1 tabindex="-1">Features</h1><article class="feature-entry"><a href="#wed-not-wet">Wed Not Wet — An Agentic AI Lesson</a><p>A wedding threatened by rain becomes a practical lesson in agentic AI: an orchestrator coordinates specialist agents, gathers evidence, tests possible plans, and adapts until the wedding’s objectives are met.</p><p>See why a clear objective, sound evidence, and human approval matter when AI moves from producing answers to coordinating action. Includes the complete storyboard, assessment, and simulation.</p></article><article class="feature-entry celebration-feature"><a href="#celebrate">Celebrate — Break glass in case of celebration</a><p>Sometimes you need a quick way to celebrate something you’ve accomplished, no matter how big or small.</p><p class="celebration-warning"><strong>Warning: this makes noise.</strong> Turn the volume down if you’re not sure—or turn it all the way up for maximum effect.</p></article>';
  const lesson=document.createElement('section');lesson.id='lesson-view';lesson.hidden=true;content.append(features,lesson);
  function open(kind){
   document.dispatchEvent(new Event('storyboard:show'));
@@ -58,6 +58,7 @@
   history.replaceState(null,'',kind==='lesson'?'#wed-not-wet':'#features');
  }
  document.querySelector('#features-link').onclick=e=>{e.preventDefault();open('features');};
+ features.querySelector('.celebration-feature a').onclick=e=>{e.preventDefault();document.querySelector('#celebrate').click();};
  features.querySelector('a').onclick=e=>{e.preventDefault();open('lesson');};
  document.addEventListener('storyboard:show',()=>{features.hidden=true;lesson.hidden=true;lesson.replaceChildren();document.body.classList.remove('features-mode','lesson-mode');});
  window.addEventListener('hashchange',()=>{if(location.hash==='#features')open('features');if(location.hash==='#wed-not-wet')open('lesson');});
