@@ -457,3 +457,10 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 .lesson-mode #content,.mobile-layout.lesson-mode #content{inset:0;overflow:hidden;}
 #lesson-view{position:relative;width:100%;height:100%;overflow:hidden;}
 #lesson-view iframe{position:absolute;left:50%;top:50%;width:1280px;height:810px;max-width:none;transform-origin:center;border-radius:0;}
+
+/* Invitation signature follows the N-to-N span of the raised name. */
+@font-face{font-family:Allura;src:url('/lance/assets/fonts/Allura-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
+.presenter-name,.mobile-layout .presenter-name{top:50%;}
+.presenter-invitation-range{position:relative;display:inline-block;}
+.presenter-invitation{position:absolute;left:27.5%;top:calc(100% - .12em);width:45%;height:auto;overflow:visible;fill:currentColor;letter-spacing:normal;}
+.presenter-invitation text{font-family:Allura,cursive;font-size:130px;font-weight:400;text-shadow:0 -1px 0 rgba(255,248,228,.32),0 1px 1px rgba(10,8,15,.3);}
