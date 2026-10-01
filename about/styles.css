@@ -19,9 +19,9 @@ figcaption span{display:block;font-size:1rem;line-height:1.45;letter-spacing:0;m
 .audiences{grid-area:audiences}
 .profile-prompt{font-size:1.0625rem;line-height:1.45;color:var(--muted);margin:0 0 16px}
 .profile-prompt strong{display:block;margin-top:10px;font-size:3em;line-height:1.12;color:var(--cream);font-weight:600}
-.audience{display:grid;grid-template-columns:185px minmax(0,1fr);gap:22px;padding:20px 0;border-top:1px solid var(--cream)}
+.audience{display:grid;grid-template-columns:145px minmax(0,1fr);gap:12px;padding:20px 0;border-top:1px solid var(--cream)}
 .audience h2{font-size:1.4rem;letter-spacing:.035em;line-height:1.3;padding-top:2px}
-.audience>div{border-left:1px solid var(--rule);padding-left:24px;font-size:1.05rem;line-height:1.4}
+.audience>div{border-left:1px solid var(--rule);padding-left:12px;font-size:1.05rem;line-height:1.4}
 .audience-summary{font-weight:700;margin-bottom:6px}
 .services{margin-top:26px;border-top:1px solid var(--cream);padding-top:15px}
 .section-heading{display:flex;align-items:center;gap:24px;margin-bottom:22px}

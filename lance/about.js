@@ -52,7 +52,7 @@
     }
     const stylesheet = doc.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = '/about/embedded.css?v=2';
+    stylesheet.href = '/about/embedded.css?v=3';
     stylesheet.addEventListener('load', () => { frame.style.visibility = 'visible'; });
     doc.head.append(stylesheet);
   });
