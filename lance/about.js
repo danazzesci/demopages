@@ -40,20 +40,39 @@
   frame.addEventListener('load', () => {
     const doc = frame.contentDocument;
     if (!doc?.body) return;
+    doc.addEventListener('click', event => {
+      const link = event.target.closest('a[href="/#speaking-topics"]');
+      if (!link) return;
+      event.preventDefault();
+      location.hash = '#speaking-topics';
+    });
+    if (frame.getAttribute('src').startsWith('/speaking-topics/')) {
+      frame.style.visibility = 'visible';
+      return;
+    }
     const stylesheet = doc.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = '/about/embedded.css?v=2';
     stylesheet.addEventListener('load', () => { frame.style.visibility = 'visible'; });
     doc.head.append(stylesheet);
   });
-  function open() {
-    if (!frame.getAttribute('src')) frame.src = '/about/';
+  function open(kind = 'about') {
+    const isTopics = kind === 'topics';
+    const source = isTopics ? '/speaking-topics/?embedded=1' : '/about/';
+    if (frame.getAttribute('src') !== source) {
+      frame.style.visibility = 'hidden';
+      frame.src = source;
+    }
+    frame.title = isTopics ? 'Current Speaking Topics' : 'About Dan Schaupner';
+    panel.setAttribute('aria-label', frame.title);
+    close.textContent = isTopics ? 'Back to About' : 'Close about';
     panel.hidden = false;
     document.body.classList.add('about-open');
     close.focus({ preventScroll: true });
   }
   function hide() { panel.hidden = true; document.body.classList.remove('about-open'); }
   close.addEventListener('click', () => {
+    if (location.hash === '#speaking-topics') { location.hash = '#about'; return; }
     hide();
     if (typeof show === 'function') show(0, false);
     history.replaceState(null, '', '#1');
@@ -65,8 +84,11 @@
     open();
   });
   window.addEventListener('hashchange', () => {
-    if (location.hash === '#about') open(); else hide();
+    if (location.hash === '#about') open();
+    else if (location.hash === '#speaking-topics') open('topics');
+    else hide();
   });
   document.addEventListener('storyboard:show', hide);
   if (location.hash === '#about') open();
+  else if (location.hash === '#speaking-topics') open('topics');
 })();

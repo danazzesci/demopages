@@ -69,3 +69,5 @@ footer{display:flex;gap:24px;align-items:center;justify-content:space-between;bo
  .service:first-child{padding-top:0}
 }
 @media(max-width:520px){.service-grid{--icon-width:104px;--icon-height:116px}.service-name{font-size:1.35rem}}
+
+.speaking-topics-link{margin-top:10px}.speaking-topics-link a{color:var(--cream);text-decoration:underline;text-underline-offset:4px}.speaking-topics-link a:focus-visible{outline:2px solid var(--cream);outline-offset:4px}

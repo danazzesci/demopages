@@ -65,6 +65,6 @@ mobileQuery.addEventListener('change', resize);
 document.fonts.ready.then(resize);
 new ResizeObserver(resize).observe(main);
 document.querySelector('#details').onclick = () => dialog.showModal();
-window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
-show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about'].includes(location.hash));
+window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
+show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics'].includes(location.hash));
 resize();
