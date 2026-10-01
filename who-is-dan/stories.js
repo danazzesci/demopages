@@ -31,7 +31,7 @@ window.DAN_STORIES = [
     "id": "marines",
     "anchor": "ai",
     "title": "A Tent in the Middle East",
-    "text": "One of the more unusual classrooms of Dan’s career: training U.S. Marines in Unix from a tent in the Middle East.",
+    "text": "One of the more unusual classrooms of Dan’s career: training U.S. Marines in Unix in a tent in the Middle East.",
     "image": "assets/middle-east.webp",
     "imageAlt": "Camels at sunset, an illustration of the desert setting",
     "kind": "photo"
