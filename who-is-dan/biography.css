@@ -11,8 +11,8 @@ h1{font-size:43px;line-height:1.12;font-weight:600;letter-spacing:-.025em;margin
 .biography-row p{grid-column:2;grid-row:1;margin:0;font-size:17px;line-height:1.4}
 .story-anchor{grid-row:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-width:0}
 .left-stop .story-anchor{grid-column:1}.right-stop .story-anchor{grid-column:3}
-.hotspot{width:66px;height:66px;flex:none;position:relative;padding:4px;color:var(--cream);border:1px solid transparent;background:transparent;border-radius:5px;cursor:pointer}
-.hotspot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3px}
+.hotspot{width:66px;height:66px;flex:none;position:relative;padding:4px;color:var(--cream);border:1px solid var(--rule);background:transparent;border-radius:50%;cursor:pointer}
+.hotspot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
 .hotspot.logo img{object-fit:contain}.hotspot.cambridge img{background:var(--cream);padding:3px}
 .hotspot::after{content:'+';position:absolute;right:-3px;bottom:-3px;display:grid;place-items:center;width:17px;height:17px;border:1px solid var(--muted);border-radius:50%;font-size:14px;line-height:1;background:var(--purple)}
 .hotspot:hover{border-color:var(--muted)}
@@ -28,5 +28,5 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offs
 .embedded,.embedded body{background:transparent;min-height:0}
 .embedded .biography-page{width:100%;max-width:none;margin:0;border:0;border-radius:0;padding:16px 28px 30px}
 .embedded .standalone-back{display:none}
-@media(max-width:900px){.biography-page{margin:10px 10px 22px;padding:22px 18px;border-radius:18px}.embedded .biography-page{padding:16px 18px 30px}h1{font-size:32px;margin-bottom:22px}.biography-layout{grid-template-columns:1fr;gap:24px}.biography-row{grid-template-columns:58px minmax(0,1fr) 58px;gap:10px}.biography-row p{font-size:17px}.hotspot{width:54px;height:58px}.through-line{margin-left:68px;margin-right:68px}.story-pane{position:static;border-left:0;border-top:1px solid var(--rule);padding:22px 0 10px}.story-pane h2{font-size:26px}.story-pane p{font-size:18px}.story-cue{display:none}.back-to-biography:not([hidden]){display:inline-block}}
+@media(max-width:900px){.biography-page{margin:10px 10px 22px;padding:22px 18px;border-radius:18px}.embedded .biography-page{padding:16px 18px 30px}h1{font-size:32px;margin-bottom:22px}.biography-layout{grid-template-columns:1fr;gap:24px}.biography-row{grid-template-columns:58px minmax(0,1fr) 58px;gap:10px}.biography-row p{font-size:17px}.hotspot{width:54px;height:54px}.through-line{margin-left:68px;margin-right:68px}.story-pane{position:static;border-left:0;border-top:1px solid var(--rule);padding:22px 0 10px}.story-pane h2{font-size:26px}.story-pane p{font-size:18px}.story-cue{display:none}.back-to-biography:not([hidden]){display:inline-block}}
 @media(max-width:520px){h1{font-size:30px}.biography-row{grid-template-columns:54px minmax(0,1fr);gap:12px;margin-bottom:18px}.biography-row p{grid-column:2;font-size:16px}.right-stop .story-anchor,.left-stop .story-anchor{grid-column:1}.through-line{margin:20px 0 0;font-size:18px}}

@@ -44,5 +44,14 @@ window.DAN_STORIES = [
     "image": "assets/cincinnati-university.png",
     "imageAlt": "University of Cincinnati logo",
     "kind": "logo"
+  },
+  {
+    "id": "global-speaking",
+    "anchor": "education",
+    "title": "Speaking Around the World",
+    "text": "Dan has spoken around the world on a wide range of topics. One memorable opportunity took him to the French Chambers of Commerce in Australia and Singapore, speaking on behalf of his Paris-headquartered employer.",
+    "image": "assets/globe.png",
+    "imageAlt": "Globe showing the Americas",
+    "kind": "logo globe"
   }
 ];
