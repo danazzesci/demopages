@@ -1,5 +1,6 @@
 /* The host supplies the original rounded frame; only its contents live here. */
-html,body{background:transparent;min-height:0;height:100%;margin:0;overflow:auto}
+:root{color-scheme:normal}
+html,body{color:#fff8e4;background:transparent;min-height:0;height:100%;margin:0;overflow:auto}
 body{padding:0}
 .page{width:100%;max-width:none;min-height:100%;margin:0;border:0;border-radius:0;padding:8px 30px 24px;overflow:visible;display:flex;flex-direction:column}
 .masthead{display:none}
