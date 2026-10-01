@@ -37,37 +37,22 @@
   slot.append(frame);
   panel.append(header, slot);
   canvas.append(panel);
-  let contentHeight = 1000;
-  function fitPage() {
-    if (panel.hidden || !slot.clientWidth || !slot.clientHeight) return;
-    const scale = Math.min(slot.clientWidth / 1440, slot.clientHeight / contentHeight);
-    frame.style.height = `${contentHeight}px`;
-    frame.style.transform = `translate(-50%, -50%) scale(${scale})`;
-  }
   frame.addEventListener('load', () => {
     const doc = frame.contentDocument;
     if (!doc?.body) return;
-    const style = doc.createElement('style');
-    style.textContent = 'html,body{min-height:0!important;height:auto!important;overflow:hidden!important}body{padding:12px!important}.page{margin:0 auto!important}';
-    doc.head.append(style);
-    const measure = () => {
-      contentHeight = Math.ceil(doc.body.getBoundingClientRect().height);
-      fitPage();
-      frame.style.visibility = 'visible';
-    };
-    new ResizeObserver(measure).observe(doc.body);
-    doc.fonts.ready.then(measure);
-    for (const image of doc.images) if (!image.complete) image.addEventListener('load', measure, { once: true });
-    measure();
+    const stylesheet = doc.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = '/about/embedded.css?v=1';
+    stylesheet.addEventListener('load', () => { frame.style.visibility = 'visible'; });
+    doc.head.append(stylesheet);
   });
-  new ResizeObserver(fitPage).observe(slot);
   function open() {
     if (!frame.getAttribute('src')) frame.src = '/about/';
     panel.hidden = false;
-    fitPage();
+    document.body.classList.add('about-open');
     close.focus({ preventScroll: true });
   }
-  function hide() { panel.hidden = true; }
+  function hide() { panel.hidden = true; document.body.classList.remove('about-open'); }
   close.addEventListener('click', () => {
     hide();
     if (typeof show === 'function') show(0, false);
