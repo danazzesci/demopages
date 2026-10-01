@@ -1,0 +1,32 @@
+:root{color-scheme:normal;--cream:#fff8e4;--muted:#d8cfbb;--purple:#302a3d;--rule:rgba(255,248,228,.28)}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--purple)}
+body{margin:0;color:var(--cream);font-family:Arial,Helvetica,sans-serif;line-height:1.4;background:url('/lance/assets/master-background.png') center/cover fixed}
+a{color:inherit;text-underline-offset:4px}
+.biography-page{max-width:1374px;margin:35px auto 48px;border:2px solid var(--cream);border-radius:28px;padding:28px 34px 36px}
+.standalone-back{display:block;text-align:right;font-size:14px;margin-bottom:18px}
+h1{font-size:43px;line-height:1.12;font-weight:600;letter-spacing:-.025em;margin:0 0 24px}
+.biography-layout{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(250px,1fr);gap:32px;align-items:start}
+.biography-row{display:grid;grid-template-columns:70px minmax(0,1fr) 70px;gap:14px;align-items:center;margin-bottom:12px}
+.biography-row p{grid-column:2;grid-row:1;margin:0;font-size:17px;line-height:1.4}
+.story-anchor{grid-row:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-width:0}
+.left-stop .story-anchor{grid-column:1}.right-stop .story-anchor{grid-column:3}
+.hotspot{width:66px;height:66px;flex:none;position:relative;padding:4px;color:var(--cream);border:1px solid transparent;background:transparent;border-radius:5px;cursor:pointer}
+.hotspot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3px}
+.hotspot.logo img{object-fit:contain}.hotspot.cambridge img{background:var(--cream);padding:3px}
+.hotspot::after{content:'+';position:absolute;right:-3px;bottom:-3px;display:grid;place-items:center;width:17px;height:17px;border:1px solid var(--muted);border-radius:50%;font-size:14px;line-height:1;background:var(--purple)}
+.hotspot:hover{border-color:var(--muted)}
+.hotspot[aria-pressed=true]{border-color:var(--cream)}
+.hotspot[aria-pressed=true]::after{content:'✓';font-size:12px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:4px}
+.through-line{font-size:19px;line-height:1.4;margin:20px 84px 0;padding-top:14px;border-top:1px solid var(--rule)}
+.story-pane{position:sticky;top:22px;border-left:1px solid var(--rule);padding:10px 0 20px 28px;min-width:0}
+.story-pane h2{font-size:27px;font-weight:500;line-height:1.2;letter-spacing:-.02em;margin:0 0 20px}
+.story-pane p{font-size:20px;line-height:1.5;margin:0;color:var(--muted)}
+.story-cue{display:block;font-size:28px;margin-top:20px;color:var(--muted)}
+.back-to-biography{display:none;color:var(--cream);font:inherit;font-size:16px;background:none;border:0;padding:12px 0;text-decoration:underline;text-underline-offset:4px;margin-top:16px;cursor:pointer}
+.embedded,.embedded body{background:transparent;min-height:0}
+.embedded .biography-page{width:100%;max-width:none;margin:0;border:0;border-radius:0;padding:16px 28px 30px}
+.embedded .standalone-back{display:none}
+@media(max-width:900px){.biography-page{margin:10px 10px 22px;padding:22px 18px;border-radius:18px}.embedded .biography-page{padding:16px 18px 30px}h1{font-size:32px;margin-bottom:22px}.biography-layout{grid-template-columns:1fr;gap:24px}.biography-row{grid-template-columns:58px minmax(0,1fr) 58px;gap:10px}.biography-row p{font-size:17px}.hotspot{width:54px;height:58px}.through-line{margin-left:68px;margin-right:68px}.story-pane{position:static;border-left:0;border-top:1px solid var(--rule);padding:22px 0 10px}.story-pane h2{font-size:26px}.story-pane p{font-size:18px}.story-cue{display:none}.back-to-biography:not([hidden]){display:inline-block}}
+@media(max-width:520px){h1{font-size:30px}.biography-row{grid-template-columns:54px minmax(0,1fr);gap:12px;margin-bottom:18px}.biography-row p{grid-column:2;font-size:16px}.right-stop .story-anchor,.left-stop .story-anchor{grid-column:1}.through-line{margin:20px 0 0;font-size:18px}}
