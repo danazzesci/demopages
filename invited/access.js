@@ -10,7 +10,7 @@
     try { sessionStorage.setItem(storageKey, 'yes'); } catch {}
     history.replaceState(null, '', location.pathname + location.search);
   }
-  const standalone = /^\/(about|who-is-dan|speaking-topics)\//.test(location.pathname);
+  const standalone = /^\/invited\//.test(location.pathname);
   if (standalone && !allowed) document.documentElement.classList.add('about-access-locked');
   let pending;
   function unlock() {
