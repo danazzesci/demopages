@@ -186,7 +186,10 @@ async function initialize() {
   const code = params.get('code');
   // Remove callback credentials/errors from history before reading private data.
   if (code || oauthError || inviteParams.has('access_token') || inviteParams.has('error')) history.replaceState(null, '', location.pathname);
-  if (inviteParams.has('error')) throw new Error('This invitation could not be accepted. Request a fresh invitation.');
+  if (inviteParams.has('error')) {
+    if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
+    throw new Error('Sign-in could not be completed. Select Continue with Google to try again with your existing account.');
+  }
   if (inviteParams.get('type') === 'invite' && inviteParams.has('access_token') && inviteParams.has('refresh_token')) {
     await service.acceptInvitation(inviteParams.get('access_token'), inviteParams.get('refresh_token'));
   }
