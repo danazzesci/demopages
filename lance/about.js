@@ -2,18 +2,19 @@
   'use strict';
   const canvas = document.querySelector('#canvas');
   const trigger = document.querySelector('.presenter-about');
+  const links = document.querySelector('.presenter-links');
   const photo = document.querySelector('.presenter-photo');
   const invitation = document.querySelector('.presenter-invitation text');
-  if (!canvas || !trigger || !photo || !invitation) return;
+  if (!canvas || !trigger || !links || !photo || !invitation) return;
   // Measure the actual script lettering, including the part outside its SVG box.
-  photo.append(trigger);
+  photo.append(links);
   function positionLink() {
     const banner = photo.getBoundingClientRect();
     const script = invitation.getBoundingClientRect();
     const space = Math.max(0, banner.bottom - script.bottom);
-    trigger.style.left = `${script.left + script.width / 2 - banner.left}px`;
-    trigger.style.top = `${script.bottom - banner.top + space / 2}px`;
-    trigger.style.fontSize = `${Math.max(8, Math.min(20, space * .62))}px`;
+    links.style.left = `${script.left + script.width / 2 - banner.left}px`;
+    links.style.top = `${script.bottom - banner.top + space / 2}px`;
+    links.style.fontSize = `${Math.max(8, Math.min(20, space * .62))}px`;
   }
   new ResizeObserver(positionLink).observe(photo);
   document.fonts.ready.then(positionLink);
@@ -90,6 +91,11 @@
     event.preventDefault();
     history.replaceState(null, '', '#about');
     open('biography');
+  });
+  document.querySelector('.presenter-invitees').addEventListener('click', event => {
+    event.preventDefault();
+    history.replaceState(null, '', '#invited');
+    open();
   });
   window.addEventListener('hashchange', () => {
     if (location.hash === '#about') open('biography');
