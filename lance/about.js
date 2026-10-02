@@ -73,14 +73,14 @@
     }
     frame.title = isTopics ? 'Current Speaking Topics' : isBiography ? 'Who is Dan Schaupner?' : 'About Dan Schaupner';
     panel.setAttribute('aria-label', frame.title);
-    close.textContent = (isTopics || isBiography) ? 'Back to About' : 'Close about';
+    close.textContent = isTopics ? 'Back to About' : 'Close about';
     panel.hidden = false;
     document.body.classList.add('about-open');
     close.focus({ preventScroll: true });
   }
   function hide() { panel.hidden = true; document.body.classList.remove('about-open'); }
   close.addEventListener('click', () => {
-    if (['#speaking-topics', '#who-is-dan'].includes(location.hash)) { location.hash = '#about'; return; }
+    if (location.hash === '#speaking-topics') { location.hash = '#about'; return; }
     hide();
     if (typeof show === 'function') show(0, false);
     history.replaceState(null, '', '#1');
@@ -89,16 +89,18 @@
   trigger.addEventListener('click', event => {
     event.preventDefault();
     history.replaceState(null, '', '#about');
-    open();
+    open('biography');
   });
   window.addEventListener('hashchange', () => {
-    if (location.hash === '#about') open();
+    if (location.hash === '#about') open('biography');
+    else if (location.hash === '#invited') open();
     else if (location.hash === '#speaking-topics') open('topics');
     else if (location.hash === '#who-is-dan') open('biography');
     else hide();
   });
   document.addEventListener('storyboard:show', hide);
-  if (location.hash === '#about') open();
+  if (location.hash === '#about') open('biography');
+    else if (location.hash === '#invited') open();
   else if (location.hash === '#speaking-topics') open('topics');
     else if (location.hash === '#who-is-dan') open('biography');
 })();
