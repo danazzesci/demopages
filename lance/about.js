@@ -102,6 +102,13 @@
     history.replaceState(null, '', '#about');
     open('biography');
   });
+  document.querySelector('.presenter-home').addEventListener('click', event => {
+    event.preventDefault();
+    opening++;
+    hide();
+    if (typeof show === 'function') show(0, false);
+    history.replaceState(null, '', '#1');
+  });
   document.querySelector('.presenter-topics').addEventListener('click', event => {
     event.preventDefault();
     history.replaceState(null, '', '#speaking-topics');
