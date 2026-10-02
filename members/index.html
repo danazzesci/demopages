@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://mmxihcwpywptlazzpglg.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <title>Members · Dan Schaupner</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <header><a href="./">danschaupner.com <span>/ members</span></a><span class="badge">MEMBER ACCESS</span></header>
+  <main>
+    <aside><div class="compass" aria-hidden="true">✦</div><p class="eyebrow">A space to go further</p><h1>Ideas.<br>Connection.<br>Possibility.</h1><p>Member resources and conversations about transformation, technology, and the work ahead.</p><ol><li>Sign in with an account you use.</li><li>Verify with your authenticator app.</li><li>Open your invitation.</li></ol></aside>
+    <section class="panel" aria-label="Member access">
+      <p id="status" role="status" aria-live="polite">Loading member access…</p>
+      <section id="signin" hidden><p class="eyebrow">Welcome</p><h2>By invitation only.</h2><p>Choose an account to continue. Two-factor verification follows sign-in.</p><div class="providers"><button data-provider="google" disabled>Continue with Google</button></div><p class="subtle" id="setup-note">Google sign-in is followed by authenticator verification. Member resources require approved access.</p><button id="preview" class="secondary" hidden>Preview the member experience →</button></section>
+      <section id="mfa" hidden><p class="eyebrow">Two-factor verification</p><h2 id="mfa-title">Secure your account.</h2><p id="mfa-description"></p><button id="enroll">Set up authenticator app</button><div id="enrollment" hidden><img id="qr" alt="Scan this QR code with your authenticator app" width="200" height="200"><label>Manual setup key <input id="secret" readonly autocomplete="off"></label><button id="cancel-enrollment" class="secondary">Cancel setup</button></div><form id="verify-form" hidden><label id="factor-label" hidden>Authenticator <select id="factor"></select></label><label>Six-digit code <input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required></label><button type="submit">Verify and continue</button></form><p class="subtle">Lost access to your authenticator? Contact Dan at info@danschaupner.com for help recovering your member access.</p></section>
+      <section id="account" hidden><p class="eyebrow" id="account-label">Your space</p><h2>Your invitation.</h2><p id="identity"></p><details><summary>Your profile (optional)</summary><form id="profile-form"><label>Display name <input name="display_name" autocomplete="name" maxlength="100" required></label><label>Organization <span>(optional)</span><input name="organization" autocomplete="organization" maxlength="160"></label><label>Interests <span>(optional)</span><textarea name="interests" maxlength="1000" rows="3" placeholder="What would you like to explore?"></textarea></label><button type="submit" id="save">Save profile</button></form></details><div class="resources"><h3>Available to you</h3><p id="access-note"></p><div id="pages"></div></div></section>
+      <section id="admin" hidden aria-labelledby="admin-title" class="resources">
+        <h2 id="admin-title">User management</h2>
+        <p id="admin-description"></p>
+        <form id="invite-form" hidden>
+          <h3>Invite a user</h3>
+          <p>Send an account invitation. You can approve access and assign labels after the account appears below.</p>
+          <p class="subtle">Email invitations are not enabled for this initial release.</p>
+          <label>Email address <input id="invite-email" type="email" maxlength="254" autocomplete="off" required></label>
+          <button type="submit" id="invite-send">Send invitation</button>
+        </form>
+        <button id="admin-load" class="secondary">Load members</button>
+        <p id="admin-status" role="status" aria-live="polite"></p>
+        <div id="admin-tools"></div>
+        <div id="admin-members"></div>
+      </section>
+      <button id="signout" class="secondary" hidden>Sign out</button><button id="leave-preview" class="secondary" hidden>Back to sign-in</button>
+    </section>
+  </main>
+  <footer>Dan Schaupner <span>Access by approval · <a href="/privacy/">Privacy</a></span></footer>
+</body>
+</html>
