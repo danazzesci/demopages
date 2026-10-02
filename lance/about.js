@@ -102,6 +102,11 @@
     history.replaceState(null, '', '#about');
     open('biography');
   });
+  document.querySelector('.presenter-topics').addEventListener('click', event => {
+    event.preventDefault();
+    history.replaceState(null, '', '#speaking-topics');
+    open('topics');
+  });
   document.querySelector('.presenter-invitees').addEventListener('click', event => {
     event.preventDefault();
     history.replaceState(null, '', '#invited');
