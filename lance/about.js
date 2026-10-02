@@ -3,18 +3,28 @@
   const canvas = document.querySelector('#canvas');
   const trigger = document.querySelector('.presenter-about');
   const links = document.querySelector('.presenter-links');
+  const name = document.querySelector('.presenter-name');
   const photo = document.querySelector('.presenter-photo');
   const invitation = document.querySelector('.presenter-invitation text');
-  if (!canvas || !trigger || !links || !photo || !invitation) return;
+  if (!canvas || !trigger || !links || !name || !photo || !invitation) return;
   // Measure the actual script lettering, including the part outside its SVG box.
   photo.append(links);
   function positionLink() {
+    name.style.top = '50%';
     const banner = photo.getBoundingClientRect();
     const script = invitation.getBoundingClientRect();
     const space = Math.max(0, banner.bottom - script.bottom);
     links.style.left = `${script.left + script.width / 2 - banner.left}px`;
     links.style.top = `${script.bottom - banner.top + space / 2}px`;
     links.style.fontSize = `${Math.max(8, Math.min(20, space * .62))}px`;
+    // Center the complete lettering group while preserving its internal spacing.
+    const nameBox = name.getBoundingClientRect();
+    const linksBox = links.getBoundingClientRect();
+    const groupTop = Math.min(nameBox.top, script.top, linksBox.top);
+    const groupBottom = Math.max(nameBox.bottom, script.bottom, linksBox.bottom);
+    const shift = banner.top + banner.height / 2 - (groupTop + groupBottom) / 2;
+    name.style.top = `calc(50% + ${shift}px)`;
+    links.style.top = `${script.bottom - banner.top + space / 2 + shift}px`;
   }
   new ResizeObserver(positionLink).observe(photo);
   document.fonts.ready.then(positionLink);
