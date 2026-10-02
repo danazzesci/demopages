@@ -56,7 +56,14 @@
     stylesheet.addEventListener('load', () => { frame.style.visibility = 'visible'; });
     doc.head.append(stylesheet);
   });
-  function open(kind = 'about') {
+  let opening = 0;
+  async function open(kind = 'about') {
+    const attempt = ++opening;
+    if (!window.DanAboutAccess || !await window.DanAboutAccess.request()) {
+      if (attempt === opening) { hide(); history.replaceState(null, '', '#1'); trigger.focus({ preventScroll: true }); }
+      return;
+    }
+    if (attempt !== opening) return;
     const isTopics = kind === 'topics';
     const isBiography = kind === 'biography';
     const source = isTopics ? '/speaking-topics/?embedded=1' : isBiography ? '/who-is-dan/?embedded=1' : '/about/';
