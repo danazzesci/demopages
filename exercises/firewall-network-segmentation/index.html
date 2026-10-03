@@ -10,7 +10,9 @@
 
 .console{border:1px solid var(--rule);padding:20px;margin:25px 0;background:var(--deep)}h2{font-size:21px;margin:0 0 10px}.console p{color:var(--muted);margin:0 0 16px}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:10px;text-align:left;border-bottom:1px solid var(--rule)}th{color:var(--muted)}td select{min-width:110px;padding:6px}fieldset{border:1px solid var(--rule);margin:20px 0;padding:14px}fieldset label{display:inline-flex;gap:8px;align-items:center;margin:6px 20px 6px 0;font-size:14px}input{width:18px;height:18px;accent-color:var(--cream)}.console-actions{display:flex;gap:10px;flex-wrap:wrap}.log{font:13px/1.6 monospace;max-height:190px;overflow:auto;padding-left:26px}.log li{padding:5px 0;border-bottom:1px solid var(--rule)}#config-status{margin-top:12px}.disconnected{stroke-dasharray:2 12;opacity:.45}
 
-.tour-focus{outline:3px solid #97e5ad!important;outline-offset:5px;scroll-margin-top:55px}.tour-dialog{position:fixed;inset:auto 18px 18px auto;margin:0;width:min(440px,calc(100vw - 36px));max-height:calc(100dvh - 36px);overflow:auto;padding:22px;background:var(--deep);color:var(--cream);border:2px solid var(--cream);border-radius:8px;box-shadow:0 12px 45px #0008}.tour-dialog::backdrop{background:#0003}.tour-dialog h2{margin:8px 0 12px}.tour-dialog p{margin:0 0 18px}.tour-actions{display:flex;gap:10px;flex-wrap:wrap}.tour-step{font-size:12px;color:var(--muted);letter-spacing:.08em}.tour-dialog button:disabled{opacity:.4;cursor:default}
+.tour-focus{scroll-margin-top:55px}.tour-dialog{position:fixed;inset:auto 18px 18px auto;margin:0;width:min(440px,calc(100vw - 36px));max-height:calc(100dvh - 36px);overflow:auto;padding:22px;background:var(--deep);color:var(--cream);border:2px solid var(--cream);border-radius:8px;box-shadow:0 12px 45px #0008}.tour-dialog::backdrop{background:#0003}.tour-dialog h2{margin:8px 0 12px}.tour-dialog p{margin:0 0 18px}.tour-actions{display:flex;gap:10px;flex-wrap:wrap}.tour-step{font-size:12px;color:var(--muted);letter-spacing:.08em}.tour-dialog button:disabled{opacity:.4;cursor:default}
+
+.help-wrap{display:flex;align-items:center;gap:5px;max-width:100%}.help-note{width:245px;max-width:calc(100vw - 160px);height:80px;overflow:visible;flex:1}.help-note text{font-family:"Comic Sans MS","Bradley Hand",cursive;font-style:italic;font-size:21px;font-weight:bold;fill:#ff8585}.help-note path{fill:none;stroke:#ff7373;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.tour-ink{position:fixed;inset:0;width:100vw;height:100dvh;overflow:visible;pointer-events:none;z-index:-1}.tour-ink path{fill:none;stroke:#ffeb38;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 2px #000)}.tour-ink .ink-echo{stroke-width:2;opacity:.8}
 </style>
 </head>
 <body>
@@ -27,7 +29,7 @@
 <option value="internal">4. Application database query · TCP 5432</option>
 <option value="internalBlocked">5. Direct DMZ database request · TCP 5432</option>
 </select></div>
-<button class="primary" id="run">Run Scenario</button><button id="reset">Reset</button><button id="tour-start">Page tour</button>
+<button class="primary" id="run">Run Scenario</button><button id="reset">Reset</button><span class="help-wrap"><button id="tour-start">Page tour</button><svg class="help-note" viewBox="0 0 270 85" role="img" aria-label="Click here for help!!!"><text x="67" y="49" textLength="190" lengthAdjust="spacingAndGlyphs">Click here for help!!!</text><path d="M63 24 C97 7 249 9 263 31 C285 64 182 76 88 66 C48 62 46 31 69 23 M71 20 C122 5 254 15 266 40 C272 72 126 77 69 59"/><path d="M68 65 Q32 77 7 43 M7 43 L8 61 M7 43 L25 47"/></svg></span>
 </div>
 <p class="mobile-hint">Scroll the diagram sideways to follow the full network.</p>
 <div class="diagram-frame" tabindex="0" role="region" aria-label="Network architecture. Scroll horizontally on smaller screens.">
@@ -84,7 +86,7 @@
 <noscript><p>Enable JavaScript to run the traffic animations. The diagram and teaching notes remain available.</p></noscript>
 </main><footer><span>© 2026 Dan Schaupner</span><a href="/">Home</a></footer>
 <dialog id="tour-dialog" class="tour-dialog" aria-labelledby="tour-title" aria-describedby="tour-copy">
-<div class="tour-step" id="tour-count"></div><h2 id="tour-title"></h2><p id="tour-copy"></p>
+<svg class="tour-ink" id="tour-ink" aria-hidden="true"><path id="tour-circle"/><path class="ink-echo" id="tour-circle-echo"/><path id="tour-arrow"/></svg><div class="tour-step" id="tour-count"></div><h2 id="tour-title"></h2><p id="tour-copy"></p>
 <div class="tour-actions"><button id="tour-back">Back</button><button class="primary" id="tour-next">Next</button><button id="tour-close">Skip tour</button></div>
 </dialog>
 <script>
@@ -132,7 +134,12 @@ const tourSteps=[
 ];
 const tourKey='firewall-segmentation-tour-v1';let tourIndex=0,tourTarget=null,tourReturn=null;
 function markTourSeen(){try{localStorage.setItem(tourKey,'seen');}catch{}}
-function tourStep(){if(tourTarget)tourTarget.classList.remove('tour-focus');const [selector,title,copy]=tourSteps[tourIndex];tourTarget=document.querySelector(selector);tourTarget.classList.add('tour-focus');tourTarget.scrollIntoView({behavior:'instant',block:'start',inline:'nearest'});$('tour-count').textContent=`STEP ${tourIndex+1} OF ${tourSteps.length}`;$('tour-title').textContent=title;$('tour-copy').textContent=copy;$('tour-back').disabled=tourIndex===0;$('tour-next').textContent=tourIndex===tourSteps.length-1?'Finish tour':'Next';$('tour-close').textContent='Close tour';$('tour-next').focus();}
+function tourStep(){if(tourTarget)tourTarget.classList.remove('tour-focus');const [selector,title,copy]=tourSteps[tourIndex];tourTarget=document.querySelector(selector);tourTarget.classList.add('tour-focus');tourTarget.scrollIntoView({behavior:'instant',block:'start',inline:'nearest'});$('tour-count').textContent=`STEP ${tourIndex+1} OF ${tourSteps.length}`;$('tour-title').textContent=title;$('tour-copy').textContent=copy;$('tour-back').disabled=tourIndex===0;$('tour-next').textContent=tourIndex===tourSteps.length-1?'Finish tour':'Next';$('tour-close').textContent='Close tour';$('tour-next').focus();requestAnimationFrame(drawTourInk);}
+function drawTourInk(){if(!tourTarget||!$('tour-dialog').open)return;const r=tourTarget.getBoundingClientRect(),box=$('tour-dialog').getBoundingClientRect();const left=Math.max(10,r.left-8),right=Math.min(innerWidth-10,r.right+8),top=Math.max(10,r.top-12),bottom=Math.max(top+35,Math.min(r.bottom+12,box.top-30));const cx=(left+right)/2,cy=(top+bottom)/2,rx=(right-left)/2,ry=(bottom-top)/2;
+// Uneven bezier loops imitate two quick pen strokes around the visible section.
+const ring=`M ${cx} ${top} C ${right+4} ${top-6},${right+8} ${cy-ry*.2},${right} ${cy} C ${right+8} ${bottom+9},${cx+rx*.1} ${bottom+4},${cx} ${bottom} C ${left-7} ${bottom+4},${left-3} ${cy+ry*.2},${left} ${cy} C ${left-5} ${top-5},${cx-rx*.25} ${top-5},${cx} ${top}`;$('tour-circle').setAttribute('d',ring);$('tour-circle-echo').setAttribute('d',`M ${cx-rx*.3} ${top+3} C ${right-2} ${top-10},${right+4} ${cy},${right-3} ${cy+ry*.4} M ${left+4} ${cy-ry*.2} C ${left-9} ${bottom+5},${cx} ${bottom+8},${cx+rx*.4} ${bottom-2}`);
+const sx=Math.min(box.right-35,Math.max(box.left+35,cx+rx*.55)),sy=box.top+2,ex=Math.min(right-15,Math.max(left+15,sx-25)),ey=bottom;const bend=sx+35;$('tour-arrow').setAttribute('d',`M ${sx} ${sy} Q ${bend} ${(sy+ey)/2} ${ex} ${ey} M ${ex} ${ey} L ${ex+2} ${ey+18} M ${ex} ${ey} L ${ex+18} ${ey+8}`);}
+window.addEventListener('resize',()=>requestAnimationFrame(drawTourInk));window.addEventListener('scroll',()=>requestAnimationFrame(drawTourInk),{passive:true});
 function startTour(){clear();tourReturn=document.activeElement;tourIndex=0;markTourSeen();$('tour-dialog').showModal();tourStep();}
 function closeTour(){$('tour-dialog').close();}
 $('tour-dialog').addEventListener('close',()=>{if(tourTarget)tourTarget.classList.remove('tour-focus');tourTarget=null;const target=tourReturn instanceof HTMLElement&&tourReturn!==document.body?tourReturn:$('tour-start');target.focus();});
