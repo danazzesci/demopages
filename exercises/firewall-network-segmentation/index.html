@@ -39,15 +39,23 @@
 <text class="zone-title" x="35" y="52">External</text><text class="zone-title" x="335" y="52">DMZ / Public web</text><text class="zone-title" x="693" y="52">Internal application</text><text class="zone-title" x="956" y="52">Restricted DB</text>
 <path class="wire" id="edgeLink" d="M90 140H415"/><path class="wire" id="appLink" d="M415 140H775"/><path class="wire" id="dbLink" d="M775 140H1010"/>
 <path id="trail" fill="none" stroke="var(--green)" stroke-width="5"/>
-<rect class="node" id="internet" x="40" y="106" width="100" height="68" rx="8"/>
-<rect class="control" id="border" x="183" y="95" width="104" height="90" rx="5"/>
-<rect class="node" id="web" x="351" y="106" width="128" height="68" rx="8"/>
-<rect class="control" id="network" x="543" y="95" width="104" height="90" rx="5"/>
-<rect class="node" id="app" x="713" y="106" width="124" height="68" rx="8"/>
-<rect class="node" id="db" x="957" y="106" width="106" height="68" rx="8"/>
+<rect class="node" id="internet" x="40" y="95" width="100" height="100" rx="8"/>
+<rect class="control" id="border" x="183" y="95" width="104" height="100" rx="5"/>
+<rect class="node" id="web" x="351" y="95" width="128" height="100" rx="8"/>
+<rect class="control" id="network" x="543" y="95" width="104" height="100" rx="5"/>
+<rect class="node" id="app" x="713" y="95" width="124" height="100" rx="8"/>
+<rect class="node" id="db" x="957" y="95" width="106" height="100" rx="8"/>
+<g aria-hidden="true" style="pointer-events:none">
+<image href="assets/internet-web.png" x="44" y="100" width="92" height="90" preserveAspectRatio="xMidYMid meet"/>
+<image href="assets/firewall.png" x="187" y="100" width="96" height="90" preserveAspectRatio="xMidYMid meet"/>
+<image href="assets/internet-web.png" x="355" y="100" width="120" height="90" preserveAspectRatio="xMidYMid meet"/>
+<image href="assets/firewall.png" x="547" y="100" width="96" height="90" preserveAspectRatio="xMidYMid meet"/>
+<image href="assets/server.png" x="717" y="100" width="116" height="90" preserveAspectRatio="xMidYMid meet"/>
+<image href="assets/database.png" x="961" y="100" width="98" height="90" preserveAspectRatio="xMidYMid meet"/>
+</g>
 <path class="gate" id="dbGate" d="M905 100V185"/>
-<g class="label"><text x="90" y="145">Internet</text><text x="235" y="132">Border</text><text x="235" y="153">Firewall</text><text x="415" y="132">Web Services</text><text x="415" y="153">Server</text><text x="595" y="132">Internal</text><text x="595" y="153">Firewall</text><text x="775" y="132">Application</text><text x="775" y="153">service</text><text x="1010" y="145">Database</text></g>
-<g class="small"><text x="235" y="212">Edge policy</text><text x="595" y="212">DMZ ↔ Internal</text><text x="905" y="267">Database access control</text></g>
+<g class="label"><text x="90" y="217">Internet</text><text x="235" y="214">Border</text><text x="235" y="235">Firewall</text><text x="415" y="214">Web Services</text><text x="415" y="235">Server</text><text x="595" y="214">Internal</text><text x="595" y="235">Firewall</text><text x="775" y="214">Application</text><text x="775" y="235">service</text><text x="1010" y="217">Database</text></g>
+<g class="small"><text x="905" y="267">Database access control</text></g>
 <circle id="packet" r="8" cy="140" fill="var(--green)" stroke="var(--deep)" stroke-width="2" hidden/>
 <g id="badge" hidden><rect id="badge-bg" y="65" width="112" height="29" rx="4"/><text id="badge-text" y="85" text-anchor="middle" fill="#241f2e" font-size="14" font-weight="bold"></text></g>
 </svg>
