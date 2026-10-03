@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#302a3d">
+<title>Firewall and Network Segmentation · Dan Schaupner</title>
+<style>
+:root{color-scheme:dark;--cream:#fff8e4;--muted:#d8cfbb;--purple:#302a3d;--deep:#241f2e;--rule:#696175;--green:#97e5ad;--red:#ff9c9c;--wire:#94a9be}*{box-sizing:border-box}body{margin:0;background:var(--purple);color:var(--cream);font:16px/1.5 Arial,Helvetica,sans-serif}a{color:inherit;text-underline-offset:4px}header,footer{background:var(--deep);padding:14px max(24px,calc((100vw - 1200px)/2));display:flex;justify-content:space-between;gap:20px;font-size:13px}header a{font-size:15px;letter-spacing:.04em}main{max-width:1200px;margin:auto;padding:38px 24px 45px}.eyebrow{color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}h1{font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.025em;margin:0 0 20px;font-weight:600}.message{max-width:880px;font-size:19px;margin:0 0 24px}.controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--rule)}label{display:block;font-size:13px;margin-bottom:6px}select,button{font:inherit;min-height:44px;border:1px solid var(--muted);border-radius:4px;padding:10px 14px;background:var(--deep);color:var(--cream)}select{width:min(100%,365px)}button{cursor:pointer}button.primary{background:var(--cream);color:var(--deep);font-weight:bold}button:hover{filter:brightness(1.12)}:focus-visible{outline:3px solid var(--cream);outline-offset:4px}.diagram-frame{border:1px solid var(--rule);border-radius:6px;background:var(--deep);overflow-x:auto}.diagram{display:block;width:100%;min-width:940px;height:auto}.zone{stroke:var(--rule);stroke-dasharray:6 5;fill:#302a3d}.zone-title{font-size:14px;fill:var(--muted)}.wire{stroke:var(--wire);stroke-width:3}.node{fill:var(--deep);stroke:var(--cream);stroke-width:1.5}.control{fill:#443b54;stroke:var(--cream);stroke-width:1.5}.label{font-size:16px;fill:var(--cream);text-anchor:middle}.small{font-size:12px;fill:var(--muted);text-anchor:middle}.gate{stroke:var(--muted);stroke-width:3;stroke-dasharray:5 4}.emphasis{stroke:var(--green);stroke-width:4}.blocked{stroke:var(--red);stroke-width:5}.legend{display:flex;gap:12px 26px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:13px 0 22px}.legend span{display:flex;align-items:center;gap:8px}.swatch{width:24px;border-top:3px solid var(--wire)}.swatch.allowed{border-color:var(--green)}.swatch.denied{border-color:var(--red);border-top-style:dashed}.swatch.zone-key{height:14px;border:1px dashed var(--muted)}.result{border-left:3px solid var(--rule);padding:12px 18px;background:#ffffff05;min-height:120px}.result strong{display:block;font-size:17px;margin-bottom:5px}.result p{margin:0;color:var(--muted)}.notes{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:22px;font-size:14px}.notes p{margin:0;color:var(--muted)}.question{font-size:19px;margin:25px 0 0}.mobile-hint{display:none;font-size:13px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:700px){main{padding:28px 18px}.controls>div{width:100%}select{width:100%}.notes{grid-template-columns:1fr;gap:12px}.mobile-hint{display:block}header,footer{padding:14px 18px}header span{display:none}.message{font-size:17px}}
+</style>
+</head>
+<body>
+<header><a href="/">danschaupner.com</a><span>Cybersecurity · Interactive exercise</span></header>
+<main>
+<p class="eyebrow">Connections, boundaries, and permissions</p>
+<h1>Firewall and Network Segmentation</h1>
+<p class="message">Segmentation determines where systems are connected. Firewall rules determine what traffic is allowed across those connections.</p>
+<div class="controls">
+<div><label for="scenario">Choose a scenario</label><select id="scenario">
+<option value="inbound">1. Allowed Inbound Traffic</option>
+<option value="inboundBlocked">2. Blocked Inbound Traffic</option>
+<option value="outbound">3. Allowed Outbound Traffic</option>
+<option value="internal">4. Internal Segmentation — Allowed</option>
+<option value="internalBlocked">5. Internal Segmentation — Blocked</option>
+</select></div>
+<button class="primary" id="run">Run Scenario</button><button id="reset">Reset</button>
+</div>
+<p class="mobile-hint">Scroll the diagram sideways to follow the full network.</p>
+<div class="diagram-frame" tabindex="0" role="region" aria-label="Network architecture. Scroll horizontally on smaller screens.">
+<svg class="diagram" viewBox="0 0 1100 290" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">Internet to web services, application, and database zones</title>
+<desc id="diagram-desc">Internet connects through a border firewall and network firewall to a public web server. An access control separates the web and application zones; another separates the application and restricted database zones. Lines show connectivity, not permission. Outbound traffic follows the same connections in reverse.</desc>
+<rect class="zone" x="20" y="25" width="145" height="220" rx="7"/>
+<rect class="zone" x="490" y="25" width="198" height="220" rx="7"/>
+<rect class="zone" x="713" y="25" width="165" height="220" rx="7"/>
+<rect class="zone" x="913" y="25" width="167" height="220" rx="7"/>
+<text class="zone-title" x="35" y="52">External</text><text class="zone-title" x="508" y="52">Public-facing web</text><text class="zone-title" x="731" y="52">Internal application</text><text class="zone-title" x="930" y="52">Restricted database</text>
+<path class="wire" d="M90 140H1000"/>
+<path id="trail" fill="none" stroke="var(--green)" stroke-width="5"/>
+<rect class="node" id="internet" x="40" y="106" width="100" height="68" rx="8"/>
+<rect class="control" id="border" x="207" y="95" width="106" height="90" rx="5"/>
+<rect class="control" id="network" x="377" y="95" width="106" height="90" rx="5"/>
+<rect class="node" id="web" x="529" y="106" width="122" height="68" rx="8"/>
+<rect class="node" id="app" x="737" y="106" width="116" height="68" rx="8"/>
+<rect class="node" id="db" x="939" y="106" width="114" height="68" rx="8"/>
+<path class="gate" id="webGate" d="M700 82V185"/><path class="gate" id="dbGate" d="M895 82V185"/>
+<g class="label"><text x="90" y="145">Internet</text><text x="260" y="132">Border</text><text x="260" y="153">Firewall</text><text x="430" y="132">Network</text><text x="430" y="153">Firewall</text><text x="590" y="132">Web Services</text><text x="590" y="153">Server</text><text x="795" y="132">Application</text><text x="795" y="153">service</text><text x="996" y="145">Database</text></g>
+<g class="small"><text x="260" y="212">Edge policy</text><text x="430" y="212">Inbound / outbound</text><text x="700" y="267">Access control</text><text x="895" y="267">Access control</text></g>
+<circle id="packet" r="8" cy="140" fill="var(--green)" stroke="var(--deep)" stroke-width="2" hidden/>
+<g id="badge" hidden><rect id="badge-bg" y="65" width="112" height="29" rx="4"/><text id="badge-text" y="85" text-anchor="middle" fill="#241f2e" font-size="14" font-weight="bold"></text></g>
+</svg>
+</div>
+<div class="legend" aria-label="Diagram legend"><span><i class="swatch"></i>Network connection</span><span><i class="swatch allowed"></i>✓ Permitted traffic</span><span><i class="swatch denied"></i>× Blocked traffic</span><span><i class="swatch zone-key"></i>Network zone</span></div>
+<div class="result" role="status" aria-live="polite" aria-atomic="true"><strong id="status">Ready · Internet → Web Services Server</strong><p id="explanation"></p></div>
+<div class="notes"><p><strong>Read the connections:</strong> The horizontal line is a simplified network path, not a requirement that each server forwards packets. Dashed boxes identify separate network zones; labeled controls enforce traffic policy at their boundaries.</p><p><strong>Read the rules:</strong> These examples permit public web requests, web-server updates, and application database queries. Removing a network path and blocking traffic with a firewall are different security controls.</p></div>
+<p class="question">Ask yourself: Who needs to communicate with whom — and who should not be able to?</p>
+<noscript><p>Enable JavaScript to run the traffic animations. The diagram and teaching notes remain available.</p></noscript>
+</main><footer><span>© 2026 Dan Schaupner</span><a href="/">Home</a></footer>
+<script>
+'use strict';
+const scenarios = {
+ inbound:{start:90,end:590,target:'web',allowed:true,route:'Internet → Web Services Server',steps:[[260,'Border firewall permits the public web request.'],[430,'Network firewall permits the request to the public web server.']],text:'This traffic is allowed because the public web service is intended to receive Internet traffic. It stops at the web server; permission does not extend automatically to internal systems.'},
+ inboundBlocked:{start:90,end:430,target:'network',allowed:false,route:'Internet → Database (attempt)',steps:[[260,'Border firewall passes the request to the network firewall for inspection.']],text:'The network firewall denies direct Internet access to the database. A network path exists, but firewall policy prevents this traffic from crossing the enforcement point. No internal system is reached.'},
+ outbound:{start:590,end:90,target:'internet',allowed:true,route:'Web Services Server → Internet',steps:[[430,'Network firewall permits the web server’s update request.'],[260,'Border firewall permits this outbound request.']],text:'The web server initiates an approved update request through both firewall controls toward the Internet. Outbound permission is specific to this source and purpose; it does not allow every internal system to connect outward.'},
+ internal:{start:795,end:996,target:'db',allowed:true,route:'Application service → Database',steps:[[895,'Database access control permits this application query.']],text:'Only the application service’s approved database query crosses this boundary. Internal segmentation limits unnecessary communication between systems; the access control permits this specific source, destination, and service.'},
+ internalBlocked:{start:590,end:700,target:'webGate',allowed:false,route:'Web Services Server → Database (attempt)',steps:[],text:'The web server attempts direct database access, but the web/application access control denies that flow at the first internal boundary. The connected path remains visible; the rule blocks traffic. The application service must make an approved database query instead.'}
+};
+const $=id=>document.getElementById(id);
+let frame=0, emphasisTimer=0;
+function clear(){cancelAnimationFrame(frame);clearTimeout(emphasisTimer);$('packet').setAttribute('hidden','');$('badge').setAttribute('hidden','');$('trail').setAttribute('d','');document.querySelectorAll('.emphasis,.blocked').forEach(el=>el.classList.remove('emphasis','blocked'));$('run').textContent='Run Scenario';}
+function ready(){clear();const s=scenarios[$('scenario').value];$('status').textContent='Ready · '+s.route;$('explanation').textContent=s.text;}
+function run(){clear();const s=scenarios[$('scenario').value];const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const duration=reduced?0:Math.max(2400,Math.abs(s.end-s.start)*9);let startTime=null,stepIndex=0;$('run').textContent='Restart Scenario';$('status').textContent='Running · '+s.route;$('explanation').textContent='Follow the traffic to each labeled control. The gray connections stay in place regardless of the traffic policy.';$('packet').removeAttribute('hidden');$('packet').setAttribute('fill','var(--green)');$('trail').setAttribute('stroke','var(--green)');$('trail').removeAttribute('stroke-dasharray');
+function tick(time){if(startTime===null)startTime=time;const progress=duration===0?1:Math.min((time-startTime)/duration,1);const x=s.start+(s.end-s.start)*progress;$('packet').setAttribute('cx',x);$('trail').setAttribute('d',`M${s.start} 140H${x}`);while(stepIndex<s.steps.length&&((s.end>s.start&&x>=s.steps[stepIndex][0])||(s.end<s.start&&x<=s.steps[stepIndex][0]))){const [point,message]=s.steps[stepIndex++];const el=point===260?$('border'):point===430?$('network'):$('dbGate');el.classList.add('emphasis');$('explanation').textContent=message;}if(progress<1){frame=requestAnimationFrame(tick);return;}document.querySelectorAll('.emphasis').forEach(el=>el.classList.remove('emphasis'));const target=$(s.target);target.classList.add(s.allowed?'emphasis':'blocked');emphasisTimer=setTimeout(()=>target.classList.remove('emphasis','blocked'),1600);const color=s.allowed?'var(--green)':'var(--red)';$('packet').setAttribute('fill',color);$('trail').setAttribute('stroke',color);if(!s.allowed)$('trail').setAttribute('stroke-dasharray','8 5');$('badge-bg').setAttribute('x',s.end-56);$('badge-bg').setAttribute('fill',color);$('badge-text').setAttribute('x',s.end);$('badge-text').textContent=s.allowed?'✓ ALLOWED':'× BLOCKED';$('badge').removeAttribute('hidden');$('status').textContent=(s.allowed?'✓ ALLOWED':'× BLOCKED')+' · '+s.route;$('explanation').textContent=s.text;$('run').textContent='Run Scenario';}frame=requestAnimationFrame(tick);}
+$('scenario').addEventListener('change',ready);$('run').addEventListener('click',run);$('reset').addEventListener('click',()=>{$('scenario').value='inbound';ready();});ready();
+</script>
+</body>
+</html>
