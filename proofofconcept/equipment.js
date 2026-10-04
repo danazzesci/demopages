@@ -1,0 +1,20 @@
+window.furnaceProfile = {
+ id:'FUR-001',model:'G1D93AU090D16C',type:'Residential natural-gas furnace',
+ documentation:'G1D93AU090D16C-1.pdf',
+ photos:{overview:'Screenshot 2026-10-04 at 8.59.40 AM.png',sensor:'Screenshot 2026-10-04 at 9.00.57 AM.png',removed:'Screenshot 2026-10-04 at 9.02.35 AM.png',cleaning:'Screenshot 2026-10-04 at 9.02.53 AM.png'},
+ components:[
+ {id:'vent',name:'Vent / exhaust path',expected:'Vent flue gases through an unobstructed vent system.',key:'Conceptual path',x:66,y:62,w:68,h:207},
+ {id:'burners',name:'Burner assembly',expected:'Maintain stable burner flame during a call for heat.',key:'34 · R39271B001',x:166,y:111,w:228,h:72},
+ {id:'sensor',name:'Flame sensor',expected:'Prove burner flame to the ignition control through the flame-sensing circuit.',key:'19 · R44745-001 · catalog 98M87',x:354,y:186,w:41,h:66},
+ {id:'igniter',name:'Hot-surface igniter',expected:'Ignite the burners during the ignition sequence.',key:'26 · R100997-02',x:168,y:186,w:47,h:64},
+ {id:'gas',name:'Gas valve',expected:'Control gas delivery when the ignition sequence permits.',key:'Gas valve shown in reference photographs',x:242,y:235,w:87,h:61},
+ {id:'pressure',name:'Pressure switch',expected:'Prove inducer draft to the control through the pressure switch circuit.',key:'59 · R45695-003',x:361,y:293,w:57,h:62},
+ {id:'inducer',name:'Inducer assembly',expected:'Establish combustion airflow before ignition.',key:'63 · R45037-001',x:157,y:290,w:133,h:115},
+ {id:'control',name:'Control board',expected:'Coordinate startup and respond to operating and safety inputs.',key:'5 · ST9120U1011 / X8609',x:348,y:420,w:70,h:88},
+ {id:'blower',name:'Blower assembly',expected:'Circulate supply air after the control’s blower-on delay.',key:'74 · R45557-003 housing',x:152,y:431,w:158,h:104}
+ ],
+ sequence:['Call for heat','Inducer starts','Pressure switch proves draft','Hot-surface igniter heats','Gas valve opens','Burners ignite','Flame proven','Blower starts','Heating cycle continues'],
+ hypotheses:[{name:'Flame-sensing circuit fault',relevance:'High',support:'Ignition followed by shutdown is consistent with a possible flame-sensing circuit fault; signal has not been measured.'},{name:'Burner flame interruption',relevance:'Medium',support:'Sustained combustion and fuel delivery have not been verified.'},{name:'Control or safety circuit interruption',relevance:'Low',support:'Control inputs, connections, and fault indication remain untested.'}],
+ stages:['Identify','Normal cycle','Compare','Fault','Findings','Isolate','Inspect','Service','Retest','Verify'],
+ procedure:[{title:'Disable furnace electrical power',text:'Qualified technicians only. Follow the manufacturer’s service instructions. Isolate electrical power and verify the equipment is de-energized before accessing components.',button:'Power isolated & verified'}, {title:'Open the burner compartment',text:'Open the service panel using the manufacturer’s procedure. Do not bypass safety interlocks.',button:'Compartment accessible'}, {title:'Locate the flame sensor',text:'Find the sensor using the highlighted schematic and supplied reference. Parts documentation: key 19, R44745-001; catalog number 98M87.',button:'Sensor located',image:'sensor'}, {title:'Inspect the sensor condition',text:'Record what you can actually observe. Cleaning is a demonstration action; use manufacturer-approved service methods. A photograph alone does not establish electrical performance.',image:'removed'}, {title:'Reinstall the component',text:'Confirm the sensor is securely reinstalled and its connection restored. Replace covers according to the manufacturer’s procedure.',button:'Reinstallation & covers confirmed'}, {title:'Restore power and test operation',text:'Restore power only after reassembly. Run a heating cycle and observe the outcome. This demo supplies no operating thresholds or timing requirements.',button:'Test performed'}, {title:'Record the retest result',text:'Record whether operation continues during the observed heating cycle. A successful result supports this session’s post-service operational check; it does not certify all equipment functions.'}]
+};
