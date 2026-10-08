@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://mmxihcwpywptlazzpglg.supabase.co; frame-src 'self' about:; base-uri 'none'; form-action 'none'">
+<title>Private briefing</title>
+<link rel="stylesheet" href="gate.css">
+<script src="gate.js" defer></script>
+</head>
+<body>
+<main id="gate">
+<p class="eyebrow">Dan Schaupner · Private briefing</p>
+<h1>Enter your password</h1>
+<p class="intro">Use the password provided to view this briefing.</p>
+<form id="unlock">
+<label for="password">Password</label>
+<input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+<button id="submit" type="submit">View briefing</button>
+<p id="status" role="status" aria-live="polite"></p>
+</form>
+</main>
+<div id="document" hidden>
+<nav aria-label="Briefing controls"><span>Private briefing</span><div><button id="print" type="button">Print</button><button id="lock" type="button">Lock</button></div></nav>
+<iframe id="briefing" title="Private briefing and technical environment diagram" sandbox="allow-same-origin allow-modals" referrerpolicy="no-referrer"></iframe>
+</div>
+</body>
+</html>
