@@ -57,7 +57,7 @@ function fitHeadline() {
 function resize() {
   const mobile = mobileDevice || mobileQuery.matches || forceMobile;
   document.body.classList.toggle('mobile-layout', mobile);
-  canvas.style.transform = mobile ? 'none' : `scale(${Math.min(main.clientWidth / 1440, main.clientHeight / 810)})`;
+  canvas.style.transform = mobile ? 'none' : `scale(${Math.min(main.clientWidth / 1440, (main.clientHeight - 24) / 810)})`;
   fitHeadline();
 }
 
@@ -68,3 +68,49 @@ document.querySelector('#details').onclick = () => dialog.showModal();
 window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics','#who-is-dan'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
 show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics','#who-is-dan'].includes(location.hash));
 resize();
+
+/* Copy the public sharing URL for the content currently in the palette. */
+(() => {
+  const button = document.createElement('button');
+  button.id = 'palette-share';
+  button.type = 'button';
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg><span aria-live="polite">shareable link</span>';
+  button.setAttribute('aria-label', 'Copy shareable link');
+  main.append(button);
+  const label = button.querySelector('span');
+  let reset;
+  function sharingURL() {
+    const paths = {'#wed-not-wet':'/wed-not-wet/', '#about':'/who-is-dan/', '#who-is-dan':'/who-is-dan/', '#speaking-topics':'/speaking-topics/'};
+    const article = document.querySelector('#article-view:not([hidden]) .article-read-more');
+    if (location.hash.startsWith('#article-') && article?.href) return article.href;
+    return new URL(paths[location.hash] || '/' + location.hash, 'https://danschaupner.com').href;
+  }
+  function position() {
+    const box = canvas.getBoundingClientRect();
+    const parent = main.getBoundingClientRect();
+    const mobile = document.body.classList.contains('mobile-layout');
+    const lesson = document.body.classList.contains('lesson-mode');
+    const scale = box.width / 1440;
+    button.style.top = Math.max(0, box.top - parent.top + (lesson ? 0 : mobile ? 10 : 35 * scale) - 22) + 'px';
+    button.style.right = Math.max(12, parent.right - box.right + (mobile ? 14 : 45 * scale)) + 'px';
+  }
+  button.addEventListener('click', async () => {
+    const url = sharingURL();
+    clearTimeout(reset);
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url);
+      else {
+        const field = document.createElement('textarea');
+        field.value = url; field.style.cssText = 'position:fixed;opacity:0';
+        document.body.append(field); field.select();
+        const copied = document.execCommand('copy'); field.remove(); button.focus();
+        if (!copied) throw new Error('Clipboard unavailable');
+      }
+      label.textContent = 'link copied';
+    } catch { label.textContent = 'copy unavailable'; }
+    reset = setTimeout(() => { label.textContent = 'shareable link'; }, 2200);
+  });
+  new ResizeObserver(position).observe(main);
+  new MutationObserver(position).observe(document.body, {attributes:true,attributeFilter:['class']});
+  position();
+})();
