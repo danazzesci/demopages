@@ -464,3 +464,10 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 .presenter-invitation-range{position:relative;display:inline-block;}
 .presenter-invitation{position:absolute;left:27.5%;top:calc(100% - .12em);width:45%;height:auto;overflow:visible;fill:currentColor;letter-spacing:normal;}
 .presenter-invitation text{font-family:Allura,cursive;font-size:130px;font-weight:400;text-shadow:0 -1px 0 rgba(255,248,228,.32),0 1px 1px rgba(10,8,15,.3);}
+
+/* A quiet clipboard control just above the palette's upper-right edge. */
+#canvas{margin-top:24px}
+#palette-share{position:absolute;z-index:12;display:flex;align-items:center;gap:5px;padding:3px 5px;color:var(--cream-muted);opacity:.65;font-size:10px;line-height:16px;white-space:nowrap;border-radius:3px}
+#palette-share svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5}
+#palette-share:hover,#palette-share:focus-visible{opacity:1;background:#ffffff08}
+.mobile-layout #canvas{inset:24px 0 0;height:calc(100% - 24px)}
