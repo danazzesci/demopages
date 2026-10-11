@@ -65,8 +65,8 @@ mobileQuery.addEventListener('change', resize);
 document.fonts.ready.then(resize);
 new ResizeObserver(resize).observe(main);
 document.querySelector('#details').onclick = () => dialog.showModal();
-window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics','#who-is-dan'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
-show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#speaking-topics','#who-is-dan'].includes(location.hash));
+window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#about-this-page','#speaking-topics','#who-is-dan'].includes(location.hash)) show(Number(location.hash.slice(1)) - 1, true, false); });
+show(Number(location.hash.slice(1)) - 1, false, !location.hash.startsWith('#article-') && location.hash !== '#companies' && location.hash !== '#headlines' && !['#features','#wed-not-wet','#about','#about-this-page','#speaking-topics','#who-is-dan'].includes(location.hash));
 resize();
 
 /* Copy the public sharing URL for the content currently in the palette. */
@@ -80,7 +80,7 @@ resize();
   const label = button.querySelector('span');
   let reset;
   function sharingURL() {
-    const paths = {'#wed-not-wet':'/wed-not-wet/', '#about':'/who-is-dan/', '#who-is-dan':'/who-is-dan/', '#speaking-topics':'/speaking-topics/'};
+    const paths = {'#about-this-page':'/about-this-page/', '#wed-not-wet':'/wed-not-wet/', '#about':'/who-is-dan/', '#who-is-dan':'/who-is-dan/', '#speaking-topics':'/speaking-topics/'};
     const article = document.querySelector('#article-view:not([hidden]) .article-read-more');
     if (location.hash.startsWith('#article-') && article?.href) return article.href;
     return new URL(paths[location.hash] || '/share/' + (location.hash === '#1' ? '' : location.hash), 'https://danschaupner.com').href;

@@ -13,3 +13,6 @@
 .mobile-layout .about-panel{inset:10px 10px 22px;border-radius:18px;}
 
 .presenter-links a{font:inherit;color:inherit;text-shadow:inherit;text-decoration:none}.presenter-link-diamond{font-size:.65em;line-height:1}
+
+.presenter-links{width:min(95%,48em);white-space:normal;justify-content:center;flex-wrap:wrap;line-height:1.4}
+.presenter-links a{white-space:nowrap}

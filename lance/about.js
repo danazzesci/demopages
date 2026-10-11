@@ -75,16 +75,17 @@
       return;
     }
     if (attempt !== opening) return;
+    const isPage = kind === 'page';
     const isTopics = kind === 'topics';
     const isBiography = kind === 'biography';
-    const source = isTopics ? '/speaking-topics/?embedded=1' : isBiography ? '/who-is-dan/?embedded=1' : '/invited/';
+    const source = isPage ? '/about-this-page/content.html?embedded=1' : isTopics ? '/speaking-topics/?embedded=1' : isBiography ? '/who-is-dan/?embedded=1' : '/invited/';
     if (frame.getAttribute('src') !== source) {
       frame.style.visibility = 'hidden';
       frame.src = source;
     }
-    frame.title = isTopics ? 'Current Speaking Topics' : isBiography ? 'Who is Dan Schaupner?' : 'About Dan Schaupner';
+    frame.title = isPage ? 'About This Page' : isTopics ? 'Current Speaking Topics' : isBiography ? 'Who is Dan Schaupner?' : 'About Dan Schaupner';
     panel.setAttribute('aria-label', frame.title);
-    close.textContent = isTopics ? 'Back to About' : 'Close about';
+    close.textContent = isPage ? 'Back to home' : isTopics ? 'Back to About' : 'Close about';
     panel.hidden = false;
     document.body.classList.add('about-open');
     close.focus({ preventScroll: true });
@@ -119,9 +120,15 @@
     history.replaceState(null, '', '#invited');
     open();
   });
+  document.querySelector('.presenter-about-page')?.addEventListener('click', event => {
+    event.preventDefault();
+    history.replaceState(null, '', '#about-this-page');
+    open('page');
+  });
   window.addEventListener('hashchange', () => {
     if (location.hash === '#about') open('biography');
     else if (location.hash === '#invited') open();
+    else if (location.hash === '#about-this-page') open('page');
     else if (location.hash === '#speaking-topics') open('topics');
     else if (location.hash === '#who-is-dan') open('biography');
     else hide();
@@ -129,6 +136,7 @@
   document.addEventListener('storyboard:show', hide);
   if (location.hash === '#about') open('biography');
     else if (location.hash === '#invited') open();
-  else if (location.hash === '#speaking-topics') open('topics');
+  else if (location.hash === '#about-this-page') open('page');
+    else if (location.hash === '#speaking-topics') open('topics');
     else if (location.hash === '#who-is-dan') open('biography');
 })();
