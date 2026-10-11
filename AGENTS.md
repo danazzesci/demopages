@@ -18,3 +18,5 @@ Treat share previews as a required part of publishing or updating ALL public con
 ## Browser notifications
 
 Keep the root OneSignalSDKWorker.js available. Never put a OneSignal API secret in frontend code. Publishing does not automatically send a push announcement; sending an announcement requires authorization.
+
+- The homepage's sharing control uses /share/ (and its own canonical and og:url), so Facebook can fetch a fresh sharing object instead of its legacy homepage card. /share/ renders the homepage shell without a server redirect, preserving hash navigation. Keep it synchronized with homepage shell updates. Query strings on a page with the root canonical URL do not reliably bypass social caches.
