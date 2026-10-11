@@ -27,6 +27,22 @@
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 window.OneSignalDeferred.push(async function (OneSignal) {
+  // Let the tour create its first-visit invitation before checking for it.
+  if (document.readyState === "loading") {
+    await new Promise(resolve => document.addEventListener("DOMContentLoaded", resolve, { once: true }));
+  }
+  // Start OneSignal's prompt timer only after the welcome invitation/tour closes.
+  await new Promise(resolve => {
+    const observer = new MutationObserver(check);
+    function check() {
+      if (!document.querySelector(".tour-invite[open], #page-tour-overlay[open]")) {
+        observer.disconnect();
+        resolve();
+      }
+    }
+    observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["open"] });
+    check();
+  });
   await OneSignal.init({ appId: "a058ed41-75da-4806-9e43-73f90883f9a8" });
 });
 </script>
