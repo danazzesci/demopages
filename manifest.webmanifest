@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "Dan Schaupner",
+  "short_name": "Dan Schaupner",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff8e4",
+  "theme_color": "#302a3d",
+  "icons": [
+    {
+      "src": "/assets/icons/merge-emblem-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
