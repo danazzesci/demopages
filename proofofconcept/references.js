@@ -18,3 +18,7 @@ explanationToggle.addEventListener('click',()=>{
  explanationToggle.setAttribute('aria-expanded',String(!expanded));
  explanationToggle.textContent=expanded?'Show explanation ↓':'Hide explanation ↑';
 });
+
+document.getElementById('narrativeTourLink').addEventListener('click',event=>{
+ event.preventDefault();document.getElementById('tourBtn').click();
+});

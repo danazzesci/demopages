@@ -34,10 +34,10 @@
  const cue=document.createElement('div');cue.className='tour-button-cue';cue.hidden=true;cue.setAttribute('aria-hidden','true');
  cue.innerHTML='<svg viewBox="0 0 250 155"><path d="M105 22 C135 5 202 9 214 33 C224 57 194 72 152 66 C117 66 92 48 104 26 C114 12 156 6 181 15"/><path class="cue-second-stroke" d="M112 18 C166 2 225 23 212 49 C194 77 115 70 101 44"/><path d="M34 139 Q39 100 106 68 M89 73 L106 68 L102 85"/></svg>';
  document.body.append(cue);
- let cueTimer,cueEndTimer;
+ let cueTimer;
  function positionCue(){if(cue.hidden)return;const r=button.getBoundingClientRect();cue.style.left=`${r.left+r.width/2-158}px`;cue.style.top=`${r.top+r.height/2-38}px`;}
- function dismissCue(){clearTimeout(cueTimer);clearTimeout(cueEndTimer);cue.hidden=true;}
+ function dismissCue(){clearTimeout(cueTimer);cue.hidden=true;}
  window.addEventListener('resize',positionCue);window.addEventListener('scroll',positionCue,{passive:true});button.addEventListener('click',dismissCue);
- function scheduleCue(){cueTimer=setTimeout(()=>{if(active)return;cue.hidden=false;positionCue();cueEndTimer=setTimeout(dismissCue,1200);},2000);}
+ function scheduleCue(){cueTimer=setTimeout(()=>{if(active)return;cue.hidden=false;positionCue();},2000);}
  if(document.readyState==='complete')scheduleCue();else window.addEventListener('load',scheduleCue,{once:true});
 })();
