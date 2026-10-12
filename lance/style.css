@@ -476,3 +476,5 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 
 .features-mode:not(.lesson-mode) #content{overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;scrollbar-width:thin;padding-right:12px}
 #features-view{padding-bottom:24px}
+
+.features-scroll-hint{position:sticky;top:0;z-index:2;background:var(--purple);border-bottom:1px solid var(--rule);padding:10px 0 14px;margin:0 0 22px;font-size:16px;line-height:1.4;color:var(--cream-muted)}
