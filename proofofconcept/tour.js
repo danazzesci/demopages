@@ -30,5 +30,14 @@
  get('tourDifference').onclick=()=>{close();window.openHVACDifference()};button.onclick=open;get('tourClose').onclick=close;get('tourSkip').onclick=close;get('tourBack').onclick=()=>{if(index>0){index--;show()}};get('tourNext').onclick=()=>{if(index===steps.length-1)close();else{index++;show()}};
  window.addEventListener('resize',()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(draw)});window.addEventListener('scroll',()=>{if(active){cancelAnimationFrame(frame);frame=requestAnimationFrame(draw)}},{passive:true});
  layer.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close()}if(e.key==='Tab'){const controls=[...layer.querySelectorAll('button:not(:disabled):not([hidden])')];const first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
- if(!seen())setTimeout(open,500);
+ // Orient visitors to the Tour button without opening or interrupting the page.
+ const cue=document.createElement('div');cue.className='tour-button-cue';cue.hidden=true;cue.setAttribute('aria-hidden','true');
+ cue.innerHTML='<svg viewBox="0 0 250 155"><path d="M105 22 C135 5 202 9 214 33 C224 57 194 72 152 66 C117 66 92 48 104 26 C114 12 156 6 181 15"/><path class="cue-second-stroke" d="M112 18 C166 2 225 23 212 49 C194 77 115 70 101 44"/><path d="M34 139 Q39 100 106 68 M89 73 L106 68 L102 85"/></svg>';
+ document.body.append(cue);
+ let cueTimer,cueEndTimer;
+ function positionCue(){if(cue.hidden)return;const r=button.getBoundingClientRect();cue.style.left=`${r.left+r.width/2-158}px`;cue.style.top=`${r.top+r.height/2-38}px`;}
+ function dismissCue(){clearTimeout(cueTimer);clearTimeout(cueEndTimer);cue.hidden=true;}
+ window.addEventListener('resize',positionCue);window.addEventListener('scroll',positionCue,{passive:true});button.addEventListener('click',dismissCue);
+ function scheduleCue(){cueTimer=setTimeout(()=>{if(active)return;cue.hidden=false;positionCue();cueEndTimer=setTimeout(dismissCue,1200);},2000);}
+ if(document.readyState==='complete')scheduleCue();else window.addEventListener('load',scheduleCue,{once:true});
 })();
