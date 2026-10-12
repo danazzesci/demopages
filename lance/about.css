@@ -16,3 +16,6 @@
 
 .presenter-links{width:min(95%,48em);white-space:normal;justify-content:center;flex-wrap:wrap;line-height:1.4}
 .presenter-links a{white-space:nowrap}
+
+/* Scroll the palette itself on touch devices rather than a nested iframe. */
+.mobile-layout .about-frame-slot{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;touch-action:pan-y;scrollbar-width:thin}

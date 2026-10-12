@@ -48,9 +48,22 @@
   slot.append(frame);
   panel.append(header, slot);
   canvas.append(panel);
+  let contentObserver;
+  function fitPageFrame() {
+    const isPage = frame.getAttribute('src')?.startsWith('/about-this-page/');
+    const mobile = document.body.classList.contains('mobile-layout');
+    frame.style.height = isPage && mobile && frame.contentDocument?.body
+      ? `${Math.ceil(frame.contentDocument.body.scrollHeight)}px` : '100%';
+  }
+  new MutationObserver(fitPageFrame).observe(document.body, {attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize', fitPageFrame);
   frame.addEventListener('load', () => {
+    contentObserver?.disconnect();
     const doc = frame.contentDocument;
     if (!doc?.body) return;
+    contentObserver = new ResizeObserver(fitPageFrame);
+    contentObserver.observe(doc.body);
+    fitPageFrame();
     doc.addEventListener('click', event => {
       const link = event.target.closest('a[href="/#speaking-topics"],a[href="/#who-is-dan"],a[href="/speaking-topics/"]');
       if (!link) return;
