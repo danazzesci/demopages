@@ -9,3 +9,12 @@ document.querySelectorAll('.demo-reference').forEach(link=>link.addEventListener
  target.focus({preventScroll:true});target.classList.remove('demo-reference-target');void target.offsetWidth;target.classList.add('demo-reference-target');
  setTimeout(()=>target.classList.remove('demo-reference-target'),2600);
 }));
+
+const explanationToggle=document.getElementById('explanationToggle');
+const explanationBody=document.getElementById('explanationBody');
+explanationToggle.addEventListener('click',()=>{
+ const expanded=explanationToggle.getAttribute('aria-expanded')==='true';
+ explanationBody.hidden=expanded;
+ explanationToggle.setAttribute('aria-expanded',String(!expanded));
+ explanationToggle.textContent=expanded?'Show explanation ↓':'Hide explanation ↑';
+});
