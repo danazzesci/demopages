@@ -7,3 +7,5 @@
 .identity .equipment-title{font-size:29px;letter-spacing:-1px;margin:8px 0;font-weight:700;line-height:1.5}.equipment-title span{font-weight:400;color:#78847d;margin-left:8px}
 @media(max-width:1000px){.introduction-copy{grid-template-columns:1fr;gap:14px}.identity .equipment-title{font-size:23px}.equipment-title span{display:block;margin:0}}
 @media(max-width:760px){.page-introduction{padding-top:0;margin-bottom:22px}.page-introduction h1{letter-spacing:-.8px}.introduction-copy p{font-size:13px}.page-introduction .introduction-subtitle{margin-bottom:18px}}
+
+.introduction-copy{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 36px}.introduction-point h2{font-size:18px;line-height:1.4;margin:0 0 10px;letter-spacing:-.3px;color:var(--ink)}.introduction-point strong{color:var(--ink)}@media(max-width:850px){.introduction-copy{grid-template-columns:1fr;gap:22px}.introduction-point h2{font-size:17px}}

@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>From AI Answers to Context-Guided Decisions | Dan Schaupner</title>
-<meta name="description" content="Explore a furnace service-call demonstration built around equipment context, normal operation, technician findings, and test results to guide decisions.">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>If You See Another AI Chatbot, You’re Missing the Main Point. | Dan Schaupner</title>
+<meta name="description" content="Beyond instant AI answers: explore a system that maintains equipment context, service findings, and test results to guide connected decisions.">
 <link rel="canonical" href="https://danschaupner.com/proofofconcept/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="From AI Answers to Context-Guided Decisions">
-<meta property="og:description" content="Explore how equipment context, normal operation, service findings, and test results guide the next decision in an interactive furnace service call.">
+<meta property="og:title" content="If You See Another AI Chatbot, You’re Missing the Main Point.">
+<meta property="og:description" content="Beyond instant AI answers: explore a system that maintains equipment context, service findings, and test results to guide connected decisions.">
 <meta property="og:url" content="https://danschaupner.com/proofofconcept/">
-<meta name="twitter:title" content="From AI Answers to Context-Guided Decisions">
-<meta name="twitter:description" content="Explore how equipment context, normal operation, service findings, and test results guide the next decision in an interactive furnace service call."><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="tour.css"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="If You See Another AI Chatbot, You’re Missing the Main Point.">
+<meta name="twitter:description" content="Beyond instant AI answers: explore a system that maintains equipment context, service findings, and test results to guide connected decisions."><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="tour.css"><meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://danschaupner.com/assets/images/previews/home-sharp-v4.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1731">
@@ -23,12 +23,13 @@
 <body><header class="topbar"><a class="brand" href="#">▧ <strong>FIELDWORK</strong><span>Equipment intelligence</span></a><div class="top-actions"><span class="live">● LOCAL DEMO</span><button id="differenceBtn" title="How this approach differs from computerized diagnostics">Why is this different?</button><button id="tourBtn" title="Replay the interface tour anytime">↻ Tour</button><button id="agentBtn">↗ View agent work</button></div></header>
 <main><section class="page-introduction" aria-labelledby="introduction-title">
 <div class="eyebrow">INTERACTIVE PROOF OF CONCEPT</div>
-<h1 id="introduction-title">From AI Answers to Context-Guided Decisions</h1>
-<p class="introduction-subtitle">The important shift is building a working model of the system—its purpose, proper operation, and current condition—that helps the maintainer decide what to check, what to change, and whether the problem is resolved.</p>
+<h1 id="introduction-title">If You See Another AI Chatbot, You’re Missing the Main Point.</h1>
+<p class="introduction-subtitle">The important advance is a system that maintains context—what should happen, what has happened, what has been checked, and what the next decision requires.</p>
 <div class="introduction-copy">
-<p>This demonstration puts that approach into a furnace service call. The tool brings together equipment context, the normal sequence of operation, technician findings, and test results to guide the next decision. AI inference can help develop and interpret that context; defined checks can then support parts of the workflow without requiring a new AI response at every step.</p>
-<p>Try the troubleshooting activity and watch the percentage at the upper right change as inspection findings, service work, and operational checks are recorded. The score is illustrative, rather than a measured equipment rating. It demonstrates how an assessment can evolve with the information available—and why performing a repair is different from confirming that it resolved the complaint.</p>
-<p>The same approach extends beyond mechanical maintenance to cybersecurity, insurance, supply chain management, and parts procurement: establish the relevant context and criteria, compare the actual situation, guide an action, and check its result.</p>
+<section class="introduction-point"><h2>You May See AI Giving Advice. Look at What the System Maintains.</h2><p>An AI response suggesting “check the flame sensor” is easy to produce. The more important work is developing a system that carries the equipment model, normal sequence of operation, reported symptoms, inspection findings, and test results through the entire service call. Each finding changes the situation the technician is working with. The next recommendation must account for that history.</p></section>
+<section class="introduction-point"><h2>You May Expect Another AI Answer at Every Step. Context Can Drive the Next Check.</h2><p>AI inference can help develop and interpret the working model. Once the context and checks are defined, the system can compare reported operation with normal operation, identify missing checks, and update the workflow without necessarily returning to an inference engine. It knows that an inspection is not a repair, a repair is not a successful operational check, and an unresolved complaint must remain open.</p></section>
+<section class="introduction-point"><h2>You May Focus on the Advice. Watch How Findings Change the Assessment.</h2><p>Work through the furnace activity and watch the percentage at the upper right change as inspection findings, service work, and operational checks are recorded. The score is simulated, but it illustrates the distinction: <strong>the assessment changes because the recorded condition changes—not simply because AI generates another answer.</strong> The activity demonstrates how context connects the complaint, the checks, the service action, and its result.</p></section>
+<section class="introduction-point"><h2>You May See a Maintenance Tool. The Bigger Idea Is a System for Decisions.</h2><p>The furnace is one example. Cybersecurity, insurance, supply chain management, and parts procurement also depend on knowing the situation, applying relevant requirements, retaining findings, and checking the result of an action. The broader opportunity is to use AI to help develop that context, then build tools that carry it through the work—supporting decisions rather than providing isolated answers.</p></section>
 </div>
 </section>
 <section class="identity"><div><div class="eyebrow">RESIDENTIAL HVAC <span>/</span> DIAGNOSTIC SESSION 001</div><h2 class="equipment-title">G1D93AU090D16C <span>Gas Furnace</span></h2><p>Equipment ID <b>FUR-001</b> <span>•</span> Natural gas <span>•</span> Equipment service reference</p></div><div class="health"><div class="ring" id="ring"><strong id="score">71<span>%</span></strong></div><div><div class="eyebrow">NORMAL OPERATION MATCH</div><strong id="healthLabel">Operating fault reported</strong><small>Illustrative score · not a sensor reading</small></div></div></section>
