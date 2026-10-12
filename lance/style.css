@@ -471,3 +471,5 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 #palette-share svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5}
 #palette-share:hover,#palette-share:focus-visible{opacity:1;background:#ffffff08}
 .mobile-layout #canvas{inset:24px 0 0;height:calc(100% - 24px)}
+
+.feature-entry+.feature-entry{margin-top:28px}.feature-preview{display:block;width:min(100%,560px);height:auto;border-radius:12px;margin-bottom:18px;border:1px solid var(--rule)}
