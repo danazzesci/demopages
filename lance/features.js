@@ -40,7 +40,7 @@
     `;doc.head.append(style);
     const mobileStyle=doc.createElement('style');
     mobileStyle.textContent=`
-     @media(max-width:700px){
+     @media(min-width:0px){
       .app{height:100%!important;min-height:0!important;grid-template-rows:auto minmax(0,1fr) auto!important}
       header{padding:8px 12px!important;min-height:50px}
       .stage{padding:10px!important;align-items:stretch!important;overflow:hidden!important}
@@ -53,6 +53,7 @@
      }
     `;doc.head.append(mobileStyle);
     function fitCards(){
+     mobileStyle.media=document.body.classList.contains('mobile-layout')?'all':'not all';
      if(document.body.classList.contains('mobile-layout')){doc.querySelectorAll('.card').forEach(card=>card.style.transform='none');return;}
      doc.querySelectorAll('.stage').forEach(stage=>{
       const card=stage.querySelector('.card');if(!card)return;
