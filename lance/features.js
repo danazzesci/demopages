@@ -38,7 +38,22 @@
      .mission-summary .pill{font-size:12px;padding:7px 9px;}
      .agent-trace{flex-wrap:wrap} .activity-log{max-height:none;overflow:visible}
     `;doc.head.append(style);
+    const mobileStyle=doc.createElement('style');
+    mobileStyle.textContent=`
+     @media(max-width:700px){
+      .app{height:100%!important;min-height:0!important;grid-template-rows:auto minmax(0,1fr) auto!important}
+      header{padding:8px 12px!important;min-height:50px}
+      .stage{padding:10px!important;align-items:stretch!important;overflow:hidden!important}
+      .card{height:100%!important;max-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;transform:none!important;padding:18px!important;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+      h2{font-size:30px!important}.lead{font-size:17px!important}.question-title{font-size:44px!important}
+      .mission-control,.control-panel{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+      .mission-summary{padding:16px!important}.mission-summary .lead{font-size:17px!important}
+      .hero-art{min-height:220px!important}.story-panel{min-height:260px!important}
+      footer{padding:8px 12px!important;min-height:56px}.controls{flex-wrap:wrap}
+     }
+    `;doc.head.append(mobileStyle);
     function fitCards(){
+     if(document.body.classList.contains('mobile-layout')){doc.querySelectorAll('.card').forEach(card=>card.style.transform='none');return;}
      doc.querySelectorAll('.stage').forEach(stage=>{
       const card=stage.querySelector('.card');if(!card)return;
       card.style.transform='none';
@@ -52,7 +67,7 @@
     frame.contentWindow.addEventListener('resize',fitCards);
     doc.querySelectorAll('.home-link').forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector('header a').click();});
    };lesson.replaceChildren(frame);
-   const fitFrame=()=>{const scale=Math.min(lesson.clientWidth/1280,lesson.clientHeight/810);frame.style.transform=`translate(-50%,-50%) scale(${scale})`;};
+   const fitFrame=()=>{if(document.body.classList.contains('mobile-layout')){frame.style.transform='none';frame.contentWindow?.dispatchEvent(new Event('resize'));return;}const scale=Math.min(lesson.clientWidth/1280,lesson.clientHeight/810);frame.style.transform=`translate(-50%,-50%) scale(${scale})`;};
    new ResizeObserver(fitFrame).observe(lesson);fitFrame();
   }else{features.hidden=false;features.querySelector('h1').focus({preventScroll:true});}
   history.replaceState(null,'',kind==='lesson'?'#wed-not-wet':'#features');

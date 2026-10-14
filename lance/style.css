@@ -478,3 +478,17 @@ header #features-link{font-size:11px;letter-spacing:.08em;text-decoration:underl
 #features-view{padding-bottom:24px}
 
 .features-scroll-hint{position:sticky;top:0;z-index:2;background:var(--purple);border-bottom:1px solid var(--rule);padding:10px 0 14px;margin:0 0 22px;font-size:16px;line-height:1.4;color:var(--cream-muted)}
+
+/* Each phone palette has one scroll owner; long content must remain reachable. */
+.mobile-layout #content{min-height:0;touch-action:pan-y}
+.mobile-layout #headlines-view{max-height:none;overflow:visible}
+.mobile-layout.lesson-mode #lesson-view iframe{position:static;left:auto;top:auto;width:100%;height:100%;transform:none!important}
+/* Reserve usable palette height when a phone is held landscape. */
+@media(max-height:450px){
+ body.mobile-layout{height:100dvh;grid-template-rows:36px 0 44px minmax(0,1fr) 0 28px}
+ .mobile-layout .market-strip,.mobile-layout .news-banner{visibility:hidden;overflow:hidden;min-height:0}
+ .mobile-layout .presenter-banner{height:44px}
+ .mobile-layout footer{font-size:9px}
+ .mobile-layout #content{bottom:88px}
+ .mobile-layout .rail{bottom:27px}
+}

@@ -50,10 +50,12 @@
   canvas.append(panel);
   let contentObserver;
   function fitPageFrame() {
-    const isPage = frame.getAttribute('src')?.startsWith('/about-this-page/');
     const mobile = document.body.classList.contains('mobile-layout');
-    frame.style.height = isPage && mobile && frame.contentDocument?.body
-      ? `${Math.ceil(frame.contentDocument.body.scrollHeight)}px` : '100%';
+    const doc = frame.contentDocument;
+    if (!doc?.body) return;
+    doc.documentElement.classList.toggle('palette-mobile', mobile);
+    frame.style.height = mobile
+      ? `${Math.ceil(Math.max(doc.body.scrollHeight, doc.body.getBoundingClientRect().height))}px` : '100%';
   }
   new MutationObserver(fitPageFrame).observe(document.body, {attributes:true,attributeFilter:['class']});
   window.addEventListener('resize', fitPageFrame);
@@ -61,6 +63,10 @@
     contentObserver?.disconnect();
     const doc = frame.contentDocument;
     if (!doc?.body) return;
+    const scrollStyle = doc.createElement('style');
+    scrollStyle.textContent = 'html.palette-mobile,html.palette-mobile body{height:auto!important;min-height:0!important;overflow:visible!important}';
+    doc.head.append(scrollStyle);
+    slot.scrollTop = 0;
     contentObserver = new ResizeObserver(fitPageFrame);
     contentObserver.observe(doc.body);
     fitPageFrame();
@@ -77,7 +83,7 @@
     const stylesheet = doc.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = '/invited/embedded.css?v=3';
-    stylesheet.addEventListener('load', () => { frame.style.visibility = 'visible'; });
+    stylesheet.addEventListener('load', () => { fitPageFrame(); frame.style.visibility = 'visible'; });
     doc.head.append(stylesheet);
   });
   let opening = 0;

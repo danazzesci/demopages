@@ -32,6 +32,7 @@ back.onclick = () => window.LanceNews?.active ? window.LanceNews.step(-1) : show
 next.onclick = () => window.LanceNews?.active ? window.LanceNews.step(1) : show((current + 1) % slides.length);
 document.querySelector('header a').onclick = event => { event.preventDefault(); show(0); };
 document.addEventListener('keydown', event => {
+  if (document.body.matches('.about-open,.features-mode,.article-mode') || location.hash === '#companies' || location.hash === '#headlines') return;
   if (dialog.open || event.altKey || event.ctrlKey || event.metaKey || event.target.closest('button,a,input,textarea,select,[contenteditable]')) return;
   if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(event.key)) { event.preventDefault(); show((current + 1) % slides.length); }
   if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }

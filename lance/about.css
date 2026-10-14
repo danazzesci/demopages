@@ -19,3 +19,5 @@
 
 /* Scroll the palette itself on touch devices rather than a nested iframe. */
 .mobile-layout .about-frame-slot{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;touch-action:pan-y;scrollbar-width:thin}
+
+.mobile-layout .about-frame-slot{min-height:0;scrollbar-gutter:stable}.mobile-layout .about-panel iframe{max-width:100%}
