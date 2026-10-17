@@ -10,6 +10,39 @@
  <li><span class="exercise-category">Cybersecurity · network controls</span><h2><a href="/exercises/firewall-network-segmentation/">Firewall and Network Segmentation</a></h2><p>Explore how network connections create paths and firewall rules control what can cross them. Change connections and policies, then observe the effects across a segmented network.</p></li>
  <li><span class="exercise-category">Cybersecurity investigation · guided simulated SIEM</span><h2><a href="/exercises/the-second-peak/">Identify and Report Suspected Unauthorized Activity</a></h2><p>Harissa, an independent Virtual CISO, guides you through unexpected sign-in activity in an international payment gateway. Compare the baseline, investigate authentication and possible data movement, pin records, relate observations to MITRE ATT&amp;CK, and prepare an evidence-based escalation brief.</p><p class="exercise-scope-note">The Second Peak · beginner-friendly · about 60–90 minutes · no installation or account required.</p></li>
  </ol><p class="exercise-directory-return"><a href="/#features">Back to Features →</a></p>`;
+ // Dates are the first publication and latest page update in the repository history,
+ // not the date an existing lesson was later announced in Features.
+ const catalogue=[
+  {id:'second-peak',href:'/exercises/the-second-peak/',title:'Identify and Report Suspected Unauthorized Activity',published:'2026-10-17',updated:'2026-10-17'},
+  {id:'ai-fieldwork',href:'/proofofconcept/',title:'Fieldwork — AI Beyond the Chatbot',published:'2026-10-04',updated:'2026-10-12'},
+  {id:'firewall-segmentation',href:'/exercises/firewall-network-segmentation/',title:'Firewall and Network Segmentation',published:'2026-10-03',updated:'2026-10-11'},
+  {id:'policy-to-risk',href:'/exercises/module1.html',title:'Hands-On 1: Policy to Risk',published:'2026-08-20',updated:'2026-10-11'},
+  {id:'wed-not-wet',href:'/wed-not-wet/',title:'Wed Not Wet — An Agentic AI Lesson',published:'2026-07-18',updated:'2026-10-11'}
+ ].sort((a,b)=>b.published.localeCompare(a.published));
+ const dateLabel=value=>new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'}).format(new Date(value+'T12:00:00Z'));
+ const list=exercises.querySelector('.exercise-directory-list');
+ const entries=new Map([...list.children].map(li=>[li.querySelector('h2 a').getAttribute('href'),li]));
+ const layout=document.createElement('div');layout.className='exercise-layout';list.before(layout);layout.append(list);
+ const index=document.createElement('aside');index.className='exercise-index';index.setAttribute('aria-label','Lesson navigation');
+ index.innerHTML='<h2>Choose a lesson</h2><p>Select a title to read its description. The current lesson is highlighted as you scroll.</p><nav class="exercise-index-links" aria-label="Lessons, newest first"></nav><label class="exercise-mobile-select">Jump to lesson<select aria-label="Choose a lesson"></select></label>';
+ const menu=index.querySelector('nav'),select=index.querySelector('select');
+ catalogue.forEach(item=>{
+  const li=entries.get(item.href);li.id='exercise-'+item.id;li.dataset.lesson=item.id;li.dataset.published=item.published;li.querySelector('h2').tabIndex=-1;
+  const dates=document.createElement('p');dates.className='exercise-dates';dates.innerHTML=`Published <time datetime="${item.published}">${dateLabel(item.published)}</time> <span aria-hidden="true">|</span> Updated <time datetime="${item.updated}">${dateLabel(item.updated)}</time>`;li.querySelector('h2').after(dates);list.append(li);
+  const button=document.createElement('button');button.type='button';button.dataset.lesson=item.id;button.setAttribute('aria-controls',li.id);
+  const title=document.createElement('span');title.textContent=item.title;const meta=document.createElement('small');meta.textContent=`Published ${dateLabel(item.published)} | Updated ${dateLabel(item.updated)}`;button.append(title,meta);menu.append(button);
+  const option=document.createElement('option');option.value=item.id;option.textContent=item.title;select.append(option);
+ });
+ layout.append(index);
+ const order=document.createElement('p');order.className='exercise-sort-note';order.textContent='Newest first · Publication and update dates shown for each activity.';exercises.querySelector('.exercise-directory-intro').after(order);
+ const dateNote=document.createElement('p');dateNote.className='exercise-date-note';dateNote.textContent='Dates reflect first publication and the latest page update recorded in this site’s source history.';exercises.querySelector('.exercise-directory-return').before(dateNote);
+ const reading=document.createElement('div');reading.className='exercise-reading';layout.prepend(reading);[exercises.querySelector('.exercise-eyebrow'),exercises.querySelector('h1'),exercises.querySelector('.exercise-directory-intro'),order,list].forEach(node=>reading.append(node));
+ function markLesson(id){menu.querySelectorAll('button').forEach(button=>{if(button.dataset.lesson===id)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current')});select.value=id;}
+ function selectLesson(id){const target=list.querySelector('[data-lesson="'+id+'"]');if(!target)return;const box=content.getBoundingClientRect(),scale=box.height/content.clientHeight||1;content.scrollTo({top:content.scrollTop+(target.getBoundingClientRect().top-box.top)/scale-(document.body.classList.contains('mobile-layout')?index.offsetHeight+18:10),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});target.querySelector('h2').focus({preventScroll:true});markLesson(id);}
+ menu.addEventListener('click',event=>{const button=event.target.closest('button[data-lesson]');if(button)selectLesson(button.dataset.lesson)});select.onchange=()=>selectLesson(select.value);
+ let scrollFrame;
+ function trackLesson(){scrollFrame=null;if(exercises.hidden)return;const box=content.getBoundingClientRect(),line=document.body.classList.contains('mobile-layout')?Math.max(box.top+box.height*.28,index.getBoundingClientRect().bottom+32):box.top+box.height*.28;let current=catalogue[0].id;for(const li of list.children){if(li.getBoundingClientRect().top<=line)current=li.dataset.lesson;}if(content.scrollHeight-content.clientHeight-content.scrollTop<3)current=catalogue.at(-1).id;markLesson(current);}
+ content.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(trackLesson)},{passive:true});window.addEventListener('resize',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(trackLesson)});markLesson(catalogue[0].id);
  const lesson=document.createElement('section');lesson.id='lesson-view';lesson.hidden=true;content.append(features,lesson,exercises);
  function open(kind){
   document.dispatchEvent(new Event('storyboard:show'));
@@ -78,7 +111,7 @@
    };lesson.replaceChildren(frame);
    const fitFrame=()=>{if(document.body.classList.contains('mobile-layout')){frame.style.transform='none';frame.contentWindow?.dispatchEvent(new Event('resize'));return;}const scale=Math.min(lesson.clientWidth/1280,lesson.clientHeight/810);frame.style.transform=`translate(-50%,-50%) scale(${scale})`;};
    new ResizeObserver(fitFrame).observe(lesson);fitFrame();
-  }else if(kind==='exercises'){exercises.hidden=false;exercises.querySelector('h1').focus({preventScroll:true});}else{features.hidden=false;features.querySelector('h1').focus({preventScroll:true});}
+  }else if(kind==='exercises'){exercises.hidden=false;markLesson(catalogue[0].id);exercises.querySelector('h1').focus({preventScroll:true});}else{features.hidden=false;features.querySelector('h1').focus({preventScroll:true});}
   history.replaceState(null,'',kind==='lesson'?'#wed-not-wet':kind==='exercises'?'#exercises':'#features');
  }
  document.querySelector('#features-link').onclick=e=>{e.preventDefault();open('features');};
