@@ -32,5 +32,5 @@
     if (!finished) fail(event.reason && event.reason.message || event.reason || 'Startup failed.');
   });
   timer = setTimeout(function () { fail('Loading timed out. Check that the local preview server is still running.'); }, 20000);
-  import('./app.js?v=20261017-release1').catch(function (error) { fail(error.message || error); });
+  import('./app.js?v=20261017-release2').catch(function (error) { fail(error.message || error); });
 })();
