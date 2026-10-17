@@ -2,11 +2,13 @@
   'use strict';
   const canvas = document.querySelector('#canvas');
   const trigger = document.querySelector('.presenter-about');
-  const links = document.querySelector('.presenter-links');
+  const links = document.querySelector('.banner-links, .presenter-links');
   const name = document.querySelector('.presenter-name');
   const photo = document.querySelector('.presenter-photo');
   const invitation = document.querySelector('.presenter-invitation text');
-  if (!canvas || !trigger || !links || !name || !photo || !invitation) return;
+  if (!canvas || !trigger || !links) return;
+  // Legacy lettering measurements must not gate content navigation.
+  if (name && photo && invitation) {
   // Measure the actual script lettering, including the part outside its SVG box.
   photo.append(links);
   function positionLink() {
@@ -30,6 +32,7 @@
   document.fonts.ready.then(positionLink);
   window.addEventListener('resize', positionLink);
   positionLink();
+  }
   const panel = document.createElement('section');
   panel.className = 'about-panel';
   panel.hidden = true;
