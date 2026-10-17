@@ -30,7 +30,7 @@
   const li=entries.get(item.href);li.id='exercise-'+item.id;li.dataset.lesson=item.id;li.dataset.published=item.published;li.querySelector('h2').tabIndex=-1;
   const dates=document.createElement('p');dates.className='exercise-dates';dates.innerHTML=`Published <time datetime="${item.published}">${dateLabel(item.published)}</time> <span aria-hidden="true">|</span> Updated <time datetime="${item.updated}">${dateLabel(item.updated)}</time>`;li.querySelector('h2').after(dates);list.append(li);
   const button=document.createElement('button');button.type='button';button.dataset.lesson=item.id;button.setAttribute('aria-controls',li.id);
-  const title=document.createElement('span');title.textContent=item.title;const meta=document.createElement('small');meta.textContent=`Published ${dateLabel(item.published)} | Updated ${dateLabel(item.updated)}`;button.append(title,meta);menu.append(button);
+  const title=document.createElement('span');title.textContent=item.title;button.append(title);menu.append(button);
   const option=document.createElement('option');option.value=item.id;option.textContent=item.title;select.append(option);
  });
  layout.append(index);
