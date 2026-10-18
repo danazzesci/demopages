@@ -13,7 +13,7 @@
  // Dates are the first publication and latest page update in the repository history,
  // not the date an existing lesson was later announced in Features.
  const catalogue=[
-  {id:'second-peak',href:'/exercises/the-second-peak/',title:'Identify and Report Suspected Unauthorized Activity',published:'2026-10-17',updated:'2026-10-17'},
+  {id:'second-peak',href:'/exercises/the-second-peak/',title:'Identify and Report Suspected Unauthorized Activity',published:'2026-10-17',updated:'2026-10-18'},
   {id:'ai-fieldwork',href:'/proofofconcept/',title:'Fieldwork — AI Beyond the Chatbot',published:'2026-10-04',updated:'2026-10-12'},
   {id:'firewall-segmentation',href:'/exercises/firewall-network-segmentation/',title:'Firewall and Network Segmentation',published:'2026-10-03',updated:'2026-10-11'},
   {id:'policy-to-risk',href:'/exercises/module1.html',title:'Hands-On 1: Policy to Risk',published:'2026-08-20',updated:'2026-10-11'},

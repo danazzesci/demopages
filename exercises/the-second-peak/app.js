@@ -1,4 +1,4 @@
-import {mountGuide,closeTour} from './guide.js?v=20261017-release2';
+import {mountGuide,closeTour} from './guide.js?v=20261018-guidance1';
 const $=id=>document.getElementById(id),esc=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const TZ='America/Los_Angeles',KEY='hic-second-peak-v1';
 const dateFmt=new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}),timeFmt=new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZoneName:'short'});
