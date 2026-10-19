@@ -61,6 +61,7 @@ function resize() {
   document.body.classList.toggle('mobile-layout', mobile);
   canvas.style.transform = mobile ? 'none' : `scale(${Math.min(main.clientWidth / 1440, (main.clientHeight - 24) / 810)})`;
   fitHeadline();
+  document.body.classList.add('palette-ready');
 }
 
 mobileQuery.addEventListener('change', resize);

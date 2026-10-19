@@ -107,14 +107,14 @@
     }
     frame.title = isPage ? 'About This Page' : isTopics ? 'Current Speaking Topics' : isBiography ? 'Who is Dan Schaupner?' : 'About Dan Schaupner';
     panel.setAttribute('aria-label', frame.title);
-    close.textContent = isPage ? 'Back to home' : isTopics ? 'Back to About' : 'Close about';
+    close.textContent = isPage ? 'Back to home' : isTopics ? 'Close — Home' : 'Close about';
     panel.hidden = false;
     document.body.classList.add('about-open');
     close.focus({ preventScroll: true });
   }
   function hide() { panel.hidden = true; document.body.classList.remove('about-open'); }
   close.addEventListener('click', () => {
-    if (location.hash === '#speaking-topics') { location.hash = '#about'; return; }
+    opening++;
     hide();
     if (typeof show === 'function') show(0, false);
     history.replaceState(null, '', '#1');
