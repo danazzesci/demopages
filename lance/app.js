@@ -44,6 +44,7 @@ const mobileDevice = navigator.userAgentData?.mobile === true || /Android|iPhone
 let forceMobile = false;
 function fitHeadline() {
   for (const [index, maximum] of [[0, 48], [5, 43]]) {
+    if (!slides[index]) continue;
     const headline = slides[index].querySelector('h1');
     headline.style.fontSize = '';
     if (document.body.classList.contains('mobile-layout') || slides[index].hidden) continue;
