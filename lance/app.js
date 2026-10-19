@@ -85,6 +85,7 @@ resize();
     const paths = {'#exercises':'/exercises/', '#about-this-page':'/about-this-page/', '#wed-not-wet':'/wed-not-wet/', '#about':'/who-is-dan/', '#who-is-dan':'/who-is-dan/', '#speaking-topics':'/speaking-topics/'};
     const article = document.querySelector('#article-view:not([hidden]) .article-read-more');
     if (location.hash.startsWith('#article-') && article?.href) return article.href;
+    if (location.pathname.startsWith('/transformation-pros-know/') && /^#\d+$/.test(location.hash)) return 'https://danschaupner.com/transformation-pros-know/';
     return new URL(paths[location.hash] || '/share/' + (location.hash === '#1' ? '' : location.hash), 'https://danschaupner.com').href;
   }
   function position() {
