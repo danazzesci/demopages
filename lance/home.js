@@ -24,7 +24,7 @@ function show(index, focus = true, writeHash = true) {
   next.setAttribute('aria-label', last ? 'Return to front page' : 'Next stage');
   document.querySelector('#count').textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   [...dots.children].forEach((button, i) => button.setAttribute('aria-current', String(i === current)));
-  if (writeHash) history.replaceState(null, '', `#${current + 1}`);
+  if (writeHash) history.replaceState(null, '', (current === 0 && location.pathname.startsWith('/exercises/') ? '/#1' : `#${current + 1}`));
   fitHeadline();
   if (focus) slides[current].querySelector('h1').focus({ preventScroll: true });
 }

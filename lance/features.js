@@ -20,6 +20,7 @@
   {id:'wed-not-wet',href:'/wed-not-wet/',title:'Wed Not Wet — An Agentic AI Lesson',published:'2026-07-18',updated:'2026-10-11'}
  ].sort((a,b)=>b.published.localeCompare(a.published));
  const dateLabel=value=>new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'}).format(new Date(value+'T12:00:00Z'));
+ const home=document.createElement('a');home.href='/';home.textContent='← Home';home.className='exercise-directory-return';home.addEventListener('click',event=>{event.preventDefault();document.querySelector('.presenter-home').click();});exercises.prepend(home);
  const list=exercises.querySelector('.exercise-directory-list');
  const entries=new Map([...list.children].map(li=>[li.querySelector('h2 a').getAttribute('href'),li]));
  const layout=document.createElement('div');layout.className='exercise-layout';list.before(layout);layout.append(list);
