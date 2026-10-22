@@ -1,0 +1,6 @@
+/* Use the full mobile palette now that its old navigation rail is hidden. */
+.mobile-layout #canvas{margin-top:0}
+.mobile-layout:not(.lesson-mode) #content{bottom:32px;min-height:0;padding-bottom:20px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+/* Let the surrounding palette own scrolling, including the end of the welcome. */
+.mobile-layout .homepage-intro{height:auto;min-height:100%}
+.mobile-layout .homepage-intro .intro-copy{flex:none;overflow:visible;padding-bottom:4px}
