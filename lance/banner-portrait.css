@@ -1,0 +1,31 @@
+/* Prototype based on the current live banner-v8; original cutout and links preserved. */
+.banner-v8 .banner-portrait-added{position:absolute;right:1.5%;bottom:0;width:auto;height:96%;max-width:21%;object-fit:contain;object-position:right bottom;filter:grayscale(1) brightness(.92) contrast(.90);opacity:.91}
+.banner-v8 .banner-copy{left:35%;right:22%;top:25%}
+.banner-v8 .banner-title{font-size:2.9cqw}
+.banner-v8 .banner-links{font-size:1.02cqw;gap:.45cqw}
+@media(max-width:600px){.banner-v8 .banner-copy{top:20%;left:35%;right:21%}.banner-v8 .banner-links{font-size:1.02cqw;gap:.4cqw}}
+
+/* Center all banner copy in the gap between the two photo bounds. */
+.banner-v8 .banner-copy{left:41%!important;right:14%!important;text-align:center}
+.banner-v8 .banner-links{justify-content:center}
+/* Closer portrait crop: preserve the head and show the crossed forearms. */
+.banner-v8 .banner-portrait-added{height:114%;max-width:24%;top:2%;bottom:auto;right:.5%}
+/* Recenter the copy within the slightly narrower gap. */
+.banner-v8 .banner-copy{left:41%!important;right:15.5%!important}
+/* Touch-friendly navigation on narrow screens. */
+.mobile-menu-toggle{display:none}
+#mobile-navigation{width:min(92vw,420px);max-height:85dvh;padding:20px;border:1px solid #c8bca8;border-radius:16px;background:#302a3d;color:#fff8e4;box-shadow:0 16px 60px #0008;overflow-y:auto}
+#mobile-navigation::backdrop{background:#15101dcc;backdrop-filter:blur(4px)}
+.mobile-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.mobile-menu-heading h2{font-size:22px;margin:0}
+.mobile-menu-close{min-width:44px;min-height:44px;border:1px solid #fff8e440;border-radius:8px;font-size:22px}
+#mobile-navigation nav{display:grid;gap:8px}
+#mobile-navigation nav>a,#mobile-navigation nav>button{display:flex;align-items:center;min-height:48px;width:100%;padding:12px 16px;border:1px solid #fff8e42b;border-radius:8px;background:#fff8e408;color:#fff8e4;font-size:17px;line-height:1.3;text-align:left;text-transform:none}
+#mobile-navigation nav>a:hover,#mobile-navigation nav>button:hover{background:#fff8e418;text-decoration:none}
+@media(max-width:700px){
+ .mobile-menu-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;font-size:15px;gap:8px;white-space:nowrap;color:#fff8e4}
+ header{padding-right:6px}
+ .banner-v8 .banner-links,.banner-v8 #page-tour{display:none!important}
+ .banner-v8 .banner-copy{top:43%!important}
+ .banner-v8 .banner-title{font-size:3.1cqw}
+}
