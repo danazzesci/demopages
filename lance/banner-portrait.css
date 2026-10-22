@@ -23,9 +23,11 @@
 #mobile-navigation nav>a,#mobile-navigation nav>button{display:flex;align-items:center;min-height:48px;width:100%;padding:12px 16px;border:1px solid #fff8e42b;border-radius:8px;background:#fff8e408;color:#fff8e4;font-size:17px;line-height:1.3;text-align:left;text-transform:none}
 #mobile-navigation nav>a:hover,#mobile-navigation nav>button:hover{background:#fff8e418;text-decoration:none}
 @media(max-width:700px){
- .mobile-menu-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;font-size:15px;gap:8px;white-space:nowrap;color:#fff8e4}
+ .mobile-menu-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;min-width:104px;padding:0 16px;font-size:16px;font-weight:700;gap:8px;white-space:nowrap;color:#241f2e;background:#e6bc80;border:1px solid #ffe0ad;border-radius:8px;box-shadow:0 2px 8px #0004}
  header{padding-right:6px}
  .banner-v8 .banner-links,.banner-v8 #page-tour{display:none!important}
  .banner-v8 .banner-copy{top:43%!important}
  .banner-v8 .banner-title{font-size:3.1cqw}
 }
+
+@media(max-width:700px){.mobile-menu-toggle:hover,.mobile-menu-toggle[aria-expanded="true"]{background:#f4d5a6}.mobile-menu-toggle:focus-visible{outline:2px solid #fff8e4;outline-offset:2px}}
