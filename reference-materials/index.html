@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#302a3d">
 <meta name="description" content="Course reference materials shared by Dan Schaupner.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://danschaupner.com/reference-materials/">
@@ -17,9 +18,12 @@
 <meta name="twitter:title" content="Reference Materials">
 <meta name="twitter:description" content="Course reference materials shared by Dan Schaupner.">
 <style>
-:root{--ink:#10241d;--paper:#f2efe6;--rust:#e25536;--muted:#68716b;--rule:#10241d38;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif}
+:root{--ink:#fff8e4;--paper:#302a3d;--rust:#fff8e4;--muted:#d8cfbb;--rule:rgba(255,248,228,.28);--sans:Helvetica,"Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+a{color:inherit}
+html{min-height:100%;background:var(--paper)}
+body{margin:0;min-height:100vh;background:transparent;color:var(--ink);font:16px/1.6 var(--sans);isolation:isolate}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--paper) url("/lance/assets/master-background.png") center/cover no-repeat;pointer-events:none}
 .shell{width:min(calc(100% - 48px),960px);margin-inline:auto}
 header{padding:96px 0 72px;border-bottom:1px solid var(--rule)}
 .eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 24px;color:var(--rust);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
@@ -59,6 +63,9 @@ window.OneSignalDeferred.push(async function (OneSignal) {
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/dan-speaking-32.png?v=1">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/dan-speaking-16.png?v=1">
 <link rel="shortcut icon" href="/favicon.ico?v=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/dan-speaking-32.png?v=1">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/dan-speaking-16.png?v=1">
+<link rel="shortcut icon" href="/favicon.ico?v=1">
 </head>
 <body>
 <header>
@@ -70,6 +77,14 @@ window.OneSignalDeferred.push(async function (OneSignal) {
 </header>
 <main class="shell">
 <ol class="materials" aria-label="Reference materials, newest first">
+<li class="material">
+<time datetime="2026-10-31">October 31, 2026</time>
+<div>
+<h2><a href="security-guidance/" style="color:inherit">Security Guidance for Critical Areas of Focus in Cloud Computing v5</a></h2>
+<p class="details">Cloud Security Alliance guidance on cloud security across 12 domains · Registration with CSA is required to access the guide.</p>
+</div>
+<a class="download" href="https://cloudsecurityalliance.org/artifacts/security-guidance-v5" target="_blank" rel="noopener noreferrer">Open guide</a>
+</li>
 <li class="material">
 <time datetime="2026-08-30">August 30, 2026</time>
 <div>
