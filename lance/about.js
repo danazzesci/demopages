@@ -79,28 +79,16 @@
       event.preventDefault();
       location.hash = link.getAttribute('href') === '/speaking-topics/' ? '#speaking-topics' : link.getAttribute('href').slice(1);
     });
-    if (!frame.getAttribute('src').startsWith('/invited/')) {
-      frame.style.visibility = 'visible';
-      return;
-    }
-    const stylesheet = doc.createElement('link');
-    stylesheet.rel = 'stylesheet';
-    stylesheet.href = '/invited/embedded.css?v=3';
-    stylesheet.addEventListener('load', () => { fitPageFrame(); frame.style.visibility = 'visible'; });
-    doc.head.append(stylesheet);
+    frame.style.visibility = 'visible';
   });
   let opening = 0;
   async function open(kind = 'about') {
     const attempt = ++opening;
-    if (kind === 'about' && (!window.DanAboutAccess || !await window.DanAboutAccess.request())) {
-      if (attempt === opening) { hide(); history.replaceState(null, '', '#1'); trigger.focus({ preventScroll: true }); }
-      return;
-    }
     if (attempt !== opening) return;
     const isPage = kind === 'page';
     const isTopics = kind === 'topics';
     const isBiography = kind === 'biography';
-    const source = isPage ? '/about-this-page/content.html?embedded=1' : isTopics ? '/speaking-topics/?embedded=1' : isBiography ? '/who-is-dan/?embedded=1' : '/invited/';
+    const source = isPage ? '/about-this-page/content.html?embedded=1' : isTopics ? '/speaking-topics/?embedded=1' : isBiography ? '/who-is-dan/?embedded=1' : '/invited/?embedded=1';
     if (frame.getAttribute('src') !== source) {
       frame.style.visibility = 'hidden';
       frame.src = source;
