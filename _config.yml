@@ -1,0 +1,14 @@
+# Match the custom Pages artifact exclusions when branch-based Jekyll publishing runs.
+exclude:
+  - AGENTS.md
+  - README.md
+  - .gitattributes
+  - analysis
+  - tools
+  - scripts
+  - .local
+  - ledticker/source
+  - ledticker/README.md
+  - lance/README.md
+  - lance/server.py
+  - homepage-message.draft.md
