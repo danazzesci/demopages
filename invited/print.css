@@ -1,0 +1,41 @@
+
+/* A separate paper layout, populated only from the authorized document in memory. */
+.print-sheet{display:none}
+@page{size:Letter portrait;margin:0.5in}
+@media print{
+  html,body{margin:0!important;padding:0!important;width:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;background:#fff!important;color:#161616!important;color-scheme:light!important}
+  body{font:10.5pt/1.32 Arial,Helvetica,sans-serif!important}
+  body>.page{display:none!important}
+  body>.print-sheet{display:block!important;width:100%;margin:0;padding:0;box-sizing:border-box;break-inside:avoid;page-break-inside:avoid}
+  .print-sheet *{box-sizing:border-box;max-width:none;text-shadow:none!important;box-shadow:none!important}
+  .print-sheet p,.print-sheet h1,.print-sheet h2,.print-sheet h3{margin:0}
+  .print-sheet .print-masthead{display:block;padding:0 0 9pt;border-bottom:1.5pt solid #252525;font:700 9pt/1.2 Arial,sans-serif;letter-spacing:1pt;color:#444}
+  .print-sheet h1{font:700 26pt/1.05 Arial,sans-serif;letter-spacing:-.5pt;margin:15pt 0 6pt;color:#111}
+  .print-sheet .standfirst{font:700 12pt/1.28 Arial,sans-serif;margin:0 0 15pt;color:#333}
+  .print-sheet .print-summary{display:grid;grid-template-columns:1.65in 1fr;gap:18pt;margin-bottom:15pt;padding-bottom:13pt;border-bottom:.7pt solid #aaa}
+  .print-sheet .print-identity strong{display:block;font-size:12pt;letter-spacing:.4pt;margin-bottom:5pt}
+  .print-sheet .print-identity span{display:block;font-size:9.5pt;line-height:1.35;color:#444}
+  .print-sheet .intro{font:10.5pt/1.38 Arial,sans-serif;color:#222;margin:0}
+  .print-sheet .print-prompt{font-size:10pt;line-height:1.3;margin:0 0 9pt}
+  .print-sheet .print-prompt strong{display:inline;font-size:10pt;margin:0}
+  .print-sheet .print-audiences{display:grid;grid-template-columns:1fr 1fr;gap:16pt;margin-bottom:17pt}
+  .print-sheet .audience{display:block;border-top:1.5pt solid #555;padding:8pt 0 0;break-inside:avoid}
+  .print-sheet .audience h2{font:700 11pt/1.2 Arial,sans-serif;margin-bottom:6pt}
+  .print-sheet .audience>div{border:0;padding:0;font:10pt/1.32 Arial,sans-serif}
+  .print-sheet .audience-summary{font-weight:700;margin-bottom:5pt}
+  .print-sheet .services{display:block;margin:0;padding:0;border:0}
+  .print-sheet .section-heading{display:block;margin:0 0 11pt;padding-bottom:6pt;border-bottom:1pt solid #555}
+  .print-sheet .section-heading h2{font:700 12pt/1.2 Arial,sans-serif;letter-spacing:.3pt}
+  .print-sheet .section-heading>span{display:none}
+  .print-sheet .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:15pt 22pt}
+  .print-sheet .service,.print-sheet .service:first-child,.print-sheet .service:nth-child(3),.print-sheet .service:last-child{padding:0;margin:0;border:0;break-inside:avoid}
+  .print-sheet .service:before,.print-sheet .service:after{display:none!important}
+  .print-sheet .service h3{display:block;margin:0 0 6pt}
+  .print-sheet .service-name{display:block;min-height:0;height:auto;margin:0 0 3pt;font:700 12pt/1.15 Arial,sans-serif}
+  .print-sheet .service-name br{display:none}
+  .print-sheet .stage{font:700 8.5pt/1.2 Arial,sans-serif;letter-spacing:.7pt;color:#555}
+  .print-sheet .service p{font:10.5pt/1.35 Arial,sans-serif;color:#222}
+  .print-sheet .print-footer{display:block;margin:17pt 0 0;padding:9pt 0 0;border-top:.7pt solid #aaa;font:9pt/1.35 Arial,sans-serif;color:#444}
+  .print-sheet .print-footer p+p{margin-top:5pt;font-weight:700}
+  .print-sheet a{color:inherit;text-decoration:none}
+}

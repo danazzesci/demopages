@@ -37,8 +37,51 @@
     gate.append(message);
     return;
   }
+
+  function preparePrintLayout(doc) {
+    doc.querySelector('.print-sheet')?.remove();
+    const sheet=doc.createElement('article');
+    sheet.className='print-sheet';
+    const masthead=doc.createElement('header');
+    masthead.className='print-masthead';
+    masthead.textContent='DAN SCHAUPNER  /  danschaupner.com';
+    sheet.append(masthead);
+    const title=doc.querySelector('#headline').cloneNode(true);
+    title.removeAttribute('id');
+    sheet.append(title,doc.querySelector('.standfirst').cloneNode(true));
+    const summary=doc.createElement('section');
+    summary.className='print-summary';
+    const identity=doc.createElement('div');
+    identity.className='print-identity';
+    identity.append(doc.querySelector('figcaption strong').cloneNode(true),doc.querySelector('figcaption span').cloneNode(true));
+    summary.append(identity,doc.querySelector('.intro').cloneNode(true));
+    sheet.append(summary);
+    const audiences=doc.createElement('section');
+    audiences.className='print-audiences';
+    const prompt=doc.querySelector('.profile-prompt').cloneNode(true);
+    prompt.className='print-prompt';
+    sheet.append(prompt);
+    doc.querySelectorAll('.audience').forEach(section=>audiences.append(section.cloneNode(true)));
+    sheet.append(audiences);
+    const services=doc.querySelector('.services').cloneNode(true);
+    services.querySelectorAll('.service-name br').forEach(br=>br.replaceWith(' '));
+    services.querySelectorAll('img').forEach(image=>image.remove());
+    services.querySelectorAll('.speaking-topics-link').forEach(link=>link.remove());
+    sheet.append(services);
+    const footer=doc.createElement('footer');
+    footer.className='print-footer';
+    const closing=doc.querySelector('.page > footer p').cloneNode(true);
+    const contact=doc.createElement('p');
+    contact.textContent='danschaupner.com  |  info@danschaupner.com';
+    footer.append(closing,contact);
+    sheet.append(footer);
+    doc.body.append(sheet);
+  }
+
   frame.addEventListener('load',()=>{
     if(view.hidden || !frame.hasAttribute('srcdoc')) return;
+    preparePrintLayout(frame.contentDocument);
+    document.getElementById('print').disabled=false;
     const resize=()=>{
       const doc=frame.contentDocument;
       const page=doc?.querySelector('.page');
@@ -75,6 +118,11 @@
         sheet.href = 'https://danschaupner.com/invited/embedded.css?v=4';
         documentHtml.head.append(sheet);
       }
+      const printStyles = documentHtml.createElement('link');
+      printStyles.rel='stylesheet';
+      printStyles.href='https://danschaupner.com/invited/print.css?v=1';
+      documentHtml.head.append(printStyles);
+      document.getElementById('print').disabled=true;
       frame.srcdoc = '<!doctype html>' + documentHtml.documentElement.outerHTML;
       gate.hidden=true;
       view.hidden=false;
@@ -89,7 +137,11 @@
     }
   });
   document.getElementById('lock').addEventListener('click',()=>lock());
-  document.getElementById('print').addEventListener('click',()=>frame.contentWindow?.print());
+  document.getElementById('print').addEventListener('click',async()=>{
+    if(view.hidden || !frame.contentDocument?.querySelector('.print-sheet')) return;
+    await frame.contentDocument.fonts.ready;
+    frame.contentWindow.print();
+  });
   window.addEventListener('pagehide', () => lock());
   // Clear delivered content when restored from the browser's back/forward cache.
   window.addEventListener('pageshow',event=>{if(event.persisted)lock();});
