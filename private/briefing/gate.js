@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const expectedOrigin='https://danschaupner.com';
-  const endpoint='https://mmxihcwpywptlazzpglg.supabase.co/functions/v1/cimcor-briefing';
+  const endpoint='https://mmxihcwpywptlazzpglg.supabase.co/functions/v1/private-briefing';
   const publicKey='sb_publishable_HOrG9pPf6F16tt9_Q2CcTg_Ia9SB0ew';
   const gate=document.getElementById('gate');
   const form=document.getElementById('unlock');

@@ -1,0 +1,17 @@
+# Keep development material out of the public GitHub Pages artifact.
+# This does not hide tracked files or history in a public repository.
+.gitattributes export-ignore
+.github export-ignore
+.gitignore export-ignore
+AGENTS.md export-ignore
+README.md export-ignore
+**/*.md export-ignore
+analysis export-ignore
+tools export-ignore
+scripts export-ignore
+.local export-ignore
+ledticker/source export-ignore
+lance/server.py export-ignore
+**/__pycache__ export-ignore
+**/.DS_Store export-ignore
+*.draft.* export-ignore
