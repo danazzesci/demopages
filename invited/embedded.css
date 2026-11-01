@@ -48,3 +48,7 @@ footer{font-size:14px;line-height:1.25;margin-top:14px;padding-top:9px;display:b
  .service+.service:before,.service:nth-child(3):before{display:none}
  .profile-prompt strong{font-size:28px}
 }
+
+/* Natural content height lets the homepage palette scroll to the final section. */
+html,body{height:auto;min-height:0;overflow:visible}
+.page{height:auto;min-height:0}

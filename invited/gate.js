@@ -39,7 +39,13 @@
   }
   frame.addEventListener('load',()=>{
     if(view.hidden || !frame.hasAttribute('srcdoc')) return;
-    const resize=()=>{frame.style.height=`${Math.max(400,frame.contentDocument?.documentElement.scrollHeight||800)}px`;};
+    const resize=()=>{
+      const doc=frame.contentDocument;
+      const page=doc?.querySelector('.page');
+      // Measure the content, independent of the iframe's current viewport height.
+      const height=page ? page.offsetTop + page.getBoundingClientRect().height : doc?.body.scrollHeight;
+      frame.style.height=`${Math.ceil(Math.max(400,height||800))}px`;
+    };
     resize();
     observer?.disconnect();
     observer=new ResizeObserver(resize);
@@ -66,7 +72,7 @@
       if (embedded) {
         const sheet = documentHtml.createElement('link');
         sheet.rel = 'stylesheet';
-        sheet.href = 'https://danschaupner.com/invited/embedded.css?v=3';
+        sheet.href = 'https://danschaupner.com/invited/embedded.css?v=4';
         documentHtml.head.append(sheet);
       }
       frame.srcdoc = '<!doctype html>' + documentHtml.documentElement.outerHTML;

@@ -57,7 +57,8 @@
     const doc = frame.contentDocument;
     if (!doc?.body) return;
     doc.documentElement.classList.toggle('palette-mobile', mobile);
-    frame.style.height = mobile
+    const invitation = frame.getAttribute('src')?.startsWith('/invited/');
+    frame.style.height = (mobile || invitation)
       ? `${Math.ceil(Math.max(doc.body.scrollHeight, doc.body.getBoundingClientRect().height))}px` : '100%';
   }
   new MutationObserver(fitPageFrame).observe(document.body, {attributes:true,attributeFilter:['class']});
