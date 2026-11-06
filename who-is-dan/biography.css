@@ -9,6 +9,7 @@ h1{font-size:43px;line-height:1.12;font-weight:600;letter-spacing:-.025em;margin
 .biography-layout{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(250px,1fr);gap:32px;align-items:start}
 .biography-row{display:grid;grid-template-columns:70px minmax(0,1fr) 70px;gap:14px;align-items:center;margin-bottom:12px}
 .biography-row p{grid-column:2;grid-row:1;margin:0;font-size:17px;line-height:1.4}
+.biography-portrait{float:right;width:25%;height:auto;margin:0 0 .5em .8em}
 .story-anchor{grid-row:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-width:0}
 .left-stop .story-anchor{grid-column:1}.right-stop .story-anchor{grid-column:3}
 .hotspot{width:66px;height:66px;flex:none;position:relative;padding:4px;color:var(--cream);border:1px solid var(--rule);background:transparent;border-radius:50%;cursor:pointer}
