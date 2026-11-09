@@ -5,7 +5,7 @@ parser=argparse.ArgumentParser();parser.add_argument('--site-root',type=Path,def
 root=args.site_root
 source=(root/'index.html').read_text()
 title='Exercises & Examples — Dan Schaupner'
-description='Interactive lessons, cybersecurity exercises, and AI examples: Wed Not Wet, Policy to Risk, AI-informed HVAC decisions, network segmentation, and a guided SIEM investigation.'
+description='Interactive lessons, cybersecurity exercises, and AI examples: Wed Not Wet, Policy to Risk, AI-informed HVAC decisions, network segmentation, a guided SIEM investigation, and a network forensics simulation.'
 url='https://danschaupner.com/exercises/'
 def replace(pattern,value):
     global source

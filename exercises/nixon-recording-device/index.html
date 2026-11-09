@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Nixon Recording Device | CATS</title>
+<meta name="description" content="Investigate recorded network traffic and reconstruct a transferred object in the CATS network forensics simulation.">
+<link rel="canonical" href="https://danschaupner.com/exercises/nixon-recording-device/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Nixon Recording Device | CATS">
+<meta property="og:description" content="Investigate recorded network traffic and reconstruct a transferred object in the CATS network forensics simulation.">
+<meta property="og:url" content="https://danschaupner.com/exercises/nixon-recording-device/">
+<meta property="og:image" content="https://danschaupner.com/assets/images/previews/home-sharp-v4.png">
+<meta property="og:image:width" content="1731">
+<meta property="og:image:height" content="909">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="Dan Schaupner website preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Nixon Recording Device | CATS">
+<meta name="twitter:description" content="Investigate recorded network traffic and reconstruct a transferred object in the CATS network forensics simulation.">
+<meta name="twitter:image" content="https://danschaupner.com/assets/images/previews/home-sharp-v4.png">
+<meta name="twitter:image:alt" content="Dan Schaupner website preview">
+<link rel="stylesheet" href="console.css">
+<script defer src="console.js"></script>
+</head>
+<body>
+<header class="masthead">
+  <img src="cats.png" alt="CATS" width="74" height="74">
+  <div class="brand"><h1>THE NIXON RECORDING DEVICE</h1><p>Network Forensics &amp; Application Reconstruction</p></div>
+  <div class="mode"><span aria-hidden="true"></span> RECORDED TRAFFIC <b>·</b> SIMULATION</div>
+</header>
+<nav aria-label="Workspace">
+  <a href="#investigation">Investigation</a>
+  <a href="#traffic">Traffic Overview</a>
+  <a href="#sessions">Application Sessions</a>
+  <a href="#results">Reconstruction Results</a>
+</nav>
+<main>
+  <div class="workspace"><strong>INVESTIGATION WORKSPACE</strong><span>IR-2026-1112-07 / 12 NOV 2026 / EST</span></div>
+  <section class="panel" id="investigation" aria-labelledby="investigation-title">
+    <div class="bar"><h2 id="investigation-title">Investigation Search</h2><span>01 / QUERY PARAMETERS</span></div>
+    <form id="search" method="post">
+      <div class="endpoints">
+        <label>Source IP Address <input name="source" type="text" inputmode="decimal" maxlength="15" required autocomplete="off" spellcheck="false" placeholder="IPv4 address"></label>
+        <label>Destination IP Address <input name="destination" type="text" inputmode="decimal" maxlength="15" required autocomplete="off" spellcheck="false" placeholder="IPv4 address"></label>
+        <label>Application Protocol <select name="protocol" required><option value="">Select protocol</option><option>DNS</option><option>FTP</option><option>HTTP</option><option>HTTPS</option><option>SMTP</option><option>SSH</option><option>TLS</option></select></label>
+      </div>
+      <label class="keywords">Content Keywords <textarea name="keywords" required rows="3" maxlength="12000" spellcheck="false" aria-describedby="keyword-help"></textarea><small id="keyword-help">Paste the complete list from the evidence packet.</small></label>
+      <div class="form-actions"><button type="submit">Search &amp; Reconstruct</button></div>
+    </form>
+  </section>
+  <div class="context">
+    <section class="panel" id="traffic" aria-labelledby="traffic-title">
+      <div class="bar"><h2 id="traffic-title">Traffic Overview</h2><span>02 / INCIDENT CONTEXT</span></div>
+      <div class="traffic">
+        <div class="volume"><small>REPORTED EXFILTRATION</small><strong>≈ 1 GB</strong><span>1,024,000,000 TCP payload bytes</span></div>
+        <div class="timeline"><h3>Case Timeline</h3>
+          <ol><li><time datetime="16:45">4:45 PM</time><span>Data leakage alert</span></li><li><time datetime="19:14">7:14 PM</time><span>Investigation begins</span></li><li><time datetime="21:30">9:30 PM</time><span>Evidence briefing scheduled</span></li></ol>
+        </div>
+      </div>
+    </section>
+    <section class="panel" id="sessions" aria-labelledby="sessions-title">
+      <div class="bar"><h2 id="sessions-title">Application Sessions</h2><span>03 / CAPTURE CONTEXT</span></div>
+      <div class="session">
+        <h3>Documented Transfer Path</h3>
+        <ol class="path"><li><small>ORIGIN</small><strong>CATS Windows Server</strong><span>Cincinnati</span></li><li><small>EGRESS</small><strong>Firewall / proxy</strong><span>CATS network boundary</span></li><li><small>REMOTE</small><strong>Cloud storage</strong><span>Toronto</span></li></ol>
+        <p id="session-status">TAP-ENG-01 · Engineering uplink · Inside / pre-NAT</p>
+      </div>
+    </section>
+  </div>
+  <section class="panel" id="results" aria-labelledby="results-title">
+    <div class="bar"><h2 id="results-title">Reconstruction Results</h2><span>04 / OBJECT CATALOG</span></div>
+    <div class="results-status" role="status" id="result-status">Awaiting investigation query.</div>
+    <div class="table-wrap" role="region" aria-label="Object catalog" tabindex="0">
+      <table aria-label="Reconstructed objects"><thead><tr><th scope="col">Object ID</th><th scope="col">Protocol</th><th scope="col">Source IP</th><th scope="col">Destination IP</th><th scope="col">Filename</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Action</th></tr></thead><tbody id="objects"></tbody></table>
+    </div>
+    <section id="details" hidden aria-labelledby="detail-title">
+      <h3 id="detail-title" tabindex="-1">Reconstructed Object Detail</h3>
+      <dl id="properties"></dl>
+      <div class="detail-actions"><button type="button" id="preview" aria-expanded="false" aria-controls="excerpt">Preview excerpt</button><button type="button" id="download">Download Word document</button></div>
+      <p role="status" id="retrieval-status"></p>
+      <div id="excerpt" hidden><h4>Document excerpt</h4><p></p></div>
+    </section>
+  </section>
+  <noscript><p>JavaScript is required to submit searches and retrieve reconstructed objects.</p></noscript>
+</main>
+<footer><span>CATS · SECURITY OPERATIONS</span><span>RETROSPECTIVE ANALYSIS / NRD</span></footer>
+</body>
+</html>
