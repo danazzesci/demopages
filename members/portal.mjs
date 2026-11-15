@@ -177,7 +177,7 @@ $('email-reset-form').addEventListener('submit', event => {
     const { error } = await client.auth.resetPasswordForEmail(form.elements.email.value.trim(), {
       redirectTo: new URL('./', location.href).href,
     });
-    status.textContent = error ? error.message : 'If an account can receive a reset link, check your email and open it in this tab.';
+    status.textContent = error ? error.message : 'If an account can receive a reset link, check your email and open the link in this browser.';
   });
 });
 $('reset-password-form').addEventListener('submit', event => {
@@ -275,7 +275,32 @@ async function initialize() {
   const { createClient } = await import('./vendor/supabase.mjs');
   client = createClient(config.supabaseUrl, config.supabasePublishableKey, { auth: {
     flowType: 'pkce', detectSessionInUrl: false, persistSession: true,
-    storage: window.sessionStorage, autoRefreshToken: true,
+    storage: {
+      getItem(key) {
+        const value = sessionStorage.getItem(key);
+        if (value !== null || !key.endsWith('-code-verifier')) return value;
+        const saved = JSON.parse(localStorage.getItem(key));
+        if (saved && saved.expiresAt > Date.now()) return saved.value;
+        localStorage.removeItem(key);
+        return null;
+      },
+      setItem(key, value) {
+        // Share the bundled SDK's recovery verifier across tabs, keeping sessions tab-local.
+        if (key.endsWith('-code-verifier') && JSON.parse(value)?.endsWith('/PASSWORD_RECOVERY')) {
+          localStorage.setItem(key, JSON.stringify({ value, expiresAt: Date.now() + 3600000 }));
+          sessionStorage.removeItem(key);
+        } else {
+          sessionStorage.setItem(key, value);
+        }
+      },
+      removeItem(key) {
+        if (key.endsWith('-code-verifier') && sessionStorage.getItem(key) === null) {
+          localStorage.removeItem(key);
+        }
+        sessionStorage.removeItem(key);
+      },
+    },
+    autoRefreshToken: true,
   } });
   service = createAuthService(client, new URL('./', location.href).href);
   for (const button of document.querySelectorAll('[data-provider]')) button.disabled = !config.enabledProviders.includes(button.dataset.provider);
