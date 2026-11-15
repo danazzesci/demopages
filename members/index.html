@@ -33,6 +33,14 @@
           <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
           <button type="submit">Sign in with email</button>
         </form>
+        <details id="resend-confirmation">
+          <summary>Resend confirmation email</summary>
+          <form id="resend-confirmation-form">
+            <label>Signup email <input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+            <button type="submit">Send confirmation email</button>
+          </form>
+          <p id="resend-confirmation-status" role="status"></p>
+        </details>
         <button id="show-signup" class="secondary" type="button">Sign up</button>
 
         <details>
