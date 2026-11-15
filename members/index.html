@@ -27,13 +27,30 @@
     <aside><div class="compass" aria-hidden="true">✦</div><p class="eyebrow">A space to go further</p><h1>Ideas.<br>Connection.<br>Possibility.</h1><p>Member resources and conversations about transformation, technology, and the work ahead.</p><ol><li>Sign in with an account you use.</li><li>Verify with your authenticator app.</li><li>Open your invitation.</li></ol></aside>
     <section class="panel" aria-label="Member access">
       <p id="status" role="status" aria-live="polite">Loading member access…</p>
-      <section id="signin" hidden><p class="eyebrow">Welcome</p><h2>Sign in or create an account.</h2><p>Choose an account to continue. Two-factor verification follows sign-in.</p><div class="providers"><button data-provider="google" disabled>Continue with Google</button><button data-provider="azure" disabled>Continue with Microsoft</button></div><form id="email-form" hidden>
-        <label>Email address <input name="email" type="email" autocomplete="username" maxlength="254" required></label>
-        <label id="email-password-label">Password <input name="password" type="password" autocomplete="current-password" required></label>
-        <button id="email-submit" type="submit">Sign in with email</button>
-        <button id="email-mode" class="secondary" type="button">Create an account with email</button>
-        <button id="email-reset" class="secondary" type="button">Forgot password?</button>
-      </form><p class="subtle" id="setup-note">Sign-in is followed by authenticator verification. Member resources require approved access.</p><button id="preview" class="secondary" hidden>Preview the member experience →</button></section>
+      <section id="signin" hidden><p class="eyebrow">Welcome</p><h2>Sign in or create an account.</h2><p>Choose an account to continue. Two-factor verification follows sign-in.</p><div class="providers"><button data-provider="google" disabled>Continue with Google</button><button data-provider="azure" disabled>Continue with Microsoft</button></div><div id="email-access" hidden>
+        <form id="email-form">
+          <label>Email address <input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+          <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+          <button type="submit">Sign in with email</button>
+        </form>
+        <details id="email-signup">
+          <summary>Sign up</summary>
+          <form id="email-signup-form">
+            <label>Email address <input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+            <label>Create password <input name="password" type="password" autocomplete="new-password" required></label>
+            <button type="submit">Create account</button>
+          </form>
+          <p id="signup-status" role="status"></p>
+        </details>
+        <details>
+          <summary>Forgot password?</summary>
+          <form id="email-reset-form">
+            <label>Email address <input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+            <button type="submit">Send password reset link</button>
+          </form>
+          <p id="email-reset-status" role="status"></p>
+        </details>
+      </div><p class="subtle" id="setup-note">Sign-in is followed by authenticator verification. Member resources require approved access.</p><button id="preview" class="secondary" hidden>Preview the member experience →</button></section>
       <section id="reset-password" hidden>
         <h2>Set a new password</h2>
         <form id="reset-password-form">
