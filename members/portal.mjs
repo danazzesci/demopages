@@ -27,12 +27,23 @@ function show(stage) {
   $('signout').hidden = !service || stage === 'signin' || preview;
   $('leave-preview').hidden = !preview;
 }
+const actionError = document.createElement('p');
+actionError.className = 'action-error';
+actionError.setAttribute('role', 'alert');
+
 async function act(button, action) {
   if (working) return;
   working = true;
   button.disabled = true;
+  actionError.remove();
+  actionError.textContent = '';
   try { await action(); }
-  catch (error) { message(error.message || 'Something went wrong. Please try again.'); }
+  catch (error) {
+    const anchor = button.closest('form, .providers') || button;
+    anchor.after(actionError);
+    actionError.textContent = error.message || 'Something went wrong. Please try again.';
+    actionError.scrollIntoView({ block: 'nearest' });
+  }
   finally { button.disabled = false; working = false; }
 }
 async function refresh() {
@@ -165,7 +176,7 @@ $('email-signup-form').addEventListener('submit', event => {
     } finally {
       startingEmailSignup = false;
     }
-    if (error) { status.textContent = error.message; return; }
+    if (error) throw error;
     form.reset();
     if (data.session) {
       await switchEmailPanel($('login-panel'), $('show-signup'));
@@ -186,9 +197,11 @@ $('resend-confirmation-form')?.addEventListener('submit', event => {
       email: form.elements.email.value.trim(),
       options: { emailRedirectTo: new URL('./', location.href).href },
     });
-    status.textContent = error?.status === 429
-      ? 'Please wait a minute before requesting another email.'
-      : 'If this address is awaiting confirmation, check your email for a fresh link. After confirming, return here to sign in.';
+    if (error?.status === 429) {
+      status.textContent = '';
+      throw new Error('Please wait a minute before requesting another email.');
+    }
+    status.textContent = 'If this address is awaiting confirmation, check your email for a fresh link. After confirming, return here to sign in.';
   });
 });
 $('email-reset-form').addEventListener('submit', event => {
@@ -200,7 +213,8 @@ $('email-reset-form').addEventListener('submit', event => {
     const { error } = await client.auth.resetPasswordForEmail(form.elements.email.value.trim(), {
       redirectTo: new URL('./', location.href).href,
     });
-    status.textContent = error ? error.message : 'If an account can receive a reset link, check your email and open the link in this browser.';
+    if (error) throw error;
+    status.textContent = 'If an account can receive a reset link, check your email and open the link in this browser.';
   });
 });
 $('reset-password-form').addEventListener('submit', event => {
