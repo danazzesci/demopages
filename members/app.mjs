@@ -5,12 +5,14 @@ import { createAuthService } from './auth-service.mjs';
 
 const $ = id => document.getElementById(id);
 let service, client, pendingFactor, preview = false, generation = 0, working = false;
+let emailMode = 'signin', recoveringPassword = false;
 const adminPanel = createAdminPanel(document);
 const message = text => { $('status').textContent = text; };
 function clearPrivate() {
   generation++;
   adminPanel.clear();
   $('profile-form').reset();
+  $('reset-password-form').reset();
   $('pages').replaceChildren();
   $('identity').textContent = '';
   $('access-note').textContent = '';
@@ -20,7 +22,7 @@ function clearPrivate() {
   $('enrollment').hidden = true;
 }
 function show(stage) {
-  for (const id of ['signin', 'mfa', 'account']) $(id).hidden = id !== stage;
+  for (const id of ['signin', 'mfa', 'account', 'reset-password']) $(id).hidden = id !== stage;
   $('signout').hidden = !service || stage === 'signin' || preview;
   $('leave-preview').hidden = !preview;
 }
@@ -56,6 +58,11 @@ async function refresh() {
       $('factor').append(option);
     }
     message('Two-factor verification is required before profiles or member resources can be opened.');
+    return;
+  }
+  if (recoveringPassword) {
+    show('reset-password');
+    message('Two-factor verification complete. Choose a new password.');
     return;
   }
   // Fail closed: keep the private panel hidden until all required reads succeed.
@@ -94,6 +101,66 @@ async function refresh() {
   adminPanel.configure(service, state.user.id, role.role, access?.active === true);
   message('Two-factor verification complete.');
 }
+
+const emailForm = $('email-form');
+function setEmailMode(mode) {
+  emailMode = mode;
+  const resetting = mode === 'reset';
+  const signingUp = mode === 'signup';
+  const password = emailForm.elements.password;
+  password.value = '';
+  password.required = !resetting;
+  password.disabled = resetting;
+  password.autocomplete = signingUp ? 'new-password' : 'current-password';
+  $('email-password-label').hidden = resetting;
+  $('email-submit').textContent = resetting ? 'Send password reset link' : signingUp ? 'Create account' : 'Sign in with email';
+  $('email-mode').textContent = mode === 'signin' ? 'Create an account with email' : 'Back to email sign-in';
+  $('email-reset').hidden = resetting;
+}
+$('email-mode').addEventListener('click', () => setEmailMode(emailMode === 'signin' ? 'signup' : 'signin'));
+$('email-reset').addEventListener('click', () => setEmailMode('reset'));
+emailForm.addEventListener('submit', event => {
+  event.preventDefault();
+  act(event.submitter, async () => {
+    const email = emailForm.elements.email.value.trim();
+    const password = emailForm.elements.password.value;
+    const redirectTo = new URL('./', location.href).href;
+    if (emailMode === 'reset') {
+      const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      message('If an account can receive a reset link, check your email and open it in this browser.');
+      return;
+    }
+    if (emailMode === 'signup') {
+      const { data, error } = await client.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo } });
+      if (error) throw error;
+      setEmailMode('signin');
+      if (data.session) {
+        await refresh();
+        return;
+      }
+      message('Check your email for a confirmation link and open it in this browser.');
+      return;
+    }
+    const { error } = await client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    emailForm.reset();
+    await refresh();
+  });
+});
+$('reset-password-form').addEventListener('submit', event => {
+  event.preventDefault();
+  act(event.submitter, async () => {
+    if (!recoveringPassword || (await service.state()).stage !== 'account') throw new Error('Complete authenticator verification before resetting your password.');
+    const { error } = await client.auth.updateUser({ password: event.target.elements.password.value });
+    if (error) throw error;
+    event.target.reset();
+    await service.signOut();
+    recoveringPassword = false;
+    show('signin');
+    message('Password updated. Sign in with your new password.');
+  });
+});
 
 for (const button of document.querySelectorAll('[data-provider]')) {
   button.addEventListener('click', () => act(button, async () => {
@@ -160,6 +227,7 @@ $('signout').addEventListener('click', () => act($('signout'), async () => {
   clearPrivate();
   show('signin');
   await service.signOut();
+  recoveringPassword = false;
   message('Signed out on this browser.');
 }));
 
@@ -180,6 +248,7 @@ async function initialize() {
   service = createAuthService(client, new URL('./', location.href).href);
   for (const button of document.querySelectorAll('[data-provider]')) button.disabled = !config.enabledProviders.includes(button.dataset.provider);
   $('setup-note').textContent = 'Your profile requires authenticator verification. Member resources require approved access.';
+  emailForm.hidden = false;
   const inviteParams = new URLSearchParams(location.hash.slice(1));
   const params = new URLSearchParams(location.search);
   const oauthError = params.get('error_description') || params.get('error');
@@ -188,20 +257,21 @@ async function initialize() {
   if (code || oauthError || inviteParams.has('access_token') || inviteParams.has('error')) history.replaceState(null, '', location.pathname);
   if (inviteParams.has('error')) {
     if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
-    throw new Error('Sign-in could not be completed. Select Continue with Google to try again with your existing account.');
+    throw new Error('Sign-in could not be completed. Return to the sign-in page to try again.');
   }
   if (inviteParams.get('type') === 'invite' && inviteParams.has('access_token') && inviteParams.has('refresh_token')) {
     await service.acceptInvitation(inviteParams.get('access_token'), inviteParams.get('refresh_token'));
   }
   if (oauthError) throw new Error('Sign-in was cancelled or declined. Please try again.');
   if (code) {
-    const { error } = await client.auth.exchangeCodeForSession(code);
+    const { data, error } = await client.auth.exchangeCodeForSession(code);
     if (error) throw error;
+    recoveringPassword = ['PASSWORD_RECOVERY', 'recovery'].includes(data.redirectType);
   }
   await refresh();
   // Do not await Supabase calls inside an auth callback (SDK lock). Clear immediately.
   client.auth.onAuthStateChange(event => {
-    if (event === 'SIGNED_OUT') { clearPrivate(); show('signin'); message('Your session has ended.'); }
+    if (event === 'SIGNED_OUT') { recoveringPassword = false; clearPrivate(); show('signin'); message('Your session has ended.'); }
     if (event === 'TOKEN_REFRESHED' && !working && !preview) {
       setTimeout(() => refresh().catch(error => message(error.message)), 0);
     }
