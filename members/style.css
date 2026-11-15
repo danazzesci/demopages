@@ -3,3 +3,10 @@
 summary{cursor:pointer;font-size:13px;color:#d1bce5;padding:12px 0}.resource-action{display:inline-block;color:#f7efd9;border:1px solid #796987;border-radius:8px;padding:12px 18px;text-underline-offset:4px}
 
 .member-editor{border-top:1px solid #6c597b;padding:18px 0;margin-top:18px}.member-editor h3{overflow-wrap:anywhere}.member-editor fieldset{border:1px solid #6c597b;border-radius:8px;padding:8px 12px}.member-editor input[type=checkbox]{display:inline-block;width:auto;margin:0 10px 0 0;vertical-align:middle}.member-editor legend{font-size:13px;padding:0 5px}
+
+.authenticator-apps{display:flex;gap:8px;align-items:stretch;list-style:none;padding:0;margin:0 0 18px;overflow-x:auto}
+.authenticator-apps li{display:grid;align-content:start;justify-items:center;gap:6px;flex:1 0 66px;padding:8px 3px;text-align:center;font-size:clamp(10px,2.7vw,12px);line-height:1.3}
+.authenticator-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:#f7efd9;color:#241931;font-size:17px;font-weight:700}
+.authenticator-icon.google{background:#dbeafe;color:#174ea6}
+.authenticator-icon.microsoft{background:#d9eaff;color:#004578}
+.authenticator-icon.duo{background:#ccebd8;color:#075d36;font-size:11px}
