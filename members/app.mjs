@@ -5,7 +5,7 @@ import { createAuthService } from './auth-service.mjs';
 
 const $ = id => document.getElementById(id);
 let service, client, pendingFactor, preview = false, generation = 0, working = false;
-let emailMode = 'signin', recoveringPassword = false;
+let recoveringPassword = false;
 const adminPanel = createAdminPanel(document);
 const message = text => { $('status').textContent = text; };
 function clearPrivate() {
@@ -102,50 +102,50 @@ async function refresh() {
   message('Two-factor verification complete.');
 }
 
-const emailForm = $('email-form');
-function setEmailMode(mode) {
-  emailMode = mode;
-  const resetting = mode === 'reset';
-  const signingUp = mode === 'signup';
-  const password = emailForm.elements.password;
-  password.value = '';
-  password.required = !resetting;
-  password.disabled = resetting;
-  password.autocomplete = signingUp ? 'new-password' : 'current-password';
-  $('email-password-label').hidden = resetting;
-  $('email-submit').textContent = resetting ? 'Send password reset link' : signingUp ? 'Create account' : 'Sign in with email';
-  $('email-mode').textContent = mode === 'signin' ? 'Create an account with email' : 'Back to email sign-in';
-  $('email-reset').hidden = resetting;
-}
-$('email-mode').addEventListener('click', () => setEmailMode(emailMode === 'signin' ? 'signup' : 'signin'));
-$('email-reset').addEventListener('click', () => setEmailMode('reset'));
-emailForm.addEventListener('submit', event => {
+$('email-form').addEventListener('submit', event => {
   event.preventDefault();
+  const form = event.currentTarget;
   act(event.submitter, async () => {
-    const email = emailForm.elements.email.value.trim();
-    const password = emailForm.elements.password.value;
-    const redirectTo = new URL('./', location.href).href;
-    if (emailMode === 'reset') {
-      const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
-      if (error) throw error;
-      message('If an account can receive a reset link, check your email and open it in this browser.');
-      return;
-    }
-    if (emailMode === 'signup') {
-      const { data, error } = await client.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo } });
-      if (error) throw error;
-      setEmailMode('signin');
-      if (data.session) {
-        await refresh();
-        return;
-      }
-      message('Check your email for a confirmation link and open it in this browser.');
-      return;
-    }
-    const { error } = await client.auth.signInWithPassword({ email, password });
+    const { error } = await client.auth.signInWithPassword({
+      email: form.elements.email.value.trim(),
+      password: form.elements.password.value,
+    });
     if (error) throw error;
-    emailForm.reset();
+    form.reset();
     await refresh();
+  });
+});
+$('email-signup-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  act(event.submitter, async () => {
+    const status = $('signup-status');
+    status.textContent = '';
+    const { data, error } = await client.auth.signUp({
+      email: form.elements.email.value.trim(),
+      password: form.elements.password.value,
+      options: { emailRedirectTo: new URL('./', location.href).href },
+    });
+    if (error) { status.textContent = error.message; return; }
+    form.reset();
+    if (data.session) {
+      $('email-signup').open = false;
+      await refresh();
+      return;
+    }
+    status.textContent = 'Check your email for a confirmation link and open it in this tab.';
+  });
+});
+$('email-reset-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  act(event.submitter, async () => {
+    const status = $('email-reset-status');
+    status.textContent = '';
+    const { error } = await client.auth.resetPasswordForEmail(form.elements.email.value.trim(), {
+      redirectTo: new URL('./', location.href).href,
+    });
+    status.textContent = error ? error.message : 'If an account can receive a reset link, check your email and open it in this tab.';
   });
 });
 $('reset-password-form').addEventListener('submit', event => {
@@ -248,7 +248,7 @@ async function initialize() {
   service = createAuthService(client, new URL('./', location.href).href);
   for (const button of document.querySelectorAll('[data-provider]')) button.disabled = !config.enabledProviders.includes(button.dataset.provider);
   $('setup-note').textContent = 'Your profile requires authenticator verification. Member resources require approved access.';
-  emailForm.hidden = false;
+  $('email-access').hidden = false;
   const inviteParams = new URLSearchParams(location.hash.slice(1));
   const params = new URLSearchParams(location.search);
   const oauthError = params.get('error_description') || params.get('error');
