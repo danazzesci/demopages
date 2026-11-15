@@ -10,3 +10,5 @@ summary{cursor:pointer;font-size:13px;color:#d1bce5;padding:12px 0}.resource-act
 .authenticator-icon.google{background:#dbeafe;color:#174ea6}
 .authenticator-icon.microsoft{background:#d9eaff;color:#004578}
 .authenticator-icon.duo{background:#ccebd8;color:#075d36;font-size:11px}
+
+.action-error{margin:10px 0;padding:10px 12px;border:1px solid #f5969f;border-left-width:4px;border-radius:6px;background:#3b202f;color:#ffe3e6;font-size:14px;line-height:1.45}
