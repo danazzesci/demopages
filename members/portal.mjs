@@ -312,6 +312,10 @@ async function initialize() {
   const code = params.get('code');
   // Remove callback credentials/errors from history before reading private data.
   if (code || oauthError || inviteParams.has('access_token') || inviteParams.has('error')) history.replaceState(null, '', location.pathname);
+  const callbackErrorCode = inviteParams.get('error_code') || params.get('error_code');
+  if (callbackErrorCode === 'otp_expired' && inviteParams.get('type') !== 'invite') {
+    throw new Error('This email link has expired or was already used. For a password reset, choose Forgot password? and request a new link.');
+  }
   if (inviteParams.has('error')) {
     if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
     throw new Error('Sign-in could not be completed. Return to the sign-in page to try again.');
