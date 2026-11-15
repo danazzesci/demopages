@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://mmxihcwpywptlazzpglg.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Members · Dan Schaupner</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=authenticator-apps">
   <script type="module" src="portal.mjs?v=4ac138c"></script>
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://danschaupner.com/assets/images/previews/home-sharp-v4.png">
@@ -76,7 +76,13 @@
           <button type="submit">Save new password</button>
         </form>
       </section>
-      <section id="mfa" hidden><p class="eyebrow">Two-factor verification</p><h2 id="mfa-title">Secure your account.</h2><p id="mfa-description"></p><button id="enroll">Set up authenticator app</button><div id="enrollment" hidden><img id="qr" alt="Scan this QR code with your authenticator app" width="200" height="200"><label>Manual setup key <input id="secret" readonly autocomplete="off"></label><div aria-label="Authenticator app setup instructions">
+      <section id="mfa" hidden><p class="eyebrow">Two-factor verification</p><h2 id="mfa-title">Secure your account.</h2><p id="mfa-description"></p>
+        <ul class="authenticator-apps" aria-label="Supported authenticator apps">
+          <li><span class="authenticator-icon" aria-hidden="true">🔑</span>Apple Passwords</li>
+          <li><span class="authenticator-icon google" aria-hidden="true">G</span>Google Authenticator</li>
+          <li><span class="authenticator-icon microsoft" aria-hidden="true">⊞</span>Microsoft Authenticator</li>
+          <li><span class="authenticator-icon duo" aria-hidden="true">DUO</span>Duo Mobile</li>
+        </ul><button id="enroll">Set up authenticator app</button><div id="enrollment" hidden><img id="qr" alt="Scan this QR code with your authenticator app" width="200" height="200"><label>Manual setup key <input id="secret" readonly autocomplete="off"></label><div aria-label="Authenticator app setup instructions">
           <h3>Set up an authenticator for danschaupner.com</h3>
           <p><strong>Supported apps:</strong> Apple Passwords on iPhone, Google Authenticator on Android, Microsoft Authenticator, and Duo Mobile. Using a different app or unsure whether yours works? Email <a href="mailto:info@danschaupner.com">info@danschaupner.com</a> with the app name and your device.</p>
           <ol>
