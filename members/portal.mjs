@@ -168,6 +168,22 @@ $('email-signup-form').addEventListener('submit', event => {
     await switchEmailPanel($('signup-confirmation'), $('confirmation-heading'));
   });
 });
+$('resend-confirmation-form')?.addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  act(event.submitter, async () => {
+    const status = $('resend-confirmation-status');
+    status.textContent = 'Requesting a confirmation email…';
+    const { error } = await client.auth.resend({
+      type: 'signup',
+      email: form.elements.email.value.trim(),
+      options: { emailRedirectTo: new URL('./', location.href).href },
+    });
+    status.textContent = error?.status === 429
+      ? 'Please wait a minute before requesting another email.'
+      : 'If this address is awaiting confirmation, check your email for a fresh link. After confirming, return here to sign in.';
+  });
+});
 $('email-reset-form').addEventListener('submit', event => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -314,7 +330,7 @@ async function initialize() {
   if (code || oauthError || inviteParams.has('access_token') || inviteParams.has('error')) history.replaceState(null, '', location.pathname);
   const callbackErrorCode = inviteParams.get('error_code') || params.get('error_code');
   if (callbackErrorCode === 'otp_expired' && inviteParams.get('type') !== 'invite') {
-    throw new Error('This email link has expired or was already used. For a password reset, choose Forgot password? and request a new link.');
+    throw new Error('This email link has expired or was already used. Choose Resend confirmation email for signup, or Forgot password? for a reset.');
   }
   if (inviteParams.has('error')) {
     if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
@@ -332,6 +348,11 @@ async function initialize() {
     recoveringPassword = ['PASSWORD_RECOVERY', 'recovery'].includes(data.redirectType);
   }
   await refresh();
+  // Resent signup links may use a URL fragment. Confirm the email via the
+  // provider, then require an explicit sign-in instead of adopting URL tokens.
+  if (inviteParams.get('type') === 'signup' && inviteParams.has('access_token')) {
+    message('Email confirmed. Sign in to continue to authenticator verification.');
+  }
   // Do not await Supabase calls inside an auth callback (SDK lock). Clear immediately.
   client.auth.onAuthStateChange(event => {
     if (event === 'SIGNED_OUT') { recoveringPassword = false; clearPrivate(); show('signin'); message('Your session has ended.'); }
