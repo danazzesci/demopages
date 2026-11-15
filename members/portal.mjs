@@ -340,7 +340,7 @@ async function initialize() {
   if (code || oauthError || inviteParams.has('access_token') || inviteParams.has('error')) history.replaceState(null, '', location.pathname);
   const callbackErrorCode = inviteParams.get('error_code') || params.get('error_code');
   if (callbackErrorCode === 'otp_expired' && inviteParams.get('type') !== 'invite') {
-    throw new Error('This email link has expired or was already used. Choose Resend confirmation email for signup, or Forgot password? for a reset.');
+    throw new Error('This link has expired or was already used. If you already confirmed your email, sign in below. If you still need to confirm your email, choose Resend confirmation email. If you were resetting your password, choose Forgot password? for a new link.');
   }
   if (inviteParams.has('error')) {
     if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
