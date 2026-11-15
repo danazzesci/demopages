@@ -70,6 +70,15 @@
       </section>
       <section id="mfa" hidden><p class="eyebrow">Two-factor verification</p><h2 id="mfa-title">Secure your account.</h2><p id="mfa-description"></p><button id="enroll">Set up authenticator app</button><div id="enrollment" hidden><img id="qr" alt="Scan this QR code with your authenticator app" width="200" height="200"><label>Manual setup key <input id="secret" readonly autocomplete="off"></label><div aria-label="Authenticator app setup instructions">
           <p><strong>Look for danschaupner.com</strong> or the email address you used to sign up. This entry generates the six-digit code for your danschaupner.com membership.</p>
+          <details name="authenticator-help"><summary>Enter the setup key manually</summary>
+            <ol>
+              <li>Copy the <strong>Manual setup key</strong> above. Keep it private.</li>
+              <li>In your authenticator app, add an account and choose its manual setup option. In Apple Passwords, open your site entry and select <strong>Edit → Set Up Code → Use Setup Key</strong>. In Google Authenticator, choose <strong>+ → Enter a setup key</strong>.</li>
+              <li>If asked for an account name, enter <strong>danschaupner.com</strong>. You can add your signup email to distinguish multiple accounts. Paste the setup key and choose <strong>Time based (TOTP)</strong> if prompted. Save the entry.</li>
+              <li>Find the new entry and type its current <strong>six-digit code</strong> into <strong>Six-digit code</strong> below. Select <strong>Verify and continue</strong>.</li>
+            </ol>
+            <p>If your app only offers a QR scanner, open this setup page on another device to scan it, or use one of the manual setup options above.</p>
+          </details>
           <details name="authenticator-help"><summary>Apple Passwords (iPhone)</summary>
             <p>Scan the QR code with your iPhone camera and choose your danschaupner.com entry in Passwords. If the QR code is on your iPhone, touch and hold it and choose <strong>Add Verification in Passwords</strong> if offered. You can also open the site entry in Passwords, tap <strong>Edit → Set Up Code</strong>, and enter the manual setup key above. Find the code under <strong>Codes</strong> or in your site entry.</p>
           </details>
