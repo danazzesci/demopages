@@ -69,7 +69,13 @@
         </form>
       </section>
       <section id="mfa" hidden><p class="eyebrow">Two-factor verification</p><h2 id="mfa-title">Secure your account.</h2><p id="mfa-description"></p><button id="enroll">Set up authenticator app</button><div id="enrollment" hidden><img id="qr" alt="Scan this QR code with your authenticator app" width="200" height="200"><label>Manual setup key <input id="secret" readonly autocomplete="off"></label><div aria-label="Authenticator app setup instructions">
-          <p><strong>Look for danschaupner.com</strong> or the email address you used to sign up. This entry generates the six-digit code for your danschaupner.com membership.</p>
+          <h3>Set up an authenticator for danschaupner.com</h3>
+          <p><strong>Supported apps:</strong> Apple Passwords on iPhone, Google Authenticator on Android, Microsoft Authenticator, and Duo Mobile. Using a different app or unsure whether yours works? Email <a href="mailto:info@danschaupner.com">info@danschaupner.com</a> with the app name and your device.</p>
+          <ol>
+            <li>Open the guide for your app below. Add a new entry using the QR code or, if the app supports it, the manual setup key. Keep both private.</li>
+            <li>Check the label your app gave the new entry. It may show <strong>danschaupner.com</strong>, your signup email, or a generic label. If you can name or rename it, use <strong>danschaupner.com</strong> and add your signup email if you have multiple accounts. If you keep the app’s label, make a note of which entry belongs to this site.</li>
+            <li>Enter the current six-digit code from that entry below and select <strong>Verify and continue</strong>. Use the same entry the next time you sign in.</li>
+          </ol>
           <details name="authenticator-help"><summary>Enter the setup key manually</summary>
             <ol>
               <li>Copy the <strong>Manual setup key</strong> above. Keep it private.</li>
@@ -80,16 +86,32 @@
             <p>If your app only offers a QR scanner, use one of the manual setup options above, or start setup on a computer and scan the QR code with your phone.</p>
           </details>
           <details name="authenticator-help"><summary>Apple Passwords (iPhone)</summary>
-            <p>Scan the QR code with your iPhone camera and choose your danschaupner.com entry in Passwords. If the QR code is on your iPhone, touch and hold it and choose <strong>Add Verification in Passwords</strong> if offered. You can also open the site entry in Passwords, tap <strong>Edit → Set Up Code</strong>, and enter the manual setup key above. Find the code under <strong>Codes</strong> or in your site entry.</p>
+            <ol>
+              <li>Open Camera and scan the QR code displayed on another screen, then select your danschaupner.com entry in Passwords.</li>
+              <li>If the QR code is on your iPhone, touch and hold it and choose <strong>Add Verification in Passwords</strong> if offered. You can also open the site entry in Passwords, tap <strong>Edit → Set Up Code → Use Setup Key</strong>, and paste the manual setup key.</li>
+              <li>Open <strong>Codes</strong> or the site entry in Passwords to find the six-digit code.</li>
+            </ol>
           </details>
           <details name="authenticator-help"><summary>Google Authenticator (Android)</summary>
-            <p>In Google Authenticator, tap <strong>+</strong> and choose <strong>Scan a QR code</strong>. If you’re setting up on the same phone, choose <strong>Enter a setup key</strong>, label it <strong>danschaupner.com</strong>, and select <strong>Time based</strong> if prompted. Use the code beside the site name or your signup email.</p>
+            <ol>
+              <li>Open Google Authenticator and tap <strong>+</strong>.</li>
+              <li>Choose <strong>Scan a QR code</strong> and scan the code above. For manual setup, choose <strong>Enter a setup key</strong>, name the entry <strong>danschaupner.com</strong>, paste the key, and select <strong>Time based</strong> if prompted.</li>
+              <li>Find the new entry by site name or signup email and use its current code.</li>
+            </ol>
           </details>
           <details name="authenticator-help"><summary>Microsoft Authenticator</summary>
-            <p>Tap <strong>+ → Other account</strong> and scan the QR code. Use the six-digit code from the new entry showing <strong>danschaupner.com</strong> or your signup email.</p>
+            <ol>
+              <li>Open Microsoft Authenticator and tap <strong>+</strong>.</li>
+              <li>Choose <strong>Other account</strong> and scan the QR code above.</li>
+              <li>Find the newly added entry by site name or signup email and use its current code.</li>
+            </ol>
           </details>
           <details name="authenticator-help"><summary>Duo Mobile</summary>
-            <p>Add an account and scan the QR code. Duo may show <strong>Third-Party</strong> above your signup email. Use the code from that new entry. You can rename its account name to <strong>DanSchaupner.com Members</strong> to find it again.</p>
+            <ol>
+              <li>Open Duo Mobile, tap <strong>Add</strong>, and choose the QR scanner.</li>
+              <li>Scan the QR code above. Duo may show <strong>Third-Party</strong> with your signup email underneath. If you rename the entry, use <strong>DanSchaupner.com Members</strong> and keep the email if it helps distinguish accounts.</li>
+              <li>Open that entry and use its current six-digit passcode.</li>
+            </ol>
           </details>
           <details name="authenticator-help"><summary>I already use MFA for GitHub</summary>
             <p>If you use an authenticator app for GitHub, add this QR code as a separate entry in that same app. For this site, use the code beside <strong>danschaupner.com</strong> or your signup email. If you use GitHub Mobile approval, choose one of the authenticator apps above for this site.</p>
