@@ -6,6 +6,7 @@ import { createAuthService } from './auth-service.mjs';
 const $ = id => document.getElementById(id);
 let service, client, pendingFactor, preview = false, generation = 0, working = false;
 let recoveringPassword = false;
+let startingEmailSignup = false;
 const adminPanel = createAdminPanel(document);
 const message = text => { $('status').textContent = text; };
 function clearPrivate() {
@@ -153,11 +154,17 @@ $('email-signup-form').addEventListener('submit', event => {
   act(event.submitter, async () => {
     const status = $('signup-status');
     status.textContent = '';
-    const { data, error } = await client.auth.signUp({
-      email: form.elements.email.value.trim(),
-      password: form.elements.password.value,
-      options: { emailRedirectTo: new URL('./', location.href).href },
-    });
+    let data, error;
+    startingEmailSignup = true;
+    try {
+      ({ data, error } = await client.auth.signUp({
+        email: form.elements.email.value.trim(),
+        password: form.elements.password.value,
+        options: { emailRedirectTo: new URL('./', location.href).href },
+      }));
+    } finally {
+      startingEmailSignup = false;
+    }
     if (error) { status.textContent = error.message; return; }
     form.reset();
     if (data.session) {
@@ -301,8 +308,8 @@ async function initialize() {
         return null;
       },
       setItem(key, value) {
-        // Share the bundled SDK's recovery verifier across tabs, keeping sessions tab-local.
-        if (key.endsWith('-code-verifier') && JSON.parse(value)?.endsWith('/PASSWORD_RECOVERY')) {
+        // Share email-link verifiers across tabs, keeping auth sessions tab-local.
+        if (key.endsWith('-code-verifier') && (startingEmailSignup || JSON.parse(value)?.endsWith('/PASSWORD_RECOVERY'))) {
           localStorage.setItem(key, JSON.stringify({ value, expiresAt: Date.now() + 3600000 }));
           sessionStorage.removeItem(key);
         } else {
@@ -344,7 +351,12 @@ async function initialize() {
   if (oauthError) throw new Error('Sign-in was cancelled or declined. Please try again.');
   if (code) {
     const { data, error } = await client.auth.exchangeCodeForSession(code);
-    if (error) throw error;
+    if (error) {
+      if (/code verifier|code_verifier/i.test(error.message)) {
+        throw new Error('Open the confirmation link in the browser where you signed up. If your email is already confirmed, sign in. Otherwise, choose Resend confirmation email.');
+      }
+      throw error;
+    }
     recoveringPassword = ['PASSWORD_RECOVERY', 'recovery'].includes(data.redirectType);
   }
   await refresh();
