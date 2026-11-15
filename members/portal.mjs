@@ -318,7 +318,9 @@ async function initialize() {
   }
   if (inviteParams.has('error')) {
     if (inviteParams.get('type') === 'invite') throw new Error('This invitation could not be accepted. Request a fresh invitation.');
-    throw new Error('Sign-in could not be completed. Return to the sign-in page to try again.');
+    const reportedCode = callbackErrorCode || inviteParams.get('error') || '';
+    const reference = /^[a-z][a-z0-9_]{0,63}$/.test(reportedCode) ? ` (${reportedCode})` : '';
+    throw new Error(`The email link could not be verified${reference}. Request a fresh link under Forgot password?`);
   }
   if (inviteParams.get('type') === 'invite' && inviteParams.has('access_token') && inviteParams.has('refresh_token')) {
     await service.acceptInvitation(inviteParams.get('access_token'), inviteParams.get('refresh_token'));
