@@ -257,7 +257,10 @@ $('enroll').addEventListener('click', () => act($('enroll'), async () => {
   $('enrollment').hidden = false;
   $('verify-form').hidden = false;
   $('enroll').hidden = true;
-  $('code').focus();
+  const heading = $('mfa-title');
+  heading.tabIndex = -1;
+  heading.focus({ preventScroll: true });
+  heading.scrollIntoView({ block: 'start', behavior: 'instant' });
 }));
 $('cancel-enrollment').addEventListener('click', () => act($('cancel-enrollment'), async () => {
   if (pendingFactor) await service.cancelEnrollment(pendingFactor);
